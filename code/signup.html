@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="code/styleSignup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <h1>Halaman Sign Up</h1>
+
+    <div class="card">
+
+        <h2>Form Sign Up</h2>
+
+        <p><strong>Nama:</strong> <span id="outputNama">-</span></p>
+        <form action="code/signup.php" method="POST">
+            <input type="text" id="inputNama" name="nama" placeholder="Masukkan nama">
+            <input type="email" id="inputEmail" name="email" placeholder="Masukkan email, contoh: dummy@gmail.com">
+            <input type="tel" id="inputTelp" name="telp" placeholder="nomor telepon 8-13 digit, mulai dengan +62 atau 08">
+            <input type="password" id="inputPassword" name="password" placeholder="Masukkan password">
+            <div class="button-group">
+            <button onclick="login()" type="submit">Sign Up</button>
+            <button onclick="ubahTema()" class="ubahtema">Ubah Tema</button>
+        </div>
+        </form>
+        <p id="pesan"></p>
+
+    </div>
+</div>
+
+<script src="code/scriptSignUp.js"></script>
+</body>
+</html>
