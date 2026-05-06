@@ -395,25 +395,25 @@ html {
     scroll-behavior: smooth;
 }
 
-/* ========== SIGN IN & SIGN UP STYLES ========== */
+/* ========== SIGN IN & SIGN UP STYLES (FIXED) ========== */
 .signin-section, .signup-section {
-    min-height: calc(100vh - 200px);
+    min-height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 80px 24px;
+    padding: 60px 24px;
     background: #ffffff;
 }
 
 .signin-container, .signup-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 480px;
 }
 
 .signin-card, .signup-card {
     background: #ffffff;
-    border-radius: 24px;
-    padding: 48px 40px;
+    border-radius: 20px;
+    padding: 40px 32px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     border: 1px solid #f0f0f0;
 }
@@ -425,7 +425,7 @@ html {
 
 .signin-header h1, .signup-header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #1a1f2c;
     margin-bottom: 8px;
@@ -436,9 +436,8 @@ html {
     font-size: 0.9rem;
 }
 
-/* Input group */
 .input-group {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .input-group label {
@@ -448,7 +447,7 @@ html {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #c17f3b;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .input-group input {
@@ -468,7 +467,6 @@ html {
     background: #ffffff;
 }
 
-/* Auth options */
 .auth-options {
     display: flex;
     justify-content: space-between;
@@ -489,6 +487,7 @@ html {
     width: 16px;
     height: 16px;
     cursor: pointer;
+    margin: 0;
 }
 
 .forgot-password {
@@ -501,7 +500,6 @@ html {
     color: #1a1f2c;
 }
 
-/* Buttons */
 .signin-btn, .signup-btn {
     width: 100%;
     background: #1a1f2c;
@@ -520,7 +518,6 @@ html {
     background: #c17f3b;
 }
 
-/* Footer link */
 .signin-footer, .signup-footer {
     text-align: center;
     margin-top: 32px;
@@ -540,7 +537,6 @@ html {
     color: #1a1f2c;
 }
 
-/* Active auth button */
 .auth-buttons .active-auth {
     background: #1a1f2c;
     color: #ffffff;
@@ -552,13 +548,17 @@ html {
     background: #c17f3b;
 }
 
-/* Responsive */
+/* RESPONSIVE SIGN IN/UP */
 @media (max-width: 550px) {
     .signin-card, .signup-card {
-        padding: 32px 24px;
+        padding: 28px 20px;
     }
     
     .signin-header h1, .signup-header h1 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+    }
+    
+    .signin-section, .signup-section {
+        padding: 40px 20px;
     }
 }
