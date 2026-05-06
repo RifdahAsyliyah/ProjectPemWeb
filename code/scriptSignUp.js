@@ -1,47 +1,37 @@
-function login(){
-    let nama = document.getElementById("inputNama").value;
-    let output = document.getElementById("outputNama");
-    let pesan = document.getElementById("pesan");
-    let email = document.getElementById("inputEmail").value;
-    let password = document.getElementById("inputPassword").value;
-    let telp = document.getElementById("inputTelp").value;
+function togglePassword() {
+    const form = document.querySelector('form');
 
-    if(nama.trim() === ""){
-        pesan.textContent = "Nama tidak boleh kosong!";
-        pesan.style.color = "red";
-    } else if(email.trim() === ""){
-        pesan.textContent = "Email tidak boleh kosong!";
-        pesan.style.color = "red";
-    } else if(!validateEmail(email)){
-        pesan.textContent = "Format email tidak valid!";
-        pesan.style.color = "red";
-    } else if(telp.trim() === ""){
-        pesan.textContent = "Nomor telepon tidak boleh kosong!";
-        pesan.style.color = "red";
-    } else if (!validateTelp(telp)) {
-        pesan.textContent = "Format nomor telepon tidak valid!";
-        pesan.style.color = "red";
-    } else if(password.trim() === ""){
-        pesan.textContent = "Password tidak boleh kosong!";
-        pesan.style.color = "red";
-    } else {
-        output.textContent = nama;
-        pesan.textContent = "Halo, " + nama + "!";
-        pesan.style.color = "purple";
-    }
-}
-    
+    form.addEventListener('submit', function(event) {
+        const nama = form.nama.value.trim();
+        const email = form.email.value.trim();
+        const telp = form.telp.value.trim();
+        const password = form.password.value.trim();
 
-function validateEmail(email) {
-    const re = /@/;
-    return re.test(email);
+        if (nama === '' || email === '' || telp === '' || password === '') {
+            alert('Semua field harus diisi!');
+            event.preventDefault();
+            return;
+        }
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            alert('Format email tidak valid!');
+            event.preventDefault();
+            return;
+        }
+        const telpPattern = /^\d+$/;
+        if (!telpPattern.test(telp)) {
+            alert('Nomor telepon harus berupa angka!');
+            event.preventDefault();
+            return;
+        }
+
+        if (password.length < 8) {
+            alert('Password harus minimal 8 karakter!');
+            event.preventDefault();
+            return;
+        }
+    });
 }
 
-function validateTelp(telp) {
-    const re = /^(?:\+62|08)[0-9]{8,13}$/;
-    return re.test(telp);
-}
-
-function ubahTema(){
-    document.body.classList.toggle("dark");
-}
+document.addEventListener('DOMContentLoaded', togglePassword);
