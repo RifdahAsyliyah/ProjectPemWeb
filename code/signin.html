@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="styleAuth.css">
 
-    <!-- FONT SAMA -->
+    <!-- FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -24,7 +24,14 @@
 
         <form action="signin.php" method="POST">
             <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
+
+            <div class="password-group">
+                <input type="password" name="password" placeholder="Password" required>
+
+                <div class="forgot-password">
+                    <a href="forgot-password.html">Forgot password?</a>
+                </div>
+            </div>
 
             <button type="submit">Sign In</button>
         </form>
