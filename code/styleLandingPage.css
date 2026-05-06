@@ -394,3 +394,171 @@ footer p {
 html {
     scroll-behavior: smooth;
 }
+
+/* ========== SIGN IN & SIGN UP STYLES ========== */
+.signin-section, .signup-section {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    background: #ffffff;
+}
+
+.signin-container, .signup-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.signin-card, .signup-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 48px 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
+}
+
+.signin-header, .signup-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.signin-header h1, .signup-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1a1f2c;
+    margin-bottom: 8px;
+}
+
+.signin-header p, .signup-header p {
+    color: #5a6874;
+    font-size: 0.9rem;
+}
+
+/* Input group */
+.input-group {
+    margin-bottom: 24px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #c17f3b;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    border: 1px solid #e0e4e8;
+    border-radius: 40px;
+    outline: none;
+    transition: all 0.2s ease;
+    background: #fafaf8;
+}
+
+.input-group input:focus {
+    border-color: #c17f3b;
+    background: #ffffff;
+}
+
+/* Auth options */
+.auth-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    font-size: 0.85rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #5a6874;
+    cursor: pointer;
+}
+
+.remember-me input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.forgot-password {
+    text-decoration: none;
+    color: #c17f3b;
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    color: #1a1f2c;
+}
+
+/* Buttons */
+.signin-btn, .signup-btn {
+    width: 100%;
+    background: #1a1f2c;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 40px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.signin-btn:hover, .signup-btn:hover {
+    background: #c17f3b;
+}
+
+/* Footer link */
+.signin-footer, .signup-footer {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #f0f0f0;
+    color: #5a6874;
+    font-size: 0.85rem;
+}
+
+.signin-footer a, .signup-footer a {
+    text-decoration: none;
+    color: #c17f3b;
+    font-weight: 600;
+}
+
+.signin-footer a:hover, .signup-footer a:hover {
+    color: #1a1f2c;
+}
+
+/* Active auth button */
+.auth-buttons .active-auth {
+    background: #1a1f2c;
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 40px;
+}
+
+.auth-buttons .active-auth:hover {
+    background: #c17f3b;
+}
+
+/* Responsive */
+@media (max-width: 550px) {
+    .signin-card, .signup-card {
+        padding: 32px 24px;
+    }
+    
+    .signin-header h1, .signup-header h1 {
+        font-size: 1.8rem;
+    }
+}
