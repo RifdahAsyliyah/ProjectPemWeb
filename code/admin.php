@@ -109,8 +109,8 @@ $result = mysqli_query($koneksi, $query);
             <li><a href="index.html#destinations">Destinations</a></li>
         </ul>
         <div class="auth-buttons">
-            <a href="signin.html" class="sign-in">Sign In</a>
-            <a href="signup.html" class="sign-up">Sign Up</a>
+            <a href="logout.php" class="sign-in">Logout</a>
+            <a href="admin.php" class="sign-up active-auth">Admin</a>
         </div>
     </nav>
 
