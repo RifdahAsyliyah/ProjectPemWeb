@@ -112,3 +112,22 @@ button:hover {
     text-decoration: underline;
     color: #1a1f2c;
 }
+
+/* BACK TO HOME */
+.back-home {
+    max-width: 350px;
+    margin: 20px auto 0;
+    padding: 0 5px;
+}
+
+.back-home a {
+    text-decoration: none;
+    color: #c17f3b;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.back-home a:hover {
+    color: #1a1f2c;
+}

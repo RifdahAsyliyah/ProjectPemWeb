@@ -54,7 +54,7 @@ if ($password == "") {
     exit();
 }
 
-$cek = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'");
+$cek = mysqli_query($koneksi, "SELECT * FROM users WHERE email = '$email'");
 
 if (mysqli_num_rows($cek) > 0) {
     echo "<script>
@@ -69,17 +69,17 @@ $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 $query = "INSERT INTO users (nama, email, telp, password)
           VALUES ('$nama', '$email', '$telp', '$passwordHash')";
 
-if (mysqli_query($conn, $query)) {
+if (mysqli_query($koneksi, $query)) {
     echo "<script>
             alert('Pendaftaran berhasil! Silakan login.');
             window.location='signin.html';
           </script>";
 } else {
     echo "<script>
-            alert('Gagal menyimpan data: " . mysqli_error($conn) . "');
+            alert('Gagal menyimpan data: " . mysqli_error($koneksi) . "');
             window.location='signup.html';
           </script>";
 }
 
-mysqli_close($conn);
+mysqli_close($koneksi);
 ?>
