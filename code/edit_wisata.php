@@ -1,33 +1,84 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
+    header("Location: login.php");
+    exit();
+}
 include 'koneksi.php';
+
 $id = $_GET['id'];
+$pesan = '';
+$warna = '';
+
+// Ambil data lama
+$query = "SELECT * FROM wisata WHERE id = $id";
+$result = mysqli_query($koneksi, $query);
+$data = mysqli_fetch_assoc($result);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama = mysqli_real_escape_string($koneksi, $_POST['nama_tempat']);
     $deskripsi = mysqli_real_escape_string($koneksi, $_POST['deskripsi']);
     $link_maps = mysqli_real_escape_string($koneksi, $_POST['link_maps']);
-
-    $query = "UPDATE wisata SET 
-              nama_tempat='$nama', 
-              deskripsi='$deskripsi', 
-              link_maps='$link_maps' 
-              WHERE id=$id";
-
-    if (mysqli_query($koneksi, $query)) {
-        header("Location: admin.php?status=updated");
-    } else {
-        echo "Gagal update: " . mysqli_error($koneksi);
+    
+    $gambar = $data['gambar']; // pakai foto lama sebagai default
+    
+    // Proses upload foto baru (jika ada)
+    if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
+        $target_dir = "uploads/";
+        $file_name = time() . '_' . basename($_FILES['gambar']['name']);
+        $target_file = $target_dir . $file_name;
+        $file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        
+        $allowed_types = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        
+        if (in_array($file_type, $allowed_types)) {
+            if (move_uploaded_file($_FILES['gambar']['tmp_name'], $target_file)) {
+                // Hapus foto lama jika ada
+                if ($data['gambar'] && file_exists($data['gambar'])) {
+                    unlink($data['gambar']);
+                }
+                $gambar = $target_file;
+                $pesan = "Data berhasil diupdate, foto diganti!";
+                $warna = "success";
+            } else {
+                $pesan = "Gagal mengupload gambar.";
+                $warna = "error";
+            }
+        } else {
+            $pesan = "Format gambar tidak didukung (JPG, PNG, GIF, WEBP).";
+            $warna = "error";
+        }
+    }
+    
+    if (empty($pesan)) {
+        $query = "UPDATE wisata SET 
+                  nama_tempat='$nama', 
+                  deskripsi='$deskripsi', 
+                  link_maps='$link_maps', 
+                  gambar='$gambar' 
+                  WHERE id=$id";
+        
+        if (mysqli_query($koneksi, $query)) {
+            if ($pesan == '') {
+                $pesan = "Data wisata berhasil diupdate!";
+                $warna = "success";
+            }
+            // Refresh data
+            $result = mysqli_query($koneksi, "SELECT * FROM wisata WHERE id=$id");
+            $data = mysqli_fetch_assoc($result);
+        } else {
+            $pesan = "Gagal mengupdate: " . mysqli_error($koneksi);
+            $warna = "error";
+        }
     }
 }
-
-$result = mysqli_query($koneksi, "SELECT * FROM wisata WHERE id=$id");
-$data = mysqli_fetch_assoc($result);
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Wisata - Pesona NTB</title>
     <link rel="stylesheet" href="styleLandingPage.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
@@ -44,6 +95,11 @@ $data = mysqli_fetch_assoc($result);
         .form-container h1 {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .form-container p {
+            color: #5a6874;
+            margin-bottom: 32px;
         }
         .form-group {
             margin-bottom: 24px;
@@ -57,14 +113,51 @@ $data = mysqli_fetch_assoc($result);
             color: #c17f3b;
             margin-bottom: 8px;
         }
-        .form-group input, .form-group textarea {
+        .form-group input, 
+        .form-group textarea {
             width: 100%;
             padding: 12px 16px;
             font-family: 'Inter', sans-serif;
             font-size: 0.95rem;
             border: 1px solid #e0e4e8;
             border-radius: 16px;
+            outline: none;
+            transition: all 0.2s ease;
             background: #fafaf8;
+        }
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            border-color: #c17f3b;
+            background: #ffffff;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .form-group .file-info {
+            font-size: 0.7rem;
+            color: #5a6874;
+            margin-top: 5px;
+        }
+        .current-image {
+            margin-top: 10px;
+            padding: 10px;
+            background: #fafaf8;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .current-image img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        .current-image span {
+            color: #5a6874;
+            font-size: 0.85rem;
         }
         .btn-submit {
             background: #1a1f2c;
@@ -74,14 +167,46 @@ $data = mysqli_fetch_assoc($result);
             border-radius: 40px;
             font-weight: 600;
             cursor: pointer;
+            transition: background 0.2s;
             width: 100%;
         }
         .btn-submit:hover {
             background: #c17f3b;
         }
+        .btn-back {
+            display: inline-block;
+            margin-top: 16px;
+            text-decoration: none;
+            color: #c17f3b;
+            font-size: 0.9rem;
+        }
+        .btn-back:hover {
+            color: #1a1f2c;
+        }
+        .alert {
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+        .alert-success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        .alert-error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        .image-preview {
+            max-width: 200px;
+            margin-top: 10px;
+            border-radius: 12px;
+        }
     </style>
 </head>
 <body>
+
     <nav>
         <div class="logo">Pesona NTB</div>
         <ul class="nav-links">
@@ -90,35 +215,76 @@ $data = mysqli_fetch_assoc($result);
             <li><a href="index.html#destinations">Destinations</a></li>
         </ul>
         <div class="auth-buttons">
-            <a href="signin.html" class="sign-in">Sign In</a>
-            <a href="signup.html" class="sign-up">Sign Up</a>
+            <a href="logout.php" class="sign-in">Logout</a>
+            <a href="admin.php" class="sign-up">Admin</a>
         </div>
     </nav>
 
     <div class="form-container">
         <h1>Edit Wisata</h1>
-        <form method="POST">
+        <p>Ubah informasi destinasi wisata NTB.</p>
+
+        <?php if ($pesan): ?>
+            <div class="alert alert-<?php echo $warna; ?>">
+                <?php echo $pesan; ?>
+            </div>
+        <?php endif; ?>
+
+        <form method="POST" action="" enctype="multipart/form-data">
             <div class="form-group">
-                <label>Nama Tempat</label>
+                <label>Nama Tempat Wisata</label>
                 <input type="text" name="nama_tempat" value="<?php echo htmlspecialchars($data['nama_tempat']); ?>" required>
             </div>
+
             <div class="form-group">
                 <label>Deskripsi</label>
                 <textarea name="deskripsi" required><?php echo htmlspecialchars($data['deskripsi']); ?></textarea>
             </div>
+
             <div class="form-group">
                 <label>Link Google Maps</label>
                 <input type="url" name="link_maps" value="<?php echo htmlspecialchars($data['link_maps']); ?>" required>
             </div>
+
+            <div class="form-group">
+                <label>Foto Wisata (Opsional)</label>
+                <?php if ($data['gambar'] && file_exists($data['gambar'])): ?>
+                    <div class="current-image">
+                        <img src="<?php echo $data['gambar']; ?>" alt="Foto saat ini">
+                        <span>Foto saat ini (akan diganti jika upload foto baru)</span>
+                    </div>
+                <?php endif; ?>
+                <input type="file" name="gambar" accept="image/jpeg,image/png,image/gif,image/webp" id="fileInput">
+                <div class="file-info">Format: JPG, PNG, GIF, WEBP. Biarkan kosong jika tidak ingin mengganti foto.</div>
+                <img id="preview" class="image-preview" style="display: none;">
+            </div>
+
             <button type="submit" class="btn-submit">Update Wisata</button>
         </form>
+
+        <div style="text-align: center;">
+            <a href="admin.php" class="btn-back">← Kembali ke Halaman Admin</a>
+        </div>
     </div>
 
-    <footer>
+    <script>
+        // Preview gambar sebelum upload
+        document.getElementById('fileInput').onchange = function(evt) {
+            const [file] = this.files;
+            if (file) {
+                const preview = document.getElementById('preview');
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
+            }
+        };
+    </script>
+
+    <footer style="margin-top: 60px;">
         <div class="footer-content">
             <div class="footer-logo">Pesona NTB</div>
             <p>© 2026 Pesona NTB — Discover the wonders of Nusa Tenggara Barat</p>
         </div>
     </footer>
+
 </body>
 </html>
