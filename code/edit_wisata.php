@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
     
-    if (empty($pesan)) {
+    if (empty($pesan) || $warna == 'success') {
         $query = "UPDATE wisata SET 
                   nama_tempat='$nama', 
                   deskripsi='$deskripsi', 
