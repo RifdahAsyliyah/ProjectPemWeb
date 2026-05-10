@@ -1,12 +1,12 @@
 <?php
 $host = "localhost";
 $user = "root";
-$password = "";
-$database = "pesona_ntb";
+$pass = "";
+$db   = "pesonaNTB";
 
-$koneksi = mysqli_connect($host, $user, $password, $database);
+$conn = mysqli_connect($host, $user, $pass, $db);
 
-if (!$koneksi) {
-    die("Koneksi gagal: " . mysqli_connect_error());
+if (!$conn) {
+    die("Koneksi database gagal: " . mysqli_connect_error());
 }
 ?>

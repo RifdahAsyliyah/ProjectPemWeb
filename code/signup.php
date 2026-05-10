@@ -1,43 +1,85 @@
 <?php
-
-$conn = mysqli_connect("localhost", "root", "", "signup");
-
-if (!$conn) {
-    die("Koneksi gagal: " . mysqli_connect_error());
-}
+include 'koneksi.php';
 
 $nama = trim($_POST["nama"]);
 $email = trim($_POST["email"]);
 $telp = trim($_POST["telp"]);
 $password = trim($_POST["password"]);
 
-$pesan = "";
-$warna = "red";
-
 if ($nama == "") {
-    $pesan = "Nama tidak boleh kosong!";
-} else if ($email == "") {
-    $pesan = "Email tidak boleh kosong!";
-} else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $pesan = "Format email tidak valid!";
-} else if ($telp == "") {
-    $pesan = "Nomor telepon tidak boleh kosong!";
-} else if (!preg_match("/^(?:\+62|08)[0-9]{8,13}$/", $telp)) {
-    $pesan = "Format nomor telepon tidak valid!";
-} else if ($password == "") {
-    $pesan = "Password tidak boleh kosong!";
-} else {
-
-    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
-    $query = "INSERT INTO daftar (nama, email, telpon, password) 
-              VALUES ('$nama', '$email', '$telp', '$passwordHash')";
-
-    if (mysqli_query($conn, $query)) {
-        $pesan = "Data berhasil disimpan! Halo, $nama!";
-        $warna = "purple";
-    } else {
-        $pesan = "Gagal menyimpan data!";
-    }
+    echo "<script>
+            alert('Nama tidak boleh kosong!');
+            window.location='signup.html';
+          </script>";
+    exit();
 }
+
+if ($email == "") {
+    echo "<script>
+            alert('Email tidak boleh kosong!');
+            window.location='signup.html';
+          </script>";
+    exit();
+}
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo "<script>
+            alert('Format email tidak valid!');
+            window.location='signup.html';
+          </script>";
+    exit();
+}
+
+if ($telp == "") {
+    echo "<script>
+            alert('Nomor telepon tidak boleh kosong!');
+            window.location='signup.html';
+          </script>";
+    exit();
+}
+
+if (!preg_match("/^(?:\+62|08)[0-9]{8,13}$/", $telp)) {
+    echo "<script>
+            alert('Format nomor telepon tidak valid!');
+            window.location='signup.html';
+          </script>";
+    exit();
+}
+
+if ($password == "") {
+    echo "<script>
+            alert('Password tidak boleh kosong!');
+            window.location='signup.html';
+          </script>";
+    exit();
+}
+
+$cek = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'");
+
+if (mysqli_num_rows($cek) > 0) {
+    echo "<script>
+            alert('Email sudah terdaftar!');
+            window.location='signup.html';
+          </script>";
+    exit();
+}
+
+$passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+$query = "INSERT INTO users (nama, email, telp, password)
+          VALUES ('$nama', '$email', '$telp', '$passwordHash')";
+
+if (mysqli_query($conn, $query)) {
+    echo "<script>
+            alert('Pendaftaran berhasil! Silakan login.');
+            window.location='signin.html';
+          </script>";
+} else {
+    echo "<script>
+            alert('Gagal menyimpan data: " . mysqli_error($conn) . "');
+            window.location='signup.html';
+          </script>";
+}
+
+mysqli_close($conn);
 ?>
