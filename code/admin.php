@@ -149,21 +149,15 @@ $result = mysqli_query($koneksi, $query);
                     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                         <tr>
                             <td><?php echo $row['id']; ?></td>
+                            <!-- BAGIAN FOTO YANG DIPERBAIKI -->
                             <td>
-                                <?php 
-                                $foto_path = $row['gambar'];
-                                $foto_url = '';
-                                if (!empty($foto_path) && file_exists($foto_path)) {
-                                    $foto_url = $foto_path;
-                                } elseif (!empty($foto_path) && file_exists('uploads/' . basename($foto_path))) {
-                                    $foto_url = 'uploads/' . basename($foto_path);
-                                }
-                                if ($foto_url): ?>
-                                    <img src="<?php echo $foto_url; ?>" alt="Foto">
+                                <?php if (!empty($row['gambar'])): ?>
+                                    <img src="/ProjectPemWeb/ProjectPemWeb/code/<?php echo $row['gambar']; ?>" width="50" height="50" style="object-fit: cover; border-radius: 10px;">
                                 <?php else: ?>
                                     <span class="no-image">Tidak ada</span>
                                 <?php endif; ?>
                             </td>
+                            <!-- END BAGIAN FOTO -->
                             <td><strong><?php echo htmlspecialchars($row['nama_tempat']); ?></strong></td>
                             <td><?php echo htmlspecialchars(substr($row['deskripsi'], 0, 80)) . (strlen($row['deskripsi']) > 80 ? '...' : ''); ?></td>
                             <td><a href="<?php echo $row['link_maps']; ?>" target="_blank" style="color:#c17f3b;">Lihat Maps</a></td>
