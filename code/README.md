@@ -1,4 +1,5 @@
 # Pesona NTB
+Temukan Pesona Tersembunyi dari Nusa Tenggara Barat.
 ## Deskripsi
 PesonaNTB adalah website sistem informasi pariwisata berbasis web yang dirancang untuk membantu wisatawan menemukan destinasi wisata terbaik di Provinsi Nusa Tenggara Barat (NTB), khususnya di Pulau Lombok dan Pulau Sumbawa.
 
