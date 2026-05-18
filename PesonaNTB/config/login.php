@@ -12,7 +12,7 @@ include 'koneksi.php';
 */
 
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-    header("Location: ../html/admin.php");
+    header("Location: PesonaNTB/html/admin.php");
     exit();
 }
 
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['email'] = $email;
         $_SESSION['role'] = 'admin';
 
-        header("Location: ../html/admin.php");
+        header("Location: PesonaNTB/html/admin.php");
         exit();
     }
 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['email'] = $user['email'];
             $_SESSION['role'] = 'user';
 
-            header("Location: ../index.html");
+            header("Location: PesonaNTB/index.html");
             exit();
         } else {
             $error = "Password salah!";
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input
                 type="email"
                 name="email"
-                placeholder="admin@pesonantb.com"
+                placeholder="adminpesonantb@gmail.com"
                 required
             >
 
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <p class="switch">
-            Kembali ke <a href="../html/signin.html">Sign In</a>
+            Kembali ke <a href="PesonaNTB/html/signin.html">Sign In</a>
         </p>
     </div>
 </div>

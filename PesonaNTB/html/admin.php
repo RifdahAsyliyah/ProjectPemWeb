@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-    header("Location: ../config/login.php");
+    header("Location: PesonaNTB/config/login.php");
     exit();
 }
-include '../config/koneksi.php';
+include 'PesonaNTB/config/koneksi.php';
 
 $query = "SELECT * FROM wisata ORDER BY id DESC";
 $result = mysqli_query($koneksi, $query);
@@ -15,8 +15,8 @@ $result = mysqli_query($koneksi, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Kelola Wisata | Pesona NTB</title>
-    <link rel="stylesheet" href="../style/styleLandingPage.css">
-    <link rel="stylesheet" href="../style/styleAdmin.css">
+    <link rel="stylesheet" href="PesonaNTB/style/styleLandingPage.css">
+    <link rel="stylesheet" href="PesonaNTB/style/styleAdmin.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
     
 </head>
@@ -25,12 +25,12 @@ $result = mysqli_query($koneksi, $query);
     <nav>
         <div class="logo">Pesona NTB</div>
         <ul class="nav-links">
-            <li><a href="../index.html">Home</a></li>
+            <li><a href="PesonaNTB/index.html">Home</a></li>
             <li><a href="index.html#about">About</a></li>
             <li><a href="index.html#destinations">Destinations</a></li>
         </ul>
         <div class="auth-buttons">
-            <a href="../logout.php" class="sign-in">Logout</a>
+            <a href="PesonaNTB/logout.php" class="sign-in">Logout</a>
             <a href="admin.php" class="sign-up active-auth">Admin</a>
         </div>
     </nav>
@@ -76,7 +76,7 @@ $result = mysqli_query($koneksi, $query);
                             <td><a href="<?php echo $row['link_maps']; ?>" target="_blank" style="color:#c17f3b;">Lihat Maps</a></td>
                             <td>
                                 <a href="edit_wisata.php?id=<?php echo $row['id']; ?>" class="btn-edit">Edit</a>
-                                <a href="../config/hapus_wisata.php?id=<?php echo $row['id']; ?>" class="btn-delete" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
+                                <a href="PesonaNTB/config/hapus_wisata.php?id=<?php echo $row['id']; ?>" class="btn-delete" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
                             </td>
                         </tr>
                     <?php } ?>

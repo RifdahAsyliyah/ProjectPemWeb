@@ -1,5 +1,5 @@
 <?php
-include '../config/koneksi.php';
+include 'PesonaNTB/config/koneksi.php';
 
 $pesan = '';
 $warna = '';
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Proses upload foto
     $gambar = NULL;
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
-        $target_dir = "../assets/uploads/";
+        $target_dir = "PesonaNTB/assets/uploads/";
         $file_name = time() . '_' . basename($_FILES['gambar']['name']);
         $target_file = $target_dir . $file_name;
         $file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -63,8 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Wisata - Pesona NTB</title>
-    <link rel="stylesheet" href="../style/styleLandingPage.css">
-    <link rel="stylesheet" href="../style/styleTambahWisata.css">
+    <link rel="stylesheet" href="PesonaNTB/style/styleLandingPage.css">
+    <link rel="stylesheet" href="PesonaNTB/style/styleTambahWisata.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
 
 </head>
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <nav>
         <div class="logo">Pesona NTB</div>
         <ul class="nav-links">
-            <li><a href="../index.html">Home</a></li>
+            <li><a href="PesonaNTB/index.html">Home</a></li>
             <li><a href="index.html#about">About</a></li>
             <li><a href="index.html#destinations">Destinations</a></li>
         </ul>

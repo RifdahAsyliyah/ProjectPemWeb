@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-    header("Location: ../config/login.php");
+    header("Location: PesonaNTB/config/login.php");
     exit();
 }
-include '../config/koneksi.php';
+include 'PesonaNTB/config/koneksi.php';
 
 $id = $_GET['id'];
 $pesan = '';
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Proses upload foto baru (jika ada)
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
-        $target_dir = "../assets/uploads/";
+        $target_dir = "PesonaNTB/assets/uploads/";
         $file_name = time() . '_' . basename($_FILES['gambar']['name']);
         $target_file = $target_dir . $file_name;
         $file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -84,8 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Wisata - Pesona NTB</title>
-    <link rel="stylesheet" href="../style/styleLandingPage.css">
-    <link rel="stylesheet" href="../style/styleEditWisata.css">
+    <link rel="stylesheet" href="PesonaNTB/style/styleLandingPage.css">
+    <link rel="stylesheet" href="PesonaNTB/style/styleEditWisata.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
 
 </head>
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <li><a href="index.html#destinations">Destinations</a></li>
         </ul>
         <div class="auth-buttons">
-            <a href="../logout.php" class="sign-in">Logout</a>
+            <a href="PesonaNTB/logout.php" class="sign-in">Logout</a>
             <a href="admin.php" class="sign-up">Admin</a>
         </div>
     </nav>
