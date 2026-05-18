@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #fafaf8;
+}
+
+/* NAVBAR MINI */
+nav {
+    padding: 24px 56px;
+    background: white;
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* CONTAINER */
+.auth-container {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CARD */
+.auth-card {
+    background: white;
+    padding: 40px;
+    width: 350px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.auth-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.auth-card p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+/* INPUT */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 30px;
+    background: #1a1f2c;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #c17f3b;
+}
+
+/* SWITCH LINK */
+.switch {
+    margin-top: 15px;
+    font-size: 0.85rem;
+}
+
+.switch a {
+    color: #c17f3b;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.password-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-top: -8px;
+    margin-bottom: 12px;
+}
+
+.forgot-password a {
+    font-size: 0.8rem;
+    color: #c17f3b;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+    color: #1a1f2c;
+}
+
+/* BACK TO HOME */
+.back-home {
+    max-width: 350px;
+    margin: 20px auto 0;
+    padding: 0 5px;
+}
+
+.back-home a {
+    text-decoration: none;
+    color: #c17f3b;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.back-home a:hover {
+    color: #1a1f2c;
+}

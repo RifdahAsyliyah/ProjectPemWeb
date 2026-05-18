@@ -1,9 +1,12 @@
-# Pesona NTB
+# Pesona NTB: Sistem Informasi Rekomendasi Destinasi Wisata NTB
 Temukan Pesona Tersembunyi dari Nusa Tenggara Barat.
-## Deskripsi
-PesonaNTB adalah website sistem informasi pariwisata berbasis web yang dirancang untuk membantu wisatawan menemukan destinasi wisata terbaik di Provinsi Nusa Tenggara Barat (NTB), khususnya di Pulau Lombok dan Pulau Sumbawa.
+## Deskripsi Singkat
+PesonaNTB adalah website sistem informasi pariwisata berbasis web yang dibuat untuk memperkenalkan berbagai destinasi wisata di Nusa Tenggara Barat, khususnya di Pulau Lombok dan Pulau Sumbawa.
 
-Website ini menyediakan informasi destinasi wisata secara lengkap, mulai dari nama tempat, deskripsi singkat, gambar, hingga tautan langsung ke Google Maps. Selain itu, tersedia fitur autentikasi pengguna (Sign Up dan Sign In) serta dashboard admin untuk mengelola data wisata.
+Website ini dirancang sebagai media informasi yang membantu wisatawan memperoleh referensi tempat wisata secara mudah, cepat, dan menarik. PesonaNTB juga menjadi sarana untuk mendukung promosi pariwisata daerah agar keindahan alam dan budaya Nusa Tenggara Barat semakin dikenal oleh masyarakat luas.
+## Team Roles
+1. Rifdah Asyliyah (Backend Developer): Mengembangkan logika sistem menggunakan PHP, mengelola autentikasi, session, serta merancang dan menghubungkan database MySQL.
+2. Melani Putri Zahari (Frontend Developer): Mendesain tampilan website menggunakan HTML, CSS, dan JavaScript serta menata layout halaman agar responsif dan menarik.
 ## Menu Utama
 - Pengunjung (Belum Login)
   - Landing Page
@@ -28,5 +31,60 @@ Website ini menyediakan informasi destinasi wisata secara lengkap, mulai dari na
   - Edit Wisata
   - Hapus Wisata
   - Logout
-## Teknologi
-PesonaNTB dikembangkan sebagai proyek pembelajaran Pemrograman Web dengan memanfaatkan teknologi HTML, CSS, JavaScript, PHP, dan MySQL.
+## Sitemap
+PesonaNTB/
+├── index.html
+├── logout.php
+├── pesonantb.sql
+├── Dokumentasi_PesonaNTB.pdf
+│
+├── assets/
+│   ├── foto/
+│   │   └── (seluruh gambar destinasi wisata)
+│   └── uploads/
+│       └── (gambar hasil upload admin)
+│
+├── config/
+│   ├── koneksi.php
+│   ├── login.php
+│   ├── signup.php
+│   └── hapus_wisata.php
+│
+├── html/
+│   ├── admin.php
+│   ├── signin.html
+│   ├── signup.html
+│   ├── forgot-password.html
+│   ├── tambah_wisata.php
+│   └── edit_wisata.php
+│
+├── script/
+│   └── scriptSignUp.js
+│
+└── style/
+    ├── styleLandingPage.css
+    ├── styleAuth.css
+    ├── styleAdmin.css
+    ├── styleLogin.css
+    ├── styleSignup.css
+    ├── styleTambahWisata.css
+    └── styleEditWisata.css
+## Aktor
+1. Pengunjung (Guest)
+2. User
+3. Admin
+## Tech Stack
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+### Backend
+- PHP Native
+### Database
+- MySQL
+### Development Tools
+- XAMPP
+- phpMyAdmin
+- Visual Studio Code
+- Google Chrome
+
