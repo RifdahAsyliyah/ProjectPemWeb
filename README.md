@@ -62,7 +62,7 @@ PesonaNTB/
 │   └── scriptSignUp.js
 │
 └── style/
-    ├── styleLandingPage.css
+    ├── styleLandingPage.css    
     ├── styleAuth.css
     ├── styleAdmin.css
     ├── styleLogin.css
