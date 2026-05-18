@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <nav>
         <div class="logo">Pesona NTB</div>
         <ul class="nav-links">
-            <li><a href="../index.html">Home</a></li>
+            <li><a href="PesonaNTB/index.html">Home</a></li>
             <li><a href="index.html#about">About</a></li>
             <li><a href="index.html#destinations">Destinations</a></li>
         </ul>
