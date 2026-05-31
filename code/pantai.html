@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantai - Pesona NTB</title>
+
+    <link rel="stylesheet" href="pantai.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <div class="logo-section">
+            <h1>Pesona <span>NTB</span></h1>
+            <p>Temukan Keindahan Nusa Tenggara Barat</p>
+        </div>
+
+        <nav class="menu">
+            <a href="dashboard.html">
+                <i class="fa-solid fa-house"></i>
+                Home
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-location-dot"></i>
+                Destinations
+            </a>
+
+            <a href="#">
+                <i class="fa-regular fa-circle-user"></i>
+                Profile
+            </a>
+        </nav>
+
+        <div class="profile-box">
+
+            <div class="profile-circle">
+                M
+            </div>
+
+            <span>Hi, Melani</span>
+
+            <i class="fa-solid fa-chevron-down"></i>
+
+        </div>
+
+    </header>
+
+    <main class="pantai-page">
+
+        <!-- BREADCRUMB -->
+        <section class="breadcrumb">
+            <span>Home</span>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Kategori</span>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span class="active-page">
+                Pantai
+            </span>
+        </section>
+
+        <!-- HEADER -->
+        <section class="page-header">
+
+            <div class="header-left">
+
+                <div class="icon-circle">
+                    <i class="fa-solid fa-water"></i>
+                </div>
+
+                <div>
+                    <h1>Wisata Pantai di NTB</h1>
+
+                    <p>
+                        Temukan pantai terbaik di
+                        Nusa Tenggara Barat
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="sort-box">
+                <span>Urutkan:</span>
+
+                <select>
+                    <option>Paling Populer</option>
+                    <option>Rating Tertinggi</option>
+                    <option>Terdekat</option>
+                </select>
+            </div>
+
+        </section>
+
+        <section class="content-layout">
+
+            <!-- LEFT -->
+            <section class="left-content">
+
+                <div class="destination-grid">
+
+                    <!-- CARD -->
+                    <div class="destination-card">
+                        <img src="foto/kute.jpg">
+
+                        <div class="card-content">
+                            <span class="badge">
+                                Pantai
+                            </span>
+
+                            <h3>
+                                Pantai Kuta Mandalika
+                            </h3>
+
+                            <p class="location">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Lombok Tengah
+                            </p>
+
+                            <p class="rating">
+                                ⭐ 4.8 (128 ulasan)
+                            </p>
+
+                            <button class="detail-btn">
+                                Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="destination-card">
+                        <img src="foto/pink beach.jpg">
+
+                        <div class="card-content">
+                            <span class="badge">Pantai</span>
+                            <h3>Pink Beach</h3>
+                            <p class="location">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Lombok Timur
+                            </p>
+                            <p class="rating">
+                                ⭐ 4.9 (201 ulasan)
+                            </p>
+                            <button class="detail-btn">
+                                Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="destination-card">
+                        <img src="foto/senggigi.jpg">
+
+                        <div class="card-content">
+                            <span class="badge">Pantai</span>
+                            <h3>Pantai Senggigi</h3>
+                            <p class="location">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Lombok Barat
+                            </p>
+                            <p class="rating">
+                                ⭐ 4.7 (176 ulasan)
+                            </p>
+                            <button class="detail-btn">
+                                Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="destination-card">
+                        <img src="foto/selong belanak.jpg">
+
+                        <div class="card-content">
+                            <span class="badge">Pantai</span>
+                            <h3>Selong Belanak</h3>
+                            <p class="location">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Lombok Tengah
+                            </p>
+                            <p class="rating">
+                                ⭐ 4.8 (162 ulasan)
+                            </p>
+                            <button class="detail-btn">
+                                Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- PAGINATION -->
+                <div class="pagination">
+
+                    <button>
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <button class="active">
+                        1
+                    </button>
+
+                    <button>2</button>
+                    <button>3</button>
+
+                    <span>...</span>
+
+                    <button>8</button>
+
+                    <button>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- SIDEBAR -->
+            <aside class="right-sidebar">
+
+                <div class="sidebar-card">
+
+                    <h3>
+                        Kategori Wisata
+                    </h3>
+
+                    <ul class="category-list">
+                        <li class="active">
+                            Pantai
+                        </li>
+
+                        <li>Gunung</li>
+                        <li>Air Terjun</li>
+                        <li>Budaya</li>
+                        <li>Pulau</li>
+                        <li>Kuliner</li>
+                        <li>Adventure</li>
+                    </ul>
+
+                </div>
+
+                <div class="sidebar-card">
+
+                    <h3>
+                        Wisata Favorit
+                    </h3>
+
+                    <div class="favorite-item">
+                        Pantai Kuta Mandalika
+                    </div>
+
+                    <div class="favorite-item">
+                        Pink Beach
+                    </div>
+
+                    <div class="favorite-item">
+                        Pantai Senggigi
+                    </div>
+
+                </div>
+
+                <div class="cta-card">
+
+                    <h3>
+                        Butuh Inspirasi?
+                    </h3>
+
+                    <p>
+                        Temukan rekomendasi wisata
+                        terbaik untuk perjalananmu.
+                    </p>
+
+                    <button>
+                        Telusuri Sekarang
+                    </button>
+
+                </div>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+    <script src="pantai.js"></script>
+
+</body>
+</html>
