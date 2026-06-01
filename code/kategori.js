@@ -24,15 +24,52 @@ categoryItems.forEach(item => {
             );
 
             const category =
-            this.textContent;
+            this.textContent
+            .trim()
+            .toLowerCase();
 
-            alert(
-                "Kategori dipilih: " +
-                category
-            );
+            // redirect otomatis
+            switch(category){
+
+                case "pantai":
+                    window.location.href =
+                    "pantai.html";
+                    break;
+
+                case "gunung":
+                    window.location.href =
+                    "gunung.html";
+                    break;
+
+                case "air terjun":
+                    window.location.href =
+                    "air-terjun.html";
+                    break;
+
+                case "budaya":
+                    window.location.href =
+                    "budaya.html";
+                    break;
+
+                case "pulau":
+                    window.location.href =
+                    "pulau.html";
+                    break;
+
+                case "kuliner":
+                    window.location.href =
+                    "kuliner.html";
+                    break;
+
+                case "adventure":
+                    window.location.href =
+                    "adventure.html";
+                    break;
+            }
 
         }
     );
+
 });
 
 
@@ -61,17 +98,19 @@ detailButtons.forEach(button => {
                 wisataName
             );
 
-            // nanti tinggal diarahkan
+            // nanti teman kamu bisa ubah ke PHP
+            // contoh:
             // window.location.href =
-            // "detail-wisata.php";
+            // "detail.php";
 
         }
     );
+
 });
 
 
 // ==========================
-// PAGINATION ACTIVE
+// PAGINATION
 // ==========================
 
 const paginationButtons =
@@ -87,21 +126,27 @@ paginationButtons.forEach(button => {
 
             paginationButtons
             .forEach(btn => {
+
                 btn.classList.remove(
                     "active"
                 );
+
             });
 
             if(
                 this.textContent !== "‹" &&
                 this.textContent !== "›"
             ){
+
                 this.classList.add(
                     "active"
                 );
+
             }
+
         }
     );
+
 });
 
 
@@ -114,16 +159,21 @@ document.querySelector(
     ".sort-box select"
 );
 
-sortSelect.addEventListener(
-    "change",
-    function(){
+if(sortSelect){
 
-        alert(
-            "Urutkan berdasarkan: " +
-            this.value
-        );
-    }
-);
+    sortSelect.addEventListener(
+        "change",
+        function(){
+
+            console.log(
+                "Sorting:",
+                this.value
+            );
+
+        }
+    );
+
+}
 
 
 // ==========================
@@ -135,16 +185,20 @@ document.querySelector(
     ".cta-card button"
 );
 
-ctaButton.addEventListener(
-    "click",
-    function(){
+if(ctaButton){
 
-        alert(
-            "Mengarahkan ke halaman rekomendasi wisata"
-        );
+    ctaButton.addEventListener(
+        "click",
+        function(){
 
-    }
-);
+            alert(
+                "Menampilkan rekomendasi wisata terbaik!"
+            );
+
+        }
+    );
+
+}
 
 
 // ==========================
@@ -175,4 +229,5 @@ cards.forEach(card => {
             "translateY(0px)";
         }
     );
+
 });
