@@ -3,142 +3,295 @@
 -- Sistem Informasi Wisata Nusa Tenggara Barat
 -- ============================================
 
-CREATE DATABASE IF NOT EXISTS pesonantb2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE pesonantb2;
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 11 Jun 2026 pada 19.13
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
--- Tabel users
-CREATE TABLE IF NOT EXISTS users (
-    id          INT AUTO_INCREMENT PRIMARY KEY,
-    nama        VARCHAR(100)  NOT NULL,
-    email       VARCHAR(150)  NOT NULL UNIQUE,
-    telepon     VARCHAR(20)   NOT NULL,
-    password    VARCHAR(255)  NOT NULL,
-    role        ENUM('user','admin') DEFAULT 'user',
-    foto_profil VARCHAR(255) DEFAULT NULL,
-    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
--- Tabel wisata
-CREATE TABLE IF NOT EXISTS wisata (
-    id          INT AUTO_INCREMENT PRIMARY KEY,
-    nama        VARCHAR(150)  NOT NULL,
-    kategori    ENUM('Pantai','Gunung','Air Terjun','Budaya','Pulau','Kuliner','Adventure') NOT NULL,
-    lokasi      VARCHAR(150)  NOT NULL,
-    deskripsi   TEXT          NOT NULL,
-    fasilitas   TEXT,
-    jam_buka    VARCHAR(100),
-    harga_tiket VARCHAR(100),
-    foto        VARCHAR(255),
-    aktif       TINYINT(1) DEFAULT 1,
-    latitude    DECIMAL(10,8),
-    longitude   DECIMAL(11,8),
-    rating      DECIMAL(3,1)  DEFAULT 0.0,
-    created_at  DATETIME      DEFAULT CURRENT_TIMESTAMP,
-    updated_at  DATETIME      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Tabel kategori
-CREATE TABLE IF NOT EXISTS kategori (
-    id    INT AUTO_INCREMENT PRIMARY KEY,
-    nama  VARCHAR(100) NOT NULL UNIQUE,
-    emoji VARCHAR(10)  DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
--- Data awal kategori
-INSERT INTO kategori (nama, emoji) VALUES
-('Pantai', '🏖️'), ('Gunung', '🏔️'), ('Air Terjun', '💧'),
-('Budaya', '🎭'), ('Pulau', '🏝️'), ('Kuliner', '🍜'), ('Adventure', '🧗');
+--
+-- Database: `pesonantb2`
+--
 
--- Tabel bookmark
-CREATE TABLE IF NOT EXISTS bookmark (
-    id         INT AUTO_INCREMENT PRIMARY KEY,
-    user_id    INT NOT NULL,
-    wisata_id  INT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY unique_bookmark (user_id, wisata_id),
-    FOREIGN KEY (user_id)   REFERENCES users(id)  ON DELETE CASCADE,
-    FOREIGN KEY (wisata_id) REFERENCES wisata(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- --------------------------------------------------------
 
--- Tabel ulasan
-CREATE TABLE IF NOT EXISTS ulasan (
-    id         INT AUTO_INCREMENT PRIMARY KEY,
-    user_id    INT NOT NULL,
-    wisata_id  INT NOT NULL,
-    rating     TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
-    komentar   TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY unique_ulasan (user_id, wisata_id),
-    FOREIGN KEY (user_id)   REFERENCES users(id)  ON DELETE CASCADE,
-    FOREIGN KEY (wisata_id) REFERENCES wisata(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+--
+-- Struktur dari tabel `bookmark`
+--
 
--- Tabel riwayat
-CREATE TABLE IF NOT EXISTS riwayat (
-    id         INT AUTO_INCREMENT PRIMARY KEY,
-    user_id    INT NOT NULL,
-    wisata_id  INT NOT NULL,
-    dilihat_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id)   REFERENCES users(id)  ON DELETE CASCADE,
-    FOREIGN KEY (wisata_id) REFERENCES wisata(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `bookmark` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `wisata_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- ============================================
--- DATA AWAL: Admin
--- Password: admin123
--- ============================================
-INSERT INTO users (nama, email, telepon, password, role) VALUES
-('Admin PesonaNTB', 'admin@pesonantb.com', '081234567890',
- '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin');
+-- --------------------------------------------------------
 
--- ============================================
--- DATA AWAL: Destinasi Wisata
--- ============================================
-INSERT INTO wisata (nama, kategori, lokasi, deskripsi, fasilitas, jam_buka, harga_tiket, rating, latitude, longitude) VALUES
-('Pantai Senggigi',
- 'Pantai', 'Lombok Barat',
- 'Pantai Senggigi adalah pantai ikonik di Lombok yang terkenal dengan pemandangan matahari terbenam yang memukau. Ombaknya yang tenang sangat cocok untuk berenang dan bersantai. Di sepanjang pantai terdapat berbagai restoran seafood dan penginapan dengan pemandangan langsung ke laut.',
- 'Parkir, Toilet, Mushola, Restoran, Penginapan, Penyewaan Payung',
- '08.00 - 18.00 WITA', 'Gratis', 4.8, -8.4955, 116.0522),
+--
+-- Struktur dari tabel `kategori`
+--
 
-('Gunung Rinjani',
- 'Gunung', 'Lombok Utara',
- 'Gunung Rinjani adalah gunung berapi tertinggi kedua di Indonesia dengan ketinggian 3.726 mdpl. Di puncaknya terdapat danau kawah Segara Anak yang menakjubkan. Pendakian Rinjani menjadi salah satu pengalaman petualangan paling populer di Indonesia.',
- 'Pos Pendakian, Pemandu Wisata, Camping Ground, Toilet',
- '24 Jam (Pendakian)', 'Rp 150.000/orang', 4.9, -8.4121, 116.4665),
+CREATE TABLE `kategori` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `emoji` varchar(10) DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-('Gili Trawangan',
- 'Pulau', 'Lombok Utara',
- 'Gili Trawangan adalah pulau kecil yang menjadi surga bawah laut di Lombok. Terkenal dengan snorkeling bersama penyu laut, menyelam, dan suasana pantai yang santai tanpa kendaraan bermotor. Kehidupan malam Gili Trawangan juga menjadi daya tarik tersendiri.',
- 'Penginapan, Restoran, Penyewaan Alat Snorkeling, Dive Center',
- '24 Jam', 'Tiket Kapal Rp 50.000', 4.7, -8.3500, 116.0300),
+--
+-- Dumping data untuk tabel `kategori`
+--
 
-('Pantai Pink',
- 'Pantai', 'Lombok Timur',
- 'Pantai Pink atau Pink Beach adalah salah satu dari hanya tujuh pantai berpasir merah muda di dunia. Warna merah muda pada pasirnya berasal dari pecahan terumbu karang merah yang bercampur dengan pasir putih. Terletak di kawasan Taman Nasional Gunung Rinjani.',
- 'Gazebo, Toilet, Snorkeling', '07.00 - 17.00 WITA', 'Rp 10.000/orang', 4.6, -8.8019, 116.5292),
+INSERT INTO `kategori` (`id`, `nama`, `emoji`) VALUES
+(1, 'Pantai', '🏖️'),
+(2, 'Gunung', '🏔️'),
+(3, 'Air Terjun', '💧'),
+(4, 'Budaya', '🎭'),
+(5, 'Pulau', '🏝️'),
+(6, 'Kuliner', '🍜'),
+(7, 'Adventure', '🧗');
 
-('Savana Sumbawa',
- 'Adventure', 'Sumbawa Besar',
- 'Savana Sumbawa menawarkan pemandangan padang rumput luas yang memukau dengan kuda-kuda liar yang berkeliaran bebas. Sangat cocok untuk wisata alam, berkuda, dan menikmati keindahan alam Sumbawa yang masih sangat alami dan belum banyak terjamah.',
- 'Pemandu Wisata, Area Berkuda', '06.00 - 17.00 WITA', 'Rp 25.000/orang', 4.7, -8.4892, 117.4167),
+-- --------------------------------------------------------
 
-('Pulau Moyo',
- 'Pulau', 'Sumbawa',
- 'Pulau Moyo adalah pulau terpencil yang pernah dikunjungi oleh Putri Diana. Terkenal dengan air terjun tersembunyi yang indah, ekosistem bawah laut yang belum terjamah, dan ketenangan alam yang luar biasa. Menjadi destinasi wisata premium di Sumbawa.',
- 'Resort, Snorkeling, Trekking, Pemandu', '24 Jam', 'Rp 20.000/orang', 4.8, -8.2667, 117.6167),
+--
+-- Struktur dari tabel `riwayat`
+--
 
-('Pantai Kuta Lombok',
- 'Pantai', 'Lombok Tengah',
- 'Pantai Kuta Lombok memiliki pasir putih halus seperti merica dengan ombak yang cocok untuk surfing. Berbeda dengan Kuta Bali, Kuta Lombok masih terasa lebih tenang dan alami. Panorama bukit di sekitar pantai menambah keindahan pemandangan.',
- 'Parkir, Toilet, Restoran, Penyewaan Papan Surfing', '06.00 - 18.00 WITA', 'Rp 5.000/orang', 4.7, -8.8956, 116.2917),
+CREATE TABLE `riwayat` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `wisata_id` int(11) NOT NULL,
+  `dilihat_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-('Air Terjun Sendang Gile',
- 'Air Terjun', 'Lombok Utara',
- 'Air Terjun Sendang Gile terletak di kaki Gunung Rinjani dengan ketinggian sekitar 30 meter. Airnya yang jernih dan segar berasal langsung dari mata air Gunung Rinjani. Menurut kepercayaan setempat, membasuh muka di air terjun ini dapat membuat awet muda.',
- 'Parkir, Toilet, Warung Makan, Pemandu', '07.00 - 17.00 WITA', 'Rp 15.000/orang', 4.6, -8.3600, 116.4033),
+--
+-- Dumping data untuk tabel `riwayat`
+--
 
-('Desa Sade',
- 'Budaya', 'Lombok Tengah',
- 'Desa Sade adalah desa adat Suku Sasak yang masih mempertahankan tradisi leluhur hingga saat ini. Rumah-rumah tradisional beratapkan ilalang dan berlantaikan campuran tanah dan kotoran kerbau masih terjaga kelestariannya. Pengunjung bisa menyaksikan langsung kehidupan adat Sasak.',
- 'Pemandu Wisata, Penjualan Kerajinan Tenun', '08.00 - 17.00 WITA', 'Rp 10.000/orang', 4.5, -8.8517, 116.2667);
+INSERT INTO `riwayat` (`id`, `user_id`, `wisata_id`, `dilihat_at`) VALUES
+(1, 1, 1, '2026-06-11 21:08:07'),
+(14, 2, 7, '2026-06-12 00:27:25'),
+(15, 2, 5, '2026-06-12 00:27:49'),
+(16, 2, 1, '2026-06-12 00:28:05'),
+(17, 2, 6, '2026-06-12 00:30:13'),
+(25, 2, 3, '2026-06-12 00:57:41'),
+(29, 2, 2, '2026-06-12 00:58:14');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `ulasan`
+--
+
+CREATE TABLE `ulasan` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `wisata_id` int(11) NOT NULL,
+  `rating` tinyint(4) NOT NULL CHECK (`rating` between 1 and 5),
+  `komentar` text NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `ulasan`
+--
+
+INSERT INTO `ulasan` (`id`, `user_id`, `wisata_id`, `rating`, `komentar`, `created_at`) VALUES
+(1, 2, 3, 5, 'keren bangetttt', '2026-06-12 00:01:27');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `telepon` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('user','admin') DEFAULT 'user',
+  `foto_profil` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `reset_token` varchar(255) DEFAULT NULL,
+  `reset_expired` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `users`
+--
+
+INSERT INTO `users` (`id`, `nama`, `email`, `telepon`, `password`, `role`, `foto_profil`, `created_at`, `reset_token`, `reset_expired`) VALUES
+(1, 'Admin PesonaNTB', 'admin@pesonantb.com', '081234567890', '$2y$10$EUyVrBePDwzIE2l5YL4yzukW/OiHQxsWCUzr1u1pynadN.jT7G.N6', 'admin', 'profil_1_1781191270.jpeg', '2026-06-11 15:38:46', NULL, NULL),
+(2, 'Rifdah Asyliyah', 'rifdah@gmail.com', '085337420926', '$2y$10$A4s8SRnXS/ENWO32n8Ogi.atqdZG19e8C7ytz3plL7zxpLEwJinAa', 'user', 'profil_2_1781191104.png', '2026-06-11 17:36:03', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `wisata`
+--
+
+CREATE TABLE `wisata` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(150) NOT NULL,
+  `kategori` enum('Pantai','Gunung','Air Terjun','Budaya','Pulau','Kuliner','Adventure') NOT NULL,
+  `lokasi` varchar(150) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `fasilitas` text DEFAULT NULL,
+  `jam_buka` varchar(100) DEFAULT NULL,
+  `harga_tiket` varchar(100) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `aktif` tinyint(1) DEFAULT 1,
+  `latitude` decimal(10,8) DEFAULT NULL,
+  `longitude` decimal(11,8) DEFAULT NULL,
+  `rating` decimal(3,1) DEFAULT 0.0,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `wisata`
+--
+
+INSERT INTO `wisata` (`id`, `nama`, `kategori`, `lokasi`, `deskripsi`, `fasilitas`, `jam_buka`, `harga_tiket`, `foto`, `aktif`, `latitude`, `longitude`, `rating`, `created_at`, `updated_at`) VALUES
+(1, 'Pantai Senggigi', 'Pantai', 'Lombok Barat', 'Pantai Senggigi adalah pantai ikonik di Lombok yang terkenal dengan pemandangan matahari terbenam yang memukau. Ombaknya yang tenang sangat cocok untuk berenang dan bersantai. Di sepanjang pantai terdapat berbagai restoran seafood dan penginapan dengan pemandangan langsung ke laut.', 'Parkir, Toilet, Mushola, Restoran, Penginapan, Penyewaan Payung', '08.00 - 18.00 WITA', 'Gratis', 'wisata_1781191720_6a2ad428c2bd0.jpg', 1, -8.49814353, 116.04528835, 4.8, '2026-06-11 15:38:46', '2026-06-11 23:28:40'),
+(2, 'Gunung Rinjani', 'Gunung', 'Lombok Utara', 'Gunung Rinjani adalah gunung berapi tertinggi kedua di Indonesia dengan ketinggian 3.726 mdpl. Di puncaknya terdapat danau kawah Segara Anak yang menakjubkan. Pendakian Rinjani menjadi salah satu pengalaman petualangan paling populer di Indonesia.', 'Pos Pendakian, Pemandu Wisata, Camping Ground, Toilet', '24 Jam (Pendakian)', 'Rp 150.000/orang', 'wisata_1781180803_6a2aa983399a4.jpg', 1, -8.41210000, 116.46650000, 4.9, '2026-06-11 15:38:46', '2026-06-11 20:26:43'),
+(3, 'Gili Trawangan', 'Pulau', 'Lombok Utara', 'Gili Trawangan adalah pulau kecil yang menjadi surga bawah laut di Lombok. Terkenal dengan snorkeling bersama penyu laut, menyelam, dan suasana pantai yang santai tanpa kendaraan bermotor. Kehidupan malam Gili Trawangan juga menjadi daya tarik tersendiri.', 'Penginapan, Restoran, Penyewaan Alat Snorkeling, Dive Center', '24 Jam', 'Tiket Kapal Rp 50.000', 'wisata_1781180833_6a2aa9a136534.jpg', 1, -8.35000000, 116.03000000, 5.0, '2026-06-11 15:38:46', '2026-06-12 00:01:27'),
+(4, 'Pantai Pink', 'Pantai', 'Lombok Timur', 'Pantai Pink atau Pink Beach adalah salah satu dari hanya tujuh pantai berpasir merah muda di dunia. Warna merah muda pada pasirnya berasal dari pecahan terumbu karang merah yang bercampur dengan pasir putih. Terletak di kawasan Taman Nasional Gunung Rinjani.', 'Gazebo, Toilet, Snorkeling', '07.00 - 17.00 WITA', 'Rp 10.000/orang', 'wisata_1781180850_6a2aa9b2425fb.jpg', 1, -8.80190000, 116.52920000, 4.6, '2026-06-11 15:38:46', '2026-06-11 20:27:30'),
+(5, 'Pulau Kenawa', 'Pulau', 'Poto Tano, Sumbawa Barat', 'Pulau Kenawa menawarkan pemandangan padang rumput luas yang memukau dengan kuda-kuda liar yang berkeliaran bebas. Sangat cocok untuk wisata alam, berkuda, dan menikmati keindahan alam Sumbawa yang masih sangat alami dan belum banyak terjamah.', 'Pemandu Wisata, Area Berkuda', '24 Jam', 'Rp 25.000/orang', 'wisata_1781180951_6a2aaa173830a.jpg', 1, -8.49811338, 116.83347144, 4.7, '2026-06-11 15:38:46', '2026-06-11 20:29:11'),
+(6, 'Air Terjun Mata Jitu', 'Air Terjun', 'Unnamed Roa, Labuan Aji, Labuhan Badas, Sumbawa', 'Air Terjun Mata Jitu adalah pulau terpencil yang pernah dikunjungi oleh Putri Diana. Terkenal dengan air terjun tersembunyi yang indah, ekosistem bawah laut yang belum terjamah, dan ketenangan alam yang luar biasa. Menjadi destinasi wisata premium di Sumbawa.', 'Resort, Snorkeling, Trekking, Pemandu', '24 Jam', '', 'wisata_1781181259_6a2aab4bb1238.jpg', 1, -8.21156169, 117.52032048, 4.8, '2026-06-11 15:38:46', '2026-06-12 00:07:12'),
+(7, 'Pantai Kuta Lombok', 'Pantai', 'Lombok Tengah', 'Pantai Kuta Lombok memiliki pasir putih halus seperti merica dengan ombak yang cocok untuk surfing. Berbeda dengan Kuta Bali, Kuta Lombok masih terasa lebih tenang dan alami. Panorama bukit di sekitar pantai menambah keindahan pemandangan.', 'Parkir, Toilet, Restoran, Penyewaan Papan Surfing', '06.00 - 18.00 WITA', 'Rp 5.000/orang', 'wisata_1781181316_6a2aab84cd4fc.jpg', 1, -8.89560000, 116.29170000, 4.7, '2026-06-11 15:38:46', '2026-06-11 20:35:16'),
+(8, 'Air Terjun Sendang Gile', 'Air Terjun', 'Lombok Utara', 'Air Terjun Sendang Gile terletak di kaki Gunung Rinjani dengan ketinggian sekitar 30 meter. Airnya yang jernih dan segar berasal langsung dari mata air Gunung Rinjani. Menurut kepercayaan setempat, membasuh muka di air terjun ini dapat membuat awet muda.', 'Parkir, Toilet, Warung Makan, Pemandu', '07.00 - 17.00 WITA', 'Rp 15.000/orang', 'wisata_1781181284_6a2aab644007b.jpg', 1, -8.36000000, 116.40330000, 4.6, '2026-06-11 15:38:46', '2026-06-11 20:34:44'),
+(9, 'Desa Sade', 'Budaya', 'Lombok Tengah', 'Desa Sade adalah desa adat Suku Sasak yang masih mempertahankan tradisi leluhur hingga saat ini. Rumah-rumah tradisional beratapkan ilalang dan berlantaikan campuran tanah dan kotoran kerbau masih terjaga kelestariannya. Pengunjung bisa menyaksikan langsung kehidupan adat Sasak.', 'Pemandu Wisata, Penjualan Kerajinan Tenun', '08.00 - 17.00 WITA', 'Rp 10.000/orang', 'wisata_1781181300_6a2aab7416618.jpg', 1, -8.85170000, 116.26670000, 4.5, '2026-06-11 15:38:46', '2026-06-11 20:35:00');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indeks untuk tabel `bookmark`
+--
+ALTER TABLE `bookmark`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_bookmark` (`user_id`,`wisata_id`),
+  ADD KEY `wisata_id` (`wisata_id`);
+
+--
+-- Indeks untuk tabel `kategori`
+--
+ALTER TABLE `kategori`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nama` (`nama`);
+
+--
+-- Indeks untuk tabel `riwayat`
+--
+ALTER TABLE `riwayat`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `wisata_id` (`wisata_id`);
+
+--
+-- Indeks untuk tabel `ulasan`
+--
+ALTER TABLE `ulasan`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_ulasan` (`user_id`,`wisata_id`),
+  ADD KEY `wisata_id` (`wisata_id`);
+
+--
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indeks untuk tabel `wisata`
+--
+ALTER TABLE `wisata`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `bookmark`
+--
+ALTER TABLE `bookmark`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT untuk tabel `riwayat`
+--
+ALTER TABLE `riwayat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT untuk tabel `ulasan`
+--
+ALTER TABLE `ulasan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `wisata`
+--
+ALTER TABLE `wisata`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `bookmark`
+--
+ALTER TABLE `bookmark`
+  ADD CONSTRAINT `bookmark_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bookmark_ibfk_2` FOREIGN KEY (`wisata_id`) REFERENCES `wisata` (`id`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `riwayat`
+--
+ALTER TABLE `riwayat`
+  ADD CONSTRAINT `riwayat_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `riwayat_ibfk_2` FOREIGN KEY (`wisata_id`) REFERENCES `wisata` (`id`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `ulasan`
+--
+ALTER TABLE `ulasan`
+  ADD CONSTRAINT `ulasan_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `ulasan_ibfk_2` FOREIGN KEY (`wisata_id`) REFERENCES `wisata` (`id`) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
