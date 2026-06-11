@@ -133,7 +133,7 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
       <a href="<?= isset($_SESSION['user_id']) ? 'config/detail.php?id='.$d['id'] : 'config/login.php' ?>" class="dest-card">
         <div class="dest-img <?= htmlspecialchars($img_class) ?>" style="<?= (!empty($d['foto'])) ? 'background: none;' : '' ?>">
   <?php if (!empty($d['foto'])): ?>
-    <img src="assets/uploads/<?= htmlspecialchars($d['foto']) ?>" alt="<?= htmlspecialchars($d['nama']) ?>" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; border-radius: 12px 12px 0 0;">
+    <img src="assets/uploads/destinasi/<?= htmlspecialchars($d['foto']) ?>" alt="<?= htmlspecialchars($d['nama']) ?>" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; border-radius: 12px 12px 0 0;">
   <?php else: ?>
     <div class="dest-emoji"><?= $emoji ?></div>
   <?php endif; ?>

@@ -18,7 +18,7 @@ $base = $is_config ? '../' : '';
 
   <ul class="nav-links" id="navLinks">
     <li><a href="<?= $base ?>index.php" id="nav-beranda">Beranda</a></li>
-    <li><a href="<?= $is_login ? $base . 'config/destinasi.php' : $base . 'index.php#destinasi' ?>" id="nav-destinasi" class="<?= $current == 'config/destinasi.php' ? 'active' : '' ?>">Destinasi</a></li>
+    <li><a href="<?= $is_login ? $base . 'config/destinasi.php' : $base . 'index.php#destinasi' ?>" id="nav-destinasi" class="<?= $current == 'destinasi.php' ? 'active' : '' ?>">Destinasi</a></li>
     <li><a href="<?= $base ?>index.php#kategori" id="nav-kategori">Kategori</a></li>
     <li><a href="<?= $base ?>index.php#tentang" id="nav-tentang">Tentang</a></li>
   </ul>
@@ -26,7 +26,7 @@ $base = $is_config ? '../' : '';
   <div class="nav-actions">
     <?php if ($is_login): ?>
       <?php if ($user_role === 'admin'): ?>
-        <a href="<?= $base ?>config/dashboard.php" class="btn-outline">Dashboard Admin</a>
+        <a href="<?= $is_config ? 'dashboard.php' : 'config/dashboard.php' ?>" class="btn-outline">Dashboard Admin</a>
       <?php endif; ?>
       <div class="nav-user-menu">
         <?php
@@ -40,12 +40,12 @@ $base = $is_config ? '../' : '';
             $stmt_nav->close();
             $foto_profil_nav = $row_nav['foto_profil'] ?? '';
         }
-        $foto_path_nav = dirname(__DIR__) . 'PesonaNTB/assets/uploads/profil/' . $foto_profil_nav;
+        $foto_path_nav = __DIR__ . '/../assets/uploads/profil/' . $foto_profil_nav;
         ?>
         <button class="nav-user-btn" id="userMenuBtn">
           <?php if (!empty($foto_profil_nav) && file_exists($foto_path_nav)): ?>
           <span class="nav-avatar" style="background:none;overflow:hidden;padding:0">
-            <img src="<?= $base ?>PesonaNTB/assets/uploads/profil/<?= htmlspecialchars($foto_profil_nav) ?>" style="width:100%;height:100%;object-fit:cover;border-radius:50%" alt="">
+            <img src="<?= $base ?>assets/uploads/profil/<?= htmlspecialchars($foto_profil_nav) ?>" style="width:100%;height:100%;object-fit:cover;border-radius:50%" alt="">
           </span>
           <?php else: ?>
           <span class="nav-avatar"><?= $inisial ?></span>
@@ -55,15 +55,15 @@ $base = $is_config ? '../' : '';
         </button>
         
         <div class="nav-dropdown" id="userDropdown">
-          <a href="<?= $base ?>config/profil.php">👤 Profil Saya</a>
+          <a href="<?= $is_config ? 'profil.php' : 'config/profil.php' ?>">👤 Profil Saya</a>
           
           <?php if ($user_role !== 'admin'): ?>
-            <a href="<?= $base ?>config/bookmark.php">🔖 Tersimpan</a>
-            <a href="<?= $base ?>config/riwayat.php">🕐 Riwayat</a>
+            <a href="<?= $is_config ? 'bookmark.php' : 'config/bookmark.php' ?>">🔖 Tersimpan</a>
+            <a href="<?= $is_config ? 'riwayat.php' : 'config/riwayat.php' ?>">🕐 Riwayat</a>
           <?php endif; ?>
           
           <div class="dropdown-divider"></div>
-          <a href="<?= $base ?>config/logout.php" style="color:#C0392B">🚪 Keluar</a>
+          <a href="<?= $is_config ? 'logout.php' : 'config/logout.php' ?>" style="color:#C0392B">🚪 Keluar</a>
         </div>
       </div>
     <?php else: ?>

@@ -39,7 +39,7 @@ if (isset($conn) && isset($_SESSION['user_id'])) {
       
       <?php if (!empty($foto_profil_admin)): ?>
         <div class="admin-avatar" style="background: none; overflow: hidden; padding: 0; display: flex; align-items: center; justify-content: center;">
-          <img src="PesonaNTB/assets/uploads/profil/<?= htmlspecialchars($foto_profil_admin) ?>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="">
+          <img src="../assets/uploads/profil/<?= htmlspecialchars($foto_profil_admin) ?>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="">
         </div>
       <?php else: ?>
         <div class="admin-avatar"><?= $inisial ?></div>

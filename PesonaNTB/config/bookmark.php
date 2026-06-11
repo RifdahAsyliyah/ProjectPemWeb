@@ -52,13 +52,16 @@ $inisial = strtoupper(mb_substr($user['nama'], 0, 2));
 
     <div class="profil-grid">
       <div class="profil-sidebar">
-        <?php if (!empty($user['foto_profil'] ?? '') && file_exists('PesonaNTB/assets/uploads/profil/' . $user['foto_profil'])): ?>
-      <div class="profil-avatar" style="background:none;overflow:hidden;padding:0">
-        <img src="PesonaNTB/assets/uploads/profil/<?= htmlspecialchars($user['foto_profil']) ?>" alt="Foto Profil" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
-      </div>
-      <?php else: ?>
-      <div class="profil-avatar"><?= $inisial ?></div>
-      <?php endif; ?>
+        <?php $foto_path = __DIR__ . '/../assets/uploads/profil/' . ($user['foto_profil'] ?? '');?>
+        <?php if (!empty($user['foto_profil']) && file_exists($foto_path)): ?>
+        <div class="profil-avatar" style="background:none;overflow:hidden;padding:0">
+            <img src="../assets/uploads/profil/<?= htmlspecialchars($user['foto_profil']) ?>"
+                alt="Foto Profil"
+                style="width:100%;height:100%;object-fit:cover;border-radius:50%">
+        </div>
+        <?php else: ?>
+        <div class="profil-avatar"><?= $inisial ?></div>
+        <?php endif; ?>
         <div class="profil-nama"><?= htmlspecialchars($user['nama']) ?></div>
         <div class="profil-stats">
           <div><div class="pstat-num"><?= $jml_bookmark ?></div><div class="pstat-label">Tersimpan</div></div>
@@ -93,7 +96,7 @@ $inisial = strtoupper(mb_substr($user['nama'], 0, 2));
               
               <div class="dest-img <?= $img_class ?>" style="position:relative; overflow:hidden;">
                 <?php if (!empty($d['foto'])): ?>
-                  <img src="PesonaNTB/assets/uploads/destinasi/<?= htmlspecialchars($d['foto']) ?>" 
+                  <img src="../assets/uploads/destinasi/<?= htmlspecialchars($d['foto']) ?>"> 
                        style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; z-index:1;" 
                        alt="<?= htmlspecialchars($d['nama']) ?>">
                 <?php endif; ?>

@@ -56,24 +56,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $error = 'Format foto tidak valid. Gunakan JPG, PNG, atau WebP.'; 
             } elseif ($_FILES['foto_profil']['size'] > 2 * 1024 * 1024) { 
                 $error = 'Ukuran foto maksimal 2MB.'; 
+            } else {    
+            $new_name = 'profil_' . $uid . '_' . time() . '.' . $ext;
+            $base_path = __DIR__ . '/../assets/uploads/profil/';
+            if (!is_dir($base_path)) {
+                mkdir($base_path, 0755, true);
+            }
+            $upload_path = $base_path . $new_name;
+            if (move_uploaded_file($_FILES['foto_profil']['tmp_name'], $upload_path)) {
+                if (
+                    !empty($user['foto_profil']) &&
+                    file_exists($base_path . $user['foto_profil'])
+                ) {
+                    unlink($base_path . $user['foto_profil']);
+                }
+                $stmt = $conn->prepare("UPDATE users SET foto_profil=? WHERE id=?");
+                $stmt->bind_param('si', $new_name, $uid);
+                $stmt->execute();
+                $stmt->close();
+                $user['foto_profil'] = $new_name;
+                $success = 'Foto profil berhasil diperbarui.';
             } else { 
-                $new_name = 'profil_' . $uid . '_' . time() . '.' . $ext; 
-                $base_path   = dirname(__FILE__) . 'PesonaNTB/assets/uploads/profil/'; 
-                // Buat folder jika belum ada 
-                if (!is_dir($base_path)) mkdir($base_path, 0755, true); 
-                $upload_path = $base_path . $new_name; 
-                if (move_uploaded_file($_FILES['foto_profil']['tmp_name'], $upload_path)) { 
-                    // Hapus foto lama 
-                    if (!empty($user['foto_profil']) && file_exists($base_path . $user['foto_profil'])) { 
-                        unlink($base_path . $user['foto_profil']); 
-                    } 
-                    $stmt = $conn->prepare("UPDATE users SET foto_profil=? WHERE id=?"); 
-                    $stmt->bind_param('si', $new_name, $uid); 
-                    $stmt->execute(); 
-                    $stmt->close(); 
-                    $user['foto_profil'] = $new_name; 
-                    $success = 'Foto profil berhasil diperbarui.'; 
-                } else { 
                     $error = 'Gagal mengupload foto. Coba lagi.'; 
                 } 
             } 
@@ -162,9 +165,9 @@ $inisial = strtoupper(mb_substr($user['nama'], 0, 2));
         
         <div class="profil-grid"> 
             <div class="profil-sidebar"> 
-                <?php if (!empty($user['foto_profil']) && file_exists(dirname(__FILE__) . 'PesonaNTB/assets/uploads/profil/' . $user['foto_profil'])): ?> 
+                <?php if (!empty($user['foto_profil']) && file_exists(__DIR__ . '/../assets/uploads/profil/' . $user['foto_profil'])): ?> 
                     <div class="profil-avatar" style="background:none;overflow:hidden;padding:0"> 
-                        <img src="PesonaNTB/assets/uploads/profil/<?= htmlspecialchars($user['foto_profil']) ?>" alt="Foto Profil" style="width:100%;height:100%;object-fit:cover;border-radius:50%"> 
+                        <img src="../assets/uploads/profil/<?= htmlspecialchars($user['foto_profil']) ?>" alt="Foto Profil" style="width:100%;height:100%;object-fit:cover;border-radius:50%"> 
                     </div> 
                 <?php else: ?> 
                     <div class="profil-avatar"><?= $inisial ?></div> 

@@ -50,8 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $msg = 'error:Ukuran foto maksimal 2MB.';
             } else {
                 $new_name = 'wisata_' . time() . '_' . uniqid() . '.' . $ext;
-                if (move_uploaded_file($_FILES['foto']['tmp_name'], "assets/uploads/$new_name")) {
-                    if ($foto_nama && file_exists("assets/uploads/$foto_nama")) unlink("assets/uploads/$foto_nama");
+                $upload_dir = __DIR__ . '/../assets/uploads/destinasi/';
+                if (!is_dir($upload_dir)) {
+                    mkdir($upload_dir, 0755, true);
+                }
+                if (move_uploaded_file(
+                    $_FILES['foto']['tmp_name'],
+                    $upload_dir . $new_name
+                )) {
+                    if ($foto_nama && file_exists(__DIR__ . '/../assets/uploads/destinasi/' . $foto_nama)) unlink(__DIR__ . '/../assets/uploads/destinasi/' . $foto_nama);
                     $foto_nama = $new_name;
                 }
             }
@@ -185,9 +192,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <!-- Foto -->
               <div class="form-group full">
                 <label>Foto Destinasi</label>
-                <?php if ($edit && $wisata['foto'] && file_exists("assets/uploads/{$wisata['foto']}")): ?>
+                <?php if ($edit && $wisata['foto'] && file_exists(__DIR__ . '/../assets/uploads/destinasi/' . $wisata['foto'])): ?>
                 <div class="foto-current">
-                  <img src="assets/uploads/<?= htmlspecialchars($wisata['foto']) ?>" alt="Foto saat ini">
+                  <img src="../assets/uploads/destinasi/<?= htmlspecialchars($wisata['foto']) ?>" alt="Foto saat ini">
                   <span style="font-size:0.82rem;color:var(--text-muted)">Foto saat ini. Upload baru untuk mengganti.</span>
                 </div>
                 <?php endif; ?>
