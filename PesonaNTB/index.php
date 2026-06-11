@@ -94,7 +94,7 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
 </head>
 <body>
 
-<?php include 'includes/navbar.php'; ?>
+<?php include 'config/navbar.php'; ?>
 
 <!-- HERO -->
 <section class="hero">
@@ -223,7 +223,7 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
   <?php foreach ($testimoni_list as $t): 
     $stars = str_repeat('★', $t['rating']) . str_repeat('☆', 5 - $t['rating']);
     // Cek apakah ada foto profil dan apakah file-nya ada di folder
-    $path_foto = "uploads/profil/" . $t['foto_profil'];
+    $path_foto = "assets/uploads/profil/" . $t['foto_profil'];
     $ada_foto = (!empty($t['foto_profil']) && file_exists($path_foto));
   ?>
   <div class="testi-card">
@@ -268,7 +268,7 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
   <?php endif; ?>
 </section>
 
-<?php include 'includes/footer.php'; ?>
+<?php include 'config/footer.php'; ?>
 <script src="js/main.js"></script>
 </body>
 </html>
