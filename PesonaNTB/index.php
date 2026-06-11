@@ -191,7 +191,7 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
 <!-- TENTANG -->
 <section class="section-tentang" id="tentang">
   <div class="tentang-inner">
-    <div class="tentang-visual" style="background-image: url('images/about.jpg'); background-size: cover; background-position: center;">
+    <div class="tentang-visual" style="background-image: url('assets/foto/about.jpg'); background-size: cover; background-position: center;">
       <div class="tentang-overlay">
       </div>
     </div>

@@ -67,9 +67,9 @@ if (isset($_GET['msg'])) $msg = $_GET['msg'];
 </head>
 <body>
 <div class="admin-layout">
-  <?php include 'config/sidebar.php'; ?>
+  <?php include 'sidebar.php'; ?>
   <div class="admin-content">
-    <?php include 'config/topbar.php'; ?>
+    <?php include 'topbar.php'; ?>
     <main class="admin-main">
 
       <?php if ($msg_text): ?>
@@ -79,7 +79,7 @@ if (isset($_GET['msg'])) $msg = $_GET['msg'];
       <div class="admin-card">
         <div class="card-header">
           <h3>Data Wisata <span class="badge badge-brown" style="font-size:0.75rem"><?= $total ?> data</span></h3>
-          <a href="config/wisata_form.php" class="btn btn-primary">+ Tambah Wisata</a>
+          <a href="wisata_form.php" class="btn btn-primary">+ Tambah Wisata</a>
         </div>
         <div class="card-body" style="padding-bottom:0">
           <!-- Toolbar -->
@@ -145,7 +145,7 @@ if (isset($_GET['msg'])) $msg = $_GET['msg'];
                 </td>
                 <td>
                   <div class="table-actions">
-                    <a href="config/wisata_form.php?id=<?= $w['id'] ?>" class="btn btn-warning btn-sm">✏️ Edit</a>
+                    <a href="wisata_form.php?id=<?= $w['id'] ?>" class="btn btn-warning btn-sm">✏️ Edit</a>
                     <form method="GET" style="display:inline">
                       <input type="hidden" name="hapus" value="<?= $w['id'] ?>">
                       <button type="submit" class="btn btn-danger btn-sm btn-confirm-delete" data-msg="Wisata '<?= htmlspecialchars($w['nama']) ?>' akan dihapus permanen.">🗑</button>

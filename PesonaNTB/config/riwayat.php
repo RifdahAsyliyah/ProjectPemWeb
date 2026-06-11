@@ -78,10 +78,10 @@ function timeAgo($datetime) {
           <div><div class="pstat-num"><?= $jml_riwayat ?></div><div class="pstat-label">Dilihat</div></div>
         </div>
         <nav class="profil-nav">
-          <a href="config/profil.php">👤 Profil Saya</a>
-          <a href="config/bookmark.php">🔖 Tersimpan</a>
-          <a href="config/riwayat.php" class="active">🕐 Riwayat</a>
-          <a href="config/logout.php" style="color:#C0392B">🚪 Keluar</a>
+          <a href="profil.php">👤 Profil Saya</a>
+          <a href="bookmark.php">🔖 Tersimpan</a>
+          <a href="riwayat.php" class="active">🕐 Riwayat</a>
+          <a href="logout.php" style="color:#C0392B">🚪 Keluar</a>
         </nav>
       </div>
 
@@ -91,7 +91,7 @@ function timeAgo($datetime) {
           <div class="riwayat-empty">
             <span>🕐</span>
             <p>Belum ada riwayat kunjungan. Mulai jelajahi destinasi!</p>
-            <a href="config/destinasi.php" class="btn-primary" style="margin-top:1rem">Jelajahi Destinasi</a>
+            <a href="destinasi.php" class="btn-primary" style="margin-top:1rem">Jelajahi Destinasi</a>
           </div>
           <?php else: ?>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1px solid var(--sand-light)">
@@ -105,7 +105,7 @@ function timeAgo($datetime) {
               $emoji = $emoji_map[$r['kategori']] ?? '🏝️';
             ?>
             <div class="riwayat-item">
-              <a href="config/detail.php?id=<?= $r['id'] ?>" style="display:flex;align-items:center;gap:1rem;flex:1;text-decoration:none;color:inherit">
+              <a href="detail.php?id=<?= $r['id'] ?>" style="display:flex;align-items:center;gap:1rem;flex:1;text-decoration:none;color:inherit">
                 
                 <div class="riwayat-thumb" style="width:60px; height:60px; border-radius:8px; overflow:hidden; position:relative; background:#eee;">
                   <?php if (!empty($r['foto'])): ?>

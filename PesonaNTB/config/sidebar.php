@@ -57,7 +57,7 @@ if (isset($conn) && isset($_SESSION['user_id'])) {
     <a href="dashboard.php" class="sidebar-link <?= $current_page=='dashboard.php'?'active':'' ?>">
       <span class="link-icon">📊</span> Dashboard
     </a>
-    <a href="wisata.php" class="sidebar-link <?= $current_page=='wisata.php'||$current_page=='config/wisata_form.php'?'active':'' ?>">
+    <a href="wisata.php" class="sidebar-link <?= $current_page=='wisata.php'||$current_page=='wisata_form.php'?'active':'' ?>">
       <span class="link-icon">🏝️</span> Kelola Wisata
     </a>
     <a href="kategori.php" class="sidebar-link <?= $current_page=='kategori.php'?'active':'' ?>">
@@ -68,7 +68,7 @@ if (isset($conn) && isset($_SESSION['user_id'])) {
     <a href="pengguna.php" class="sidebar-link <?= $current_page=='pengguna.php'?'active':'' ?>">
       <span class="link-icon">👥</span> Kelola Pengguna
     </a>
-    <a href="config/ulasan.php" class="sidebar-link <?= $current_page=='ulasan.php'?'active':'' ?>">
+    <a href="ulasan.php" class="sidebar-link <?= $current_page=='ulasan.php'?'active':'' ?>">
       <span class="link-icon">⭐</span> Kelola Ulasan
     </a>
 

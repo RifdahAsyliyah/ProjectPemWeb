@@ -67,9 +67,9 @@ if (isset($_GET['msg'])) $msg = $_GET['msg'];
 </head>
 <body>
 <div class="admin-layout">
-  <?php include 'config/sidebar.php'; ?>
+  <?php include 'sidebar.php'; ?>
   <div class="admin-content">
-    <?php include 'config/topbar.php'; ?>
+    <?php include 'topbar.php'; ?>
     <main class="admin-main">
 
       <?php if ($msg_text): ?>
