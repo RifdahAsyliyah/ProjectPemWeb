@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'config/db.php';
+require_once 'db.php';
 
 if (isset($_SESSION['user_id'])) {
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit;
 }
 
@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password']      ?? '';
     $konfirm  = $_POST['konfirmasi']    ?? '';
 
-    // Validasi server-side
     if (empty($nama) || empty($email) || empty($telp) || empty($password)) {
         $error = 'Semua field wajib diisi.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -27,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($password !== $konfirm) {
         $error = 'Konfirmasi password tidak cocok.';
     } else {
-        // Cek email sudah terdaftar
         $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
         $stmt->bind_param('s', $email);
         $stmt->execute();
@@ -57,24 +55,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daftar &mdash; PesonaNTB</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/auth.css">
 </head>
 <body>
 
-<?php include 'includes/navbar.php'; ?>
+<?php include 'navbar.php'; ?>
 
 <div class="auth-page">
   <div class="auth-card">
     <div class="auth-logo">
-      <a href="index.php">Pesona<span>NTB</span></a>
+      <a href="../index.php">Pesona<span>NTB</span></a>
       <p>Sistem Informasi Wisata NTB</p>
     </div>
 
     <h2 class="auth-title">Buat Akun Baru</h2>
     <p class="auth-sub">Daftar gratis dan jelajahi destinasi wisata NTB.</p>
 
-    <!-- Alert -->
     <div id="alertBox" class="alert <?= $error ? 'alert-error show' : ($success ? 'alert-success show' : '') ?>">
       <?= htmlspecialchars($error ?: $success) ?>
     </div>
@@ -140,6 +137,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 </div>
 
-<script src="js/auth.js"></script>
+<script src="../js/auth.js"></script>
 </body>
 </html>
