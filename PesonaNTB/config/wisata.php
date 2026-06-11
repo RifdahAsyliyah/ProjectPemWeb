@@ -10,7 +10,7 @@ if (isset($_GET['hapus'])) {
     $hid  = intval($_GET['hapus']);
     // Hapus foto jika ada
     $foto = $conn->query("SELECT foto FROM wisata WHERE id=$hid")->fetch_assoc()['foto'] ?? '';
-    if ($foto && file_exists("uploads/$foto")) unlink("uploads/$foto");
+    if ($foto && file_exists("../assets/uploads/destinasi/$foto")) unlink("../assets/uploads/destinasi/$foto");
     $conn->query("DELETE FROM wisata WHERE id=$hid");
     $msg = 'success:Wisata berhasil dihapus.';
     header('Location: wisata.php?msg=' . urlencode($msg)); exit;
@@ -124,8 +124,8 @@ if (isset($_GET['msg'])) $msg = $_GET['msg'];
               <tr>
                 <td class="td-muted"><?= $offset + $i + 1 ?></td>
                 <td>
-                  <?php if ($w['foto'] && file_exists("uploads/{$w['foto']}")): ?>
-                  <img src="uploads/<?= htmlspecialchars($w['foto']) ?>" class="foto-thumb" alt="">
+                  <?php if ($w['foto'] && file_exists("../assets/uploads/destinasi/{$w['foto']}")): ?>
+                  <img src="../assets/uploads/destinasi/<?= htmlspecialchars($w['foto']) ?>" class="foto-thumb" alt="">
                   <?php else: ?>
                   <div style="width:40px;height:40px;border-radius:6px;background:var(--sand-light);display:flex;align-items:center;justify-content:center;font-size:1.1rem">🏝️</div>
                   <?php endif; ?>
