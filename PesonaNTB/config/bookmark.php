@@ -69,6 +69,7 @@ $inisial = strtoupper(mb_substr($user['nama'], 0, 2));
           <div><div class="pstat-num"><?= $jml_riwayat ?></div><div class="pstat-label">Dilihat</div></div>
         </div>
         <nav class="profil-nav">
+          <a href="user_dashboard.php">🏠 Dashboard</a>
           <a href="profil.php">👤 Profil Saya</a>
           <a href="bookmark.php" class="active">🔖 Tersimpan</a>
           <a href="riwayat.php">🕐 Riwayat</a>

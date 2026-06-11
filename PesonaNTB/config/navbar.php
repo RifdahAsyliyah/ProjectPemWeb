@@ -26,7 +26,18 @@ $base = $is_config ? '../' : '';
   <div class="nav-actions">
     <?php if ($is_login): ?>
       <?php if ($user_role === 'admin'): ?>
-        <a href="<?= $is_config ? 'dashboard.php' : 'config/dashboard.php' ?>" class="btn-outline">Dashboard Admin</a>
+        <a href="<?= $base ?>config/dashboard.php"
+        class="btn-outline">
+        Dashboard Admin
+        </a>
+
+        <?php else: ?>
+
+        <a href="<?= $base ?>config/user_dashboard.php"
+        class="btn-outline">
+        Dashboard Saya
+        </a>
+
       <?php endif; ?>
       <div class="nav-user-menu">
         <?php

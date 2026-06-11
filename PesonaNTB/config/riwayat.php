@@ -78,8 +78,9 @@ function timeAgo($datetime) {
           <div><div class="pstat-num"><?= $jml_riwayat ?></div><div class="pstat-label">Dilihat</div></div>
         </div>
         <nav class="profil-nav">
+          <a href="user_dashboard.php">🏠 Dashboard</a>
           <a href="profil.php">👤 Profil Saya</a>
-          <a href="bookmark.php">🔖 Tersimpan</a>
+          <a href="bookmark.php" >🔖 Tersimpan</a>
           <a href="riwayat.php" class="active">🕐 Riwayat</a>
           <a href="logout.php" style="color:#C0392B">🚪 Keluar</a>
         </nav>

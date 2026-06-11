@@ -198,13 +198,12 @@ $inisial = strtoupper(mb_substr($user['nama'], 0, 2));
                   <?php endif; ?>
                 </div> 
                 
-                <nav class="profil-nav"> 
-                  <a href="profil.php" class="active">👤 Profil Saya</a> 
-                  <?php if ($_SESSION['role'] !== 'admin'): ?>
-                    <a href="bookmark.php">🔖 Tersimpan</a> 
-                    <a href="riwayat.php">🕐 Riwayat</a> 
-                  <?php endif; ?>
-                  <a href="logout.php" style="color:#C0392B">🚪 Keluar</a> 
+                <nav class="profil-nav">
+                    <a href="user_dashboard.php">🏠 Dashboard</a>
+                    <a href="profil.php" class="active">👤 Profil Saya</a>
+                    <a href="bookmark.php" >🔖 Tersimpan</a>
+                    <a href="riwayat.php">🕐 Riwayat</a>
+                    <a href="logout.php" style="color:#C0392B">🚪 Keluar</a>
                 </nav> 
             </div> 
             
