@@ -10,16 +10,11 @@ $inisial      = strtoupper(mb_substr($admin_nama, 0, 2));
 
 // AMBIL FOTO LANGSUNG DARI DATABASEsecara mandiri
 $foto_profil_admin = '';
-
-// Pastikan variabel koneksi database ($conn) tersedia. 
-// Jika belum ada (karena belum di-include di file utama), kita panggil secara paksa.
 if (!isset($conn)) {
-    // Sesuaikan jalur ini dengan lokasi file koneksi databasemu yang asli
-    // Jika file koneksimu ada di folder 'config/koneksi.php' di luar folder admin, gunakan ../config/koneksi.php
-    if (file_exists('../config/koneksi.php')) {
-        include '../config/koneksi.php';
-    } elseif (file_exists('../koneksi.php')) {
-        include '../koneksi.php';
+    if (file_exists('koneksi.php')) {
+        include 'koneksi.php';
+    } elseif (file_exists('koneksi.php')) {
+        include 'koneksi.php';
     }
 }
 
@@ -39,12 +34,12 @@ if (isset($conn) && isset($_SESSION['user_id'])) {
     <button class="sidebar-close" id="sidebarClose">✕</button>
   </div>
 
-  <a href="../profil.php" class="sidebar-admin-link" style="text-decoration: none; color: inherit; display: block;">
+  <a href="profil.php" class="sidebar-admin-link" style="text-decoration: none; color: inherit; display: block;">
     <div class="sidebar-admin">
       
       <?php if (!empty($foto_profil_admin)): ?>
         <div class="admin-avatar" style="background: none; overflow: hidden; padding: 0; display: flex; align-items: center; justify-content: center;">
-          <img src="../uploads/profil/<?= htmlspecialchars($foto_profil_admin) ?>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="">
+          <img src="../assets/uploads/profil/<?= htmlspecialchars($foto_profil_admin) ?>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="">
         </div>
       <?php else: ?>
         <div class="admin-avatar"><?= $inisial ?></div>
@@ -59,29 +54,29 @@ if (isset($conn) && isset($_SESSION['user_id'])) {
 
   <nav class="sidebar-nav">
     <div class="nav-group-label">Menu Utama</div>
-    <a href="config/dashboard.php" class="sidebar-link <?= $current_page=='config/dashboard.php'?'active':'' ?>">
+    <a href="dashboard.php" class="sidebar-link <?= $current_page=='dashboard.php'?'active':'' ?>">
       <span class="link-icon">📊</span> Dashboard
     </a>
-    <a href="config/wisata.php" class="sidebar-link <?= $current_page=='config/wisata.php'||$current_page=='config/wisata_form.php'?'active':'' ?>">
+    <a href="wisata.php" class="sidebar-link <?= $current_page=='wisata.php'||$current_page=='config/wisata_form.php'?'active':'' ?>">
       <span class="link-icon">🏝️</span> Kelola Wisata
     </a>
-    <a href="config/kategori.php" class="sidebar-link <?= $current_page=='config/kategori.php'?'active':'' ?>">
+    <a href="kategori.php" class="sidebar-link <?= $current_page=='kategori.php'?'active':'' ?>">
       <span class="link-icon">🏷️</span> Kelola Kategori
     </a>
 
     <div class="nav-group-label">Pengguna</div>
-    <a href="config/pengguna.php" class="sidebar-link <?= $current_page=='config/pengguna.php'?'active':'' ?>">
+    <a href="pengguna.php" class="sidebar-link <?= $current_page=='pengguna.php'?'active':'' ?>">
       <span class="link-icon">👥</span> Kelola Pengguna
     </a>
-    <a href="config/ulasan.php" class="sidebar-link <?= $current_page=='config/ulasan.php'?'active':'' ?>">
+    <a href="config/ulasan.php" class="sidebar-link <?= $current_page=='ulasan.php'?'active':'' ?>">
       <span class="link-icon">⭐</span> Kelola Ulasan
     </a>
 
     <div class="nav-group-label">Akun</div>
-    <a href="index.php" class="sidebar-link">
+    <a href="../index.php" class="sidebar-link">
       <span class="link-icon">🌐</span> Lihat Website
     </a>
-    <a href="config/logout.php" class="sidebar-link logout-link">
+    <a href="logout.php" class="sidebar-link logout-link">
       <span class="link-icon">🚪</span> Keluar
     </a>
   </nav>

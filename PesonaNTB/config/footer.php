@@ -8,10 +8,10 @@
       <div class="footer-col">
         <h4>Navigasi</h4>
         <ul>
-          <li><a href="index.php">Beranda</a></li>
+          <li><a href="../index.php">Beranda</a></li>
           <li><a href="destinasi.php">Destinasi</a></li>
           <li><a href="destinasi.php?kategori=all">Kategori</a></li>
-          <li><a href="index.php#tentang">Tentang</a></li>
+          <li><a href="../index.php#tentang">Tentang</a></li>
         </ul>
       </div>
       <div class="footer-col">

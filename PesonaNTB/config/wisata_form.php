@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'config/db.php';
-require_once 'config/auth_guard.php';
+require_once 'db.php';
+require_once 'auth_guard.php';
 
 $id    = intval($_GET['id'] ?? 0);
 $edit  = $id > 0;
@@ -14,7 +14,7 @@ if ($edit) {
     $stmt->execute();
     $row = $stmt->get_result()->fetch_assoc();
     $stmt->close();
-    if (!$row) { header('Location: config/wisata.php'); exit; }
+    if (!$row) { header('Location: wisata.php'); exit; }
     $wisata = $row;
 }
 
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             if ($stmt->execute()) {
                 $stmt->close();
-                header('Location: config/wisata.php?msg=success:Wisata berhasil ' . ($edit ? 'diperbarui.' : 'ditambahkan.'));
+                header('Location: wisata.php?msg=success:Wisata berhasil ' . ($edit ? 'diperbarui.' : 'ditambahkan.'));
                 exit;
             } else {
                 $msg = 'error:Terjadi kesalahan. Coba lagi.';
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= $edit ? 'Edit' : 'Tambah' ?> Wisata &mdash; Admin PesonaNTB</title>
-  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
 <div class="admin-layout">
@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="admin-card">
         <div class="card-header">
           <h3><?= $edit ? 'Edit Wisata' : 'Tambah Wisata Baru' ?></h3>
-          <a href="config/wisata.php" class="btn btn-light btn-sm">← Kembali</a>
+          <a href="wisata.php" class="btn btn-light btn-sm">← Kembali</a>
         </div>
         <div class="card-body">
           <form method="POST" enctype="multipart/form-data">
@@ -202,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="form-actions">
               <button type="submit" class="btn btn-primary">💾 <?= $edit ? 'Simpan Perubahan' : 'Tambah Wisata' ?></button>
-              <a href="config/wisata.php" class="btn btn-light">Batal</a>
+              <a href="wisata.php" class="btn btn-light">Batal</a>
             </div>
           </form>
         </div>
@@ -211,6 +211,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </main>
   </div>
 </div>
-<script src="js/admin.js"></script>
+<script src="../js/admin.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'config/db.php';
-require_once 'config/auth_guard.php';
+require_once 'db.php';
+require_once 'auth_guard.php';
 
 $msg = '';
 
@@ -13,7 +13,7 @@ if (isset($_GET['hapus'])) {
     if ($foto && file_exists("uploads/$foto")) unlink("uploads/$foto");
     $conn->query("DELETE FROM wisata WHERE id=$hid");
     $msg = 'success:Wisata berhasil dihapus.';
-    header('Location: config/wisata.php?msg=' . urlencode($msg)); exit;
+    header('Location: wisata.php?msg=' . urlencode($msg)); exit;
 }
 
 // Filter & search
@@ -63,7 +63,7 @@ if (isset($_GET['msg'])) $msg = $_GET['msg'];
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kelola Wisata &mdash; Admin PesonaNTB</title>
-  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
 <div class="admin-layout">
@@ -174,8 +174,8 @@ if (isset($_GET['msg'])) $msg = $_GET['msg'];
     </main>
   </div>
 </div>
-<?php include 'config/modal.php'; ?>
-<script src="js/admin.js"></script>
+<?php include 'modal.php'; ?>
+<script src="../js/admin.js"></script>
 <script>
 function applyFilter(key, val) {
   const url = new URL(window.location);

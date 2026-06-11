@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once 'config/db.php';
+require_once 'db.php';
 
-if (!isset($_SESSION['user_id'])) { header('Location: config/login.php'); exit; }
+if (!isset($_SESSION['user_id'])) { header('Location: login.php'); exit; }
 $uid = $_SESSION['user_id'];
 
 // Handle hapus riwayat
@@ -48,12 +48,12 @@ function timeAgo($datetime) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Riwayat &mdash; PesonaNTB</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/user.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/user.css">
 </head>
 <body>
 
-<?php include 'config/navbar.php'; ?>
+<?php include 'navbar.php'; ?>
 
 <div class="user-page">
   <div class="user-container">
@@ -137,7 +137,7 @@ function timeAgo($datetime) {
   </div>
 </div>
 
-<?php include 'config/footer.php'; ?>
-<script src="js/main.js"></script>
+<?php include 'footer.php'; ?>
+<script src="../js/main.js"></script>
 </body>
 </html>

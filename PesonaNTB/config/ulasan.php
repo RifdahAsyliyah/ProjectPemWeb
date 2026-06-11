@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'config/db.php';
-require_once 'config/auth_guard.php';
+require_once 'db.php';
+require_once 'auth_guard.php';
 
 $msg = '';
 
@@ -16,7 +16,7 @@ if (isset($_GET['hapus'])) {
         $avg = $conn->query("SELECT AVG(rating) as avg FROM ulasan WHERE wisata_id=$wid")->fetch_assoc()['avg'] ?? 0;
         $conn->query("UPDATE wisata SET rating=$avg WHERE id=$wid");
     }
-    header('Location: config/ulasan.php?msg=success:Ulasan berhasil dihapus.'); exit;
+    header('Location: ulasan.php?msg=success:Ulasan berhasil dihapus.'); exit;
 }
 
 // Filter
@@ -63,7 +63,7 @@ if (isset($_GET['msg'])) $msg = $_GET['msg'];
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kelola Ulasan &mdash; Admin PesonaNTB</title>
-  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
 <div class="admin-layout">
@@ -109,7 +109,7 @@ if (isset($_GET['msg'])) $msg = $_GET['msg'];
                 <td class="td-muted"><?= $offset+$i+1 ?></td>
                 <td><?= htmlspecialchars($u['user_nama']) ?></td>
                 <td>
-                  <a href="config/detail.php?id=<?= $u['wisata_id'] ?>" target="_blank" style="color:var(--green);font-weight:600;text-decoration:none;font-size:0.85rem">
+                  <a href="detail.php?id=<?= $u['wisata_id'] ?>" target="_blank" style="color:var(--green);font-weight:600;text-decoration:none;font-size:0.85rem">
                     <?= htmlspecialchars($u['wisata_nama']) ?> ↗
                   </a>
                 </td>
@@ -147,8 +147,8 @@ if (isset($_GET['msg'])) $msg = $_GET['msg'];
     </main>
   </div>
 </div>
-<?php include 'config/modal.php'; ?>
-<script src="js/admin.js"></script>
+<?php include 'modal.php'; ?>
+<script src="../js/admin.js"></script>
 <script>
 function applyFilter(key, val) {
   const url = new URL(window.location);

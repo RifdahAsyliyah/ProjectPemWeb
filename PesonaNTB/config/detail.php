@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'config/db.php';
+require_once 'db.php';
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if (!$id) { header('Location: destinasi.php'); exit; }
@@ -100,12 +100,12 @@ function renderStars($n) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= htmlspecialchars($wisata['nama']) ?> &mdash; PesonaNTB</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/user.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/user.css">
 </head>
 <body>
 
-<?php include 'config/navbar.php'; ?>
+<?php include 'navbar.php'; ?>
 
 <div class="user-page">
   <div class="user-container">
@@ -116,7 +116,7 @@ function renderStars($n) {
     <div class="detail-hero" style="position: relative; overflow: hidden; height: 400px;">
       
       <?php if (!empty($wisata['foto'])): ?>
-        <img src="admin/uploads/<?= htmlspecialchars($wisata['foto']) ?>" 
+        <img src="assets/uploads/<?= htmlspecialchars($wisata['foto']) ?>" 
              alt="<?= htmlspecialchars($wisata['nama']) ?>" 
              style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;">
       <?php else: ?>
@@ -287,7 +287,7 @@ function renderStars($n) {
     
     <div style="width: 60px; height: 60px; border-radius: 8px; overflow: hidden; background: #eee; flex-shrink: 0;">
       <?php if (!empty($r['foto'])): ?>
-        <img src="admin/uploads/<?= htmlspecialchars($r['foto']) ?>" 
+        <img src="assets/uploads/<?= htmlspecialchars($r['foto']) ?>" 
              style="width: 100%; height: 100%; object-fit: cover;" 
              alt="<?= htmlspecialchars($r['nama']) ?>">
       <?php else: ?>
@@ -312,7 +312,7 @@ function renderStars($n) {
   </div>
 </div>
 
-<?php include 'config/footer.php'; ?>
-<script src="js/main.js"></script>
+<?php include 'footer.php'; ?>
+<script src="../js/main.js"></script>
 </body>
 </html>

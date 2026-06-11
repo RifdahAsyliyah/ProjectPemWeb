@@ -6,19 +6,19 @@ $user_role  = $_SESSION['role'] ?? 'user';
 $inisial    = strtoupper(mb_substr($user_nama, 0, 2));
 ?>
 <nav class="navbar" id="mainNavbar">
-  <a href="index.php" class="nav-logo">Pesona<span>NTB</span></a>
+  <a href="../index.php" class="nav-logo">Pesona<span>NTB</span></a>
 
   <ul class="nav-links" id="navLinks">
-    <li><a href="index.php" id="nav-beranda">Beranda</a></li>
-    <li><a href="<?= $is_login ? 'config/destinasi.php' : 'index.php#destinasi' ?>" id="nav-destinasi" class="<?= $current == 'config/destinasi.php' ? 'active' : '' ?>">Destinasi</a></li>
-    <li><a href="index.php#kategori" id="nav-kategori">Kategori</a></li>
-    <li><a href="index.php#tentang" id="nav-tentang">Tentang</a></li>
+    <li><a href="../index.php" id="nav-beranda">Beranda</a></li>
+    <li><a href="<?= $is_login ? 'destinasi.php' : '../index.php#destinasi' ?>" id="nav-destinasi" class="<?= $current == 'destinasi.php' ? 'active' : '' ?>">Destinasi</a></li>
+    <li><a href="../index.php#kategori" id="nav-kategori">Kategori</a></li>
+    <li><a href="../index.php#tentang" id="nav-tentang">Tentang</a></li>
   </ul>
 
   <div class="nav-actions">
     <?php if ($is_login): ?>
       <?php if ($user_role === 'admin'): ?>
-        <a href="config/dashboard.php" class="btn-outline">Dashboard Admin</a>
+        <a href="dashboard.php" class="btn-outline">Dashboard Admin</a>
       <?php endif; ?>
       <div class="nav-user-menu">
         <?php
@@ -37,7 +37,7 @@ $inisial    = strtoupper(mb_substr($user_nama, 0, 2));
         <button class="nav-user-btn" id="userMenuBtn">
           <?php if (!empty($foto_profil_nav) && file_exists($foto_path_nav)): ?>
           <span class="nav-avatar" style="background:none;overflow:hidden;padding:0">
-            <img src="assets/uploads/profil/<?= htmlspecialchars($foto_profil_nav) ?>" style="width:100%;height:100%;object-fit:cover;border-radius:50%" alt="">
+            <img src="../assets/uploads/profil/<?= htmlspecialchars($foto_profil_nav) ?>" style="width:100%;height:100%;object-fit:cover;border-radius:50%" alt="">
           </span>
           <?php else: ?>
           <span class="nav-avatar"><?= $inisial ?></span>
@@ -47,20 +47,20 @@ $inisial    = strtoupper(mb_substr($user_nama, 0, 2));
         </button>
         
         <div class="nav-dropdown" id="userDropdown">
-          <a href="config/profil.php">👤 Profil Saya</a>
+          <a href="profil.php">👤 Profil Saya</a>
           
           <?php if ($user_role !== 'admin'): ?>
-            <a href="config/bookmark.php">🔖 Tersimpan</a>
-            <a href="config/riwayat.php">🕐 Riwayat</a>
+            <a href="bookmark.php">🔖 Tersimpan</a>
+            <a href="riwayat.php">🕐 Riwayat</a>
           <?php endif; ?>
           
           <div class="dropdown-divider"></div>
-          <a href="config/logout.php" style="color:#C0392B">🚪 Keluar</a>
+          <a href="logout.php" style="color:#C0392B">🚪 Keluar</a>
         </div>
       </div>
     <?php else: ?>
-      <a href="config/login.php" class="btn-outline">Masuk</a>
-      <a href="config/register.php" class="btn-fill">Daftar</a>
+      <a href="login.php" class="btn-outline">Masuk</a>
+      <a href="register.php" class="btn-fill">Daftar</a>
     <?php endif; ?>
   </div>
 
@@ -72,7 +72,7 @@ $inisial    = strtoupper(mb_substr($user_nama, 0, 2));
 <script>
 (function() {
   var path = window.location.pathname;
-  var isIndex = path.includes('index.php') || path.endsWith('/Guest/') || path.endsWith('/');
+  var isIndex = path.includes('../index.php') || path.endsWith('/Guest/') || path.endsWith('/');
 
   if (!isIndex) return;
 

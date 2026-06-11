@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once 'config/db.php';
+require_once 'db.php';
 
 if (isset($_SESSION['user_id'])) {
     $redirect = $_SESSION['role'] === 'admin'
-    ? 'config/dashboard.php'
-    : 'index.php';
+    ? 'dashboard.php'
+    : '../index.php';
     header("Location: $redirect");
     exit;
 }
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // VALIDASI REDIRECT: Cegah open-redirect ke situs luar
             // Jika redirect mengandung "http://" atau "https://", abaikan demi keamanan
             if (empty($redirect) || strpos($redirect, 'http://') === 0 || strpos($redirect, 'https://') === 0) {
-                $redirect = $user['role'] === 'admin' ? 'admin/dashboard.php' : 'index.php';
+                $redirect = $user['role'] === 'admin' ? 'dashboard.php' : '../index.php';
             }
             
             header("Location: " . $redirect);
@@ -57,12 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Masuk &mdash; PesonaNTB</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/auth.css">
 </head>
 <body>
 
-<?php include 'config/navbar.php'; ?>
+<?php include 'navbar.php'; ?>
 
 <div class="auth-page">
   <div class="auth-card">
@@ -111,6 +111,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 </div>
 
-<script src="js/auth.js"></script>
+<script src="../js/auth.js"></script>
 </body>
 </html>

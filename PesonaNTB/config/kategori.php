@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once '../config/db.php';
-require_once 'config/auth_guard.php';
+require_once 'db.php';
+require_once 'auth_guard.php';
 
 $msg = '';
 
@@ -66,13 +66,13 @@ if (isset($_GET['edit'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kelola Kategori &mdash; Admin PesonaNTB</title>
-  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
 <div class="admin-layout">
-  <?php include 'config/sidebar.php'; ?>
+  <?php include 'sidebar.php'; ?>
   <div class="admin-content">
-    <?php include 'config/topbar.php'; ?>
+    <?php include 'topbar.php'; ?>
     <main class="admin-main">
 
       <?php if ($msg_text): ?>
@@ -160,7 +160,7 @@ if (isset($_GET['edit'])) {
     </main>
   </div>
 </div>
-<?php include 'config/modal.php'; ?>
-<script src="js/admin.js"></script>
+<?php include 'modal.php'; ?>
+<script src="../js/admin.js"></script>
 </body>
 </html>
