@@ -64,9 +64,9 @@ function timeAgo($datetime) {
 
     <div class="profil-grid">
       <div class="profil-sidebar">
-        <?php if (!empty($user['foto_profil'] ?? '') && file_exists('assets/uploads/profil/' . $user['foto_profil'])): ?>
+        <?php if (!empty($user['foto_profil'] ?? '') && file_exists('../assets/uploads/profil/' . $user['foto_profil'])): ?>
       <div class="profil-avatar" style="background:none;overflow:hidden;padding:0">
-        <img src="assets/uploads/profil/<?= htmlspecialchars($user['foto_profil']) ?>" alt="Foto Profil" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
+        <img src="../assets/uploads/profil/<?= htmlspecialchars($user['foto_profil']) ?>" alt="Foto Profil" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
       </div>
       <?php else: ?>
       <div class="profil-avatar"><?= $inisial ?></div>
@@ -109,7 +109,7 @@ function timeAgo($datetime) {
                 
                 <div class="riwayat-thumb" style="width:60px; height:60px; border-radius:8px; overflow:hidden; position:relative; background:#eee;">
                   <?php if (!empty($r['foto'])): ?>
-                    <img src="assets/uploads/destinasi/<?= htmlspecialchars($r['foto']) ?>" style="width:100%; height:100%; object-fit:cover;">
+                    <img src="../assets/uploads/destinasi/<?= htmlspecialchars($r['foto']) ?>" style="width:100%; height:100%; object-fit:cover;">
                   <?php else: ?>
                     <div style="display:flex; align-items:center; justify-content:center; height:100%;"><?= $emoji ?></div>
                   <?php endif; ?>

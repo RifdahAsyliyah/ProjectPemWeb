@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $error = 'Ukuran foto maksimal 2MB.'; 
             } else { 
                 $new_name = 'profil_' . $uid . '_' . time() . '.' . $ext; 
-                $base_path   = dirname(__FILE__) . '/uploads/profil/'; 
+                $base_path   = dirname(__FILE__) . '../assets/uploads/profil/'; 
                 // Buat folder jika belum ada 
                 if (!is_dir($base_path)) mkdir($base_path, 0755, true); 
                 $upload_path = $base_path . $new_name; 

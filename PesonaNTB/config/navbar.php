@@ -40,12 +40,12 @@ $base = $is_config ? '../' : '';
             $stmt_nav->close();
             $foto_profil_nav = $row_nav['foto_profil'] ?? '';
         }
-        $foto_path_nav = dirname(__DIR__) . '/assets/uploads/profil/' . $foto_profil_nav;
+        $foto_path_nav = dirname(__DIR__) . '../assets/uploads/profil/' . $foto_profil_nav;
         ?>
         <button class="nav-user-btn" id="userMenuBtn">
           <?php if (!empty($foto_profil_nav) && file_exists($foto_path_nav)): ?>
           <span class="nav-avatar" style="background:none;overflow:hidden;padding:0">
-            <img src="<?= $base ?>assets/uploads/profil/<?= htmlspecialchars($foto_profil_nav) ?>" style="width:100%;height:100%;object-fit:cover;border-radius:50%" alt="">
+            <img src="<?= $base ?>../assets/uploads/profil/<?= htmlspecialchars($foto_profil_nav) ?>" style="width:100%;height:100%;object-fit:cover;border-radius:50%" alt="">
           </span>
           <?php else: ?>
           <span class="nav-avatar"><?= $inisial ?></span>
