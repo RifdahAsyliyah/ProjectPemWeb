@@ -116,7 +116,7 @@ function renderStars($n) {
     <div class="detail-hero" style="position: relative; overflow: hidden; height: 400px;">
       
       <?php if (!empty($wisata['foto'])): ?>
-        <img src="../assets/uploads/<?= htmlspecialchars($wisata['foto']) ?>" 
+        <img src="PesonaNTB/assets/uploads/<?= htmlspecialchars($wisata['foto']) ?>" 
              alt="<?= htmlspecialchars($wisata['nama']) ?>" 
              style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;">
       <?php else: ?>
@@ -219,7 +219,7 @@ function renderStars($n) {
     <div class="ulasan-header">
       <div class="ulasan-author">
         <?php if (!empty($u['foto_profil'])): ?>
-          <img src="../assets/uploads/profil/<?= htmlspecialchars($u['foto_profil']) ?>" 
+          <img src="PesonaNTB/assets/uploads/profil/<?= htmlspecialchars($u['foto_profil']) ?>" 
                style="width:40px; height:40px; border-radius:50%; object-fit:cover; margin-right:10px;">
         <?php else: ?>
           <div class="ulasan-avatar"><?= strtoupper(mb_substr($u['nama'],0,2)) ?></div>
@@ -287,7 +287,7 @@ function renderStars($n) {
     
     <div style="width: 60px; height: 60px; border-radius: 8px; overflow: hidden; background: #eee; flex-shrink: 0;">
       <?php if (!empty($r['foto'])): ?>
-        <img src="../assets/uploads/<?= htmlspecialchars($r['foto']) ?>" 
+        <img src="PesonaNTB/assets/uploads/<?= htmlspecialchars($r['foto']) ?>" 
              style="width: 100%; height: 100%; object-fit: cover;" 
              alt="<?= htmlspecialchars($r['nama']) ?>">
       <?php else: ?>

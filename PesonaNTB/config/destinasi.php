@@ -124,7 +124,7 @@ $kategori_list = ['all'=>'Semua','pantai'=>'Pantai','gunung'=>'Gunung','air-terj
       <div class="dest-img <?= htmlspecialchars($img_class) ?>" style="position: relative; overflow: hidden; background-color: #f0f0f0; height: 200px; border-radius: 12px 12px 0 0;">
         
         <?php if (!empty($d['foto'])): ?>
-          <img src="../assets/uploads/<?= htmlspecialchars($d['foto']) ?>" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1;" alt="<?= htmlspecialchars($d['nama']) ?>">
+          <img src="PesonaNTB/assets/uploads/<?= htmlspecialchars($d['foto']) ?>" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1;" alt="<?= htmlspecialchars($d['nama']) ?>">
         <?php else: ?>
           <div class="dest-emoji" style="z-index:2; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:40px;"><?= $emoji ?></div>
         <?php endif; ?>

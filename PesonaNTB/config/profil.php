@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $error = 'Ukuran foto maksimal 2MB.'; 
             } else { 
                 $new_name = 'profil_' . $uid . '_' . time() . '.' . $ext; 
-                $base_path   = dirname(__FILE__) . '../assets/uploads/profil/'; 
+                $base_path   = dirname(__FILE__) . 'PesonaNTB/assets/uploads/profil/'; 
                 // Buat folder jika belum ada 
                 if (!is_dir($base_path)) mkdir($base_path, 0755, true); 
                 $upload_path = $base_path . $new_name; 
@@ -162,9 +162,9 @@ $inisial = strtoupper(mb_substr($user['nama'], 0, 2));
         
         <div class="profil-grid"> 
             <div class="profil-sidebar"> 
-                <?php if (!empty($user['foto_profil']) && file_exists(dirname(__FILE__) . '../assets/uploads/profil/' . $user['foto_profil'])): ?> 
+                <?php if (!empty($user['foto_profil']) && file_exists(dirname(__FILE__) . 'PesonaNTB/assets/uploads/profil/' . $user['foto_profil'])): ?> 
                     <div class="profil-avatar" style="background:none;overflow:hidden;padding:0"> 
-                        <img src="../assets/uploads/profil/<?= htmlspecialchars($user['foto_profil']) ?>" alt="Foto Profil" style="width:100%;height:100%;object-fit:cover;border-radius:50%"> 
+                        <img src="PesonaNTB/assets/uploads/profil/<?= htmlspecialchars($user['foto_profil']) ?>" alt="Foto Profil" style="width:100%;height:100%;object-fit:cover;border-radius:50%"> 
                     </div> 
                 <?php else: ?> 
                     <div class="profil-avatar"><?= $inisial ?></div> 
