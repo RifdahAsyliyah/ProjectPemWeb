@@ -3,7 +3,9 @@ session_start();
 require_once 'config/db.php';
 
 if (isset($_SESSION['user_id'])) {
-    $redirect = $_SESSION['role'] === 'admin' ? 'admin/dashboard.php' : 'index.php';
+    $redirect = $_SESSION['role'] === 'admin'
+    ? 'config/dashboard.php'
+    : 'index.php';
     header("Location: $redirect");
     exit;
 }
