@@ -14,6 +14,6 @@ $page_title = $titles[basename($_SERVER['PHP_SELF'])] ?? 'Admin Panel';
   <div class="topbar-title"><?= $page_title ?></div>
   <div class="topbar-right">
     <a href="../index.php" class="topbar-web-btn">🌐 Lihat Web</a>
-    <a href="../logout.php" class="topbar-logout">Keluar</a>
+    <a href="config/logout.php" class="topbar-logout">Keluar</a>
   </div>
 </header>

@@ -36,9 +36,9 @@ if ($res) while ($r = $res->fetch_assoc()) $ulasan_terbaru[] = $r;
 </head>
 <body>
 <div class="admin-layout">
-  <?php include 'includes/sidebar.php'; ?>
+  <?php include 'config/sidebar.php'; ?>
   <div class="admin-content">
-    <?php include 'includes/topbar.php'; ?>
+    <?php include 'config/topbar.php'; ?>
     <main class="admin-main">
 
       <!-- Stat Cards -->
@@ -143,7 +143,7 @@ if ($res) while ($r = $res->fetch_assoc()) $ulasan_terbaru[] = $r;
     </main>
   </div>
 </div>
-<?php include 'includes/modal.php'; ?>
+<?php include 'config/modal.php'; ?>
 <script src="js/admin.js"></script>
 </body>
 </html>

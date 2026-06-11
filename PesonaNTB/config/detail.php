@@ -105,7 +105,7 @@ function renderStars($n) {
 </head>
 <body>
 
-<?php include 'includes/navbar.php'; ?>
+<?php include 'config/navbar.php'; ?>
 
 <div class="user-page">
   <div class="user-container">
@@ -219,7 +219,7 @@ function renderStars($n) {
     <div class="ulasan-header">
       <div class="ulasan-author">
         <?php if (!empty($u['foto_profil'])): ?>
-          <img src="uploads/profil/<?= htmlspecialchars($u['foto_profil']) ?>" 
+          <img src="assets/uploads/profil/<?= htmlspecialchars($u['foto_profil']) ?>" 
                style="width:40px; height:40px; border-radius:50%; object-fit:cover; margin-right:10px;">
         <?php else: ?>
           <div class="ulasan-avatar"><?= strtoupper(mb_substr($u['nama'],0,2)) ?></div>
@@ -312,7 +312,7 @@ function renderStars($n) {
   </div>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include 'config/footer.php'; ?>
 <script src="js/main.js"></script>
 </body>
 </html>

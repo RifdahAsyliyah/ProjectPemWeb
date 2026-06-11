@@ -83,7 +83,7 @@ $kategori_list = ['all'=>'Semua','pantai'=>'Pantai','gunung'=>'Gunung','air-terj
 </head>
 <body>
 
-<?php include 'includes/navbar.php'; ?>
+<?php include 'config/navbar.php'; ?>
 
 <div class="page-destinasi" style="max-width:1100px;margin: 40px auto;padding:0 20px;">
   <div class="page-header" style="margin-bottom: 30px;">
@@ -160,7 +160,7 @@ $kategori_list = ['all'=>'Semua','pantai'=>'Pantai','gunung'=>'Gunung','air-terj
   <?php endif; ?>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include 'config/footer.php'; ?>
 
 <script src="js/main.js"></script>
 <script>

@@ -2,7 +2,7 @@
 session_start();
 require_once 'config/db.php';
 
-if (!isset($_SESSION['user_id'])) { header('Location: login.php'); exit; }
+if (!isset($_SESSION['user_id'])) { header('Location: config/login.php'); exit; }
 $uid = $_SESSION['user_id'];
 
 // Handle hapus bookmark
@@ -41,7 +41,7 @@ $inisial = strtoupper(mb_substr($user['nama'], 0, 2));
 </head>
 <body>
 
-<?php include 'includes/navbar.php'; ?>
+<?php include 'config/navbar.php'; ?>
 
 <div class="user-page">
   <div class="user-container">
@@ -52,9 +52,9 @@ $inisial = strtoupper(mb_substr($user['nama'], 0, 2));
 
     <div class="profil-grid">
       <div class="profil-sidebar">
-        <?php if (!empty($user['foto_profil'] ?? '') && file_exists('uploads/profil/' . $user['foto_profil'])): ?>
+        <?php if (!empty($user['foto_profil'] ?? '') && file_exists('assets/uploads/profil/' . $user['foto_profil'])): ?>
       <div class="profil-avatar" style="background:none;overflow:hidden;padding:0">
-        <img src="uploads/profil/<?= htmlspecialchars($user['foto_profil']) ?>" alt="Foto Profil" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
+        <img src="assets/uploads/profil/<?= htmlspecialchars($user['foto_profil']) ?>" alt="Foto Profil" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
       </div>
       <?php else: ?>
       <div class="profil-avatar"><?= $inisial ?></div>
@@ -93,7 +93,7 @@ $inisial = strtoupper(mb_substr($user['nama'], 0, 2));
               
               <div class="dest-img <?= $img_class ?>" style="position:relative; overflow:hidden;">
                 <?php if (!empty($d['foto'])): ?>
-                  <img src="admin/uploads/<?= htmlspecialchars($d['foto']) ?>" 
+                  <img src="assets/uploads/destinasi/<?= htmlspecialchars($d['foto']) ?>" 
                        style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; z-index:1;" 
                        alt="<?= htmlspecialchars($d['nama']) ?>">
                 <?php endif; ?>
@@ -124,7 +124,7 @@ $inisial = strtoupper(mb_substr($user['nama'], 0, 2));
   </div>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include 'config/footer.php'; ?>
 <script src="js/main.js"></script>
 </body>
 </html>

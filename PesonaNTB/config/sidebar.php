@@ -59,29 +59,29 @@ if (isset($conn) && isset($_SESSION['user_id'])) {
 
   <nav class="sidebar-nav">
     <div class="nav-group-label">Menu Utama</div>
-    <a href="dashboard.php" class="sidebar-link <?= $current_page=='dashboard.php'?'active':'' ?>">
+    <a href="config/dashboard.php" class="sidebar-link <?= $current_page=='config/dashboard.php'?'active':'' ?>">
       <span class="link-icon">📊</span> Dashboard
     </a>
-    <a href="wisata.php" class="sidebar-link <?= $current_page=='wisata.php'||$current_page=='wisata_form.php'?'active':'' ?>">
+    <a href="config/wisata.php" class="sidebar-link <?= $current_page=='config/wisata.php'||$current_page=='config/wisata_form.php'?'active':'' ?>">
       <span class="link-icon">🏝️</span> Kelola Wisata
     </a>
-    <a href="kategori.php" class="sidebar-link <?= $current_page=='kategori.php'?'active':'' ?>">
+    <a href="config/kategori.php" class="sidebar-link <?= $current_page=='config/kategori.php'?'active':'' ?>">
       <span class="link-icon">🏷️</span> Kelola Kategori
     </a>
 
     <div class="nav-group-label">Pengguna</div>
-    <a href="pengguna.php" class="sidebar-link <?= $current_page=='pengguna.php'?'active':'' ?>">
+    <a href="config/pengguna.php" class="sidebar-link <?= $current_page=='config/pengguna.php'?'active':'' ?>">
       <span class="link-icon">👥</span> Kelola Pengguna
     </a>
-    <a href="ulasan.php" class="sidebar-link <?= $current_page=='ulasan.php'?'active':'' ?>">
+    <a href="config/ulasan.php" class="sidebar-link <?= $current_page=='config/ulasan.php'?'active':'' ?>">
       <span class="link-icon">⭐</span> Kelola Ulasan
     </a>
 
     <div class="nav-group-label">Akun</div>
-    <a href="../index.php" class="sidebar-link">
+    <a href="index.php" class="sidebar-link">
       <span class="link-icon">🌐</span> Lihat Website
     </a>
-    <a href="../logout.php" class="sidebar-link logout-link">
+    <a href="config/logout.php" class="sidebar-link logout-link">
       <span class="link-icon">🚪</span> Keluar
     </a>
   </nav>

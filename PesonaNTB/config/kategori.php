@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../config/db.php';
-require_once 'auth_guard.php';
+require_once 'config/auth_guard.php';
 
 $msg = '';
 
@@ -70,9 +70,9 @@ if (isset($_GET['edit'])) {
 </head>
 <body>
 <div class="admin-layout">
-  <?php include 'includes/sidebar.php'; ?>
+  <?php include 'config/sidebar.php'; ?>
   <div class="admin-content">
-    <?php include 'includes/topbar.php'; ?>
+    <?php include 'config/topbar.php'; ?>
     <main class="admin-main">
 
       <?php if ($msg_text): ?>
@@ -160,7 +160,7 @@ if (isset($_GET['edit'])) {
     </main>
   </div>
 </div>
-<?php include 'includes/modal.php'; ?>
+<?php include 'config/modal.php'; ?>
 <script src="js/admin.js"></script>
 </body>
 </html>
