@@ -83,9 +83,13 @@ $emoji     = $emoji_map[$wisata['kategori']] ?? '🏝️';
 
 $maps_embed = '';
 $maps_url   = '#';
-if ($wisata['latitude'] && $wisata['longitude']) {
-    $lat = $wisata['latitude']; $lng = $wisata['longitude'];
-    $maps_embed = "https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q={$lat},{$lng}&zoom=14";
+
+if (!empty($wisata['latitude']) && !empty($wisata['longitude'])) {
+    $lat = $wisata['latitude'];
+    $lng = $wisata['longitude'];
+
+    // TANPA API KEY
+    $maps_embed = "https://maps.google.com/maps?q={$lat},{$lng}&z=14&output=embed";
     $maps_url   = "https://www.google.com/maps?q={$lat},{$lng}";
 }
 
@@ -116,7 +120,7 @@ function renderStars($n) {
     <div class="detail-hero" style="position: relative; overflow: hidden; height: 400px;">
       
       <?php if (!empty($wisata['foto'])): ?>
-        <img src="PesonaNTB/assets/uploads/<?= htmlspecialchars($wisata['foto']) ?>" 
+        <img src="../assets/uploads/destinasi/<?= htmlspecialchars($wisata['foto']) ?>" 
              alt="<?= htmlspecialchars($wisata['nama']) ?>" 
              style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;">
       <?php else: ?>
@@ -219,7 +223,7 @@ function renderStars($n) {
     <div class="ulasan-header">
       <div class="ulasan-author">
         <?php if (!empty($u['foto_profil'])): ?>
-          <img src="PesonaNTB/assets/uploads/profil/<?= htmlspecialchars($u['foto_profil']) ?>" 
+          <img src="../assets/uploads/profil/<?= htmlspecialchars($u['foto_profil']) ?>" 
                style="width:40px; height:40px; border-radius:50%; object-fit:cover; margin-right:10px;">
         <?php else: ?>
           <div class="ulasan-avatar"><?= strtoupper(mb_substr($u['nama'],0,2)) ?></div>
@@ -265,7 +269,14 @@ function renderStars($n) {
           <h4>📍 Lokasi di Peta</h4>
           <div class="maps-wrap">
             <?php if ($maps_embed): ?>
-            <iframe src="<?= $maps_embed ?>" allowfullscreen loading="lazy"></iframe>
+            <iframe
+              src="<?= htmlspecialchars($maps_embed) ?>"
+              width="100%"
+              height="260"
+              style="border:0"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
             <?php else: ?>
             <div style="height:260px;background:var(--sand-light);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem">
               <span style="font-size:2rem">🗺️</span>
@@ -287,7 +298,7 @@ function renderStars($n) {
     
     <div style="width: 60px; height: 60px; border-radius: 8px; overflow: hidden; background: #eee; flex-shrink: 0;">
       <?php if (!empty($r['foto'])): ?>
-        <img src="PesonaNTB/assets/uploads/<?= htmlspecialchars($r['foto']) ?>" 
+        <img src="../assets/uploads/destinasi/<?= htmlspecialchars($r['foto']) ?>" 
              style="width: 100%; height: 100%; object-fit: cover;" 
              alt="<?= htmlspecialchars($r['nama']) ?>">
       <?php else: ?>
