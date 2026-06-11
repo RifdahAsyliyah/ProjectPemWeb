@@ -104,7 +104,7 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
     <h1>Temukan <em>Pesona</em> Alam &amp; Budaya NTB</h1>
     <p>Dari pantai berpasir putih Lombok hingga savana liar Sumbawa &mdash; PesonaNTB hadir sebagai panduan wisata lengkap Nusa Tenggara Barat yang terpercaya.</p>
     <div class="hero-actions">
-      <a href="<?= isset($_SESSION['user_id']) ? 'destinasi.php' : '#destinasi' ?>" class="btn-primary">Jelajahi Destinasi</a>
+      <a href="<?= isset($_SESSION['user_id']) ? 'config/destinasi.php' : '#destinasi' ?>" class="btn-primary">Jelajahi Destinasi</a>
       <a href="#tentang" class="btn-secondary">Pelajari Lebih Lanjut</a>
     </div>
     <div class="hero-stats">
@@ -130,10 +130,10 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
         if (isset($d['img_class'])) $img_class = $d['img_class'];
         if (isset($d['emoji']))     $emoji     = $d['emoji'];
       ?>
-      <a href="<?= isset($_SESSION['user_id']) ? 'detail.php?id='.$d['id'] : 'login.php' ?>" class="dest-card">
+      <a href="<?= isset($_SESSION['user_id']) ? 'config/detail.php?id='.$d['id'] : 'config/login.php' ?>" class="dest-card">
         <div class="dest-img <?= htmlspecialchars($img_class) ?>" style="<?= (!empty($d['foto'])) ? 'background: none;' : '' ?>">
   <?php if (!empty($d['foto'])): ?>
-    <img src="admin/uploads/<?= htmlspecialchars($d['foto']) ?>" alt="<?= htmlspecialchars($d['nama']) ?>" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; border-radius: 12px 12px 0 0;">
+    <img src="assets/uploads/<?= htmlspecialchars($d['foto']) ?>" alt="<?= htmlspecialchars($d['nama']) ?>" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; border-radius: 12px 12px 0 0;">
   <?php else: ?>
     <div class="dest-emoji"><?= $emoji ?></div>
   <?php endif; ?>
@@ -153,7 +153,7 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
       <?php endforeach; ?>
     </div>
     <div class="view-all">
-      <a href="<?= isset($_SESSION['user_id']) ? 'destinasi.php' : 'login.php' ?>" class="btn-view-all">Lihat Semua Destinasi</a>
+      <a href="<?= isset($_SESSION['user_id']) ? 'config/destinasi.php' : 'config/login.php' ?>" class="btn-view-all">Lihat Semua Destinasi</a>
     </div>
   </div>
 </section>
@@ -172,10 +172,10 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
         // Cek apakah aktor pengguna sudah login atau masih guest
         if (isset($_SESSION['user_id'])) {
             // Sudah Login: langsung bawa ke destinasi.php sesuai parameternya
-            $target_url = "destinasi.php?kategori=" . $k['slug'];
+            $target_url = "config/destinasi.php?kategori=" . $k['slug'];
         } else {
             // Masih Guest: lempar ke login.php, titip parameter redirect biar setelah login sukses langsung meluncur ke kategori tsb
-            $target_url = "login.php?redirect=destinasi.php?kategori=" . $k['slug'];
+            $target_url = "config/login.php?redirect=config/destinasi.php?kategori=" . $k['slug'];
         }
       ?>
       <a href="<?= $target_url ?>" class="kat-card">
@@ -255,15 +255,15 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
     <h2>Ayo Temukan Destinasi Impianmu!</h2>
     <p>Mulai jelajahi berbagai keindahan alam dan budaya Nusa Tenggara Barat sekarang juga.</p>
     <div class="cta-actions">
-      <a href="destinasi.php" class="btn-cta-main">Mulai Jelajahi</a>
+      <a href="config/destinasi.php" class="btn-cta-main">Mulai Jelajahi</a>
     </div>
   <?php else: ?>
     <!-- Ditampilkan hanya jika MASIH GUEST -->
     <h2>Siap Menjelajahi NTB?</h2>
     <p>Daftarkan akun gratis dan nikmati akses penuh ke semua destinasi wisata Nusa Tenggara Barat.</p>
     <div class="cta-actions">
-      <a href="register.php" class="btn-cta-main">Daftar Sekarang</a>
-      <a href="login.php" class="btn-cta-sec">Lihat Destinasi</a>
+      <a href="config/register.php" class="btn-cta-main">Daftar Sekarang</a>
+      <a href="config/login.php" class="btn-cta-sec">Lihat Destinasi</a>
     </div>
   <?php endif; ?>
 </section>
