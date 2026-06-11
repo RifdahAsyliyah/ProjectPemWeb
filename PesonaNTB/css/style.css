@@ -323,3 +323,27 @@ body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(-
   .footer-top { grid-template-columns: 1fr 1fr; }
   .hero-stats { gap: 1.5rem; }
 }
+
+.btn-back{
+    display:inline-flex !important;
+    align-items:center;
+    gap:8px;
+
+    padding:12px 22px !important;
+
+    background:#6B4B3E !important;
+    color:#fff !important;
+
+    border-radius:14px !important;
+    text-decoration:none !important;
+    font-weight:700 !important;
+
+    box-shadow:0 6px 18px rgba(107,75,62,.25);
+    transition:.3s;
+}
+
+.btn-back:hover{
+    background:#5C3D2E !important;
+    color:#fff !important;
+    transform:translateY(-2px);
+}

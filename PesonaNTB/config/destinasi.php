@@ -22,8 +22,8 @@ if ($search !== '') {
 }
 
 if ($kategori !== 'all' && $kategori !== '') {
-    $where[] = "LOWER(kategori) = ?";
-    $params[] = strtolower($kategori);
+    $where[] = "kategori = ?";
+    $params[] = $kategori;
     $types .= 's';
 }
 
@@ -71,7 +71,16 @@ if (empty($wisata_list) && $search === '' && $kategori === 'all') {
 $img_map   = ['Pantai'=>'dest-img-pantai','Gunung'=>'dest-img-rinjani','Pulau'=>'dest-img-gili','Adventure'=>'dest-img-sumbawa','Air Terjun'=>'dest-img-moyo','Budaya'=>'dest-img-sumbawa','Kuliner'=>'dest-img-pink'];
 $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Adventure'=>'🌾','Air Terjun'=>'💧','Budaya'=>'🎭','Kuliner'=>'🍜'];
 
-$kategori_list = ['all'=>'Semua','pantai'=>'Pantai','gunung'=>'Gunung','air-terjun'=>'Air Terjun','budaya'=>'Budaya','pulau'=>'Pulau','kuliner'=>'Kuliner','adventure'=>'Adventure'];
+$kategori_list = [
+    'all'=>'Semua',
+    'Pantai'=>'Pantai',
+    'Gunung'=>'Gunung',
+    'Air Terjun'=>'Air Terjun',
+    'Budaya'=>'Budaya',
+    'Pulau'=>'Pulau',
+    'Kuliner'=>'Kuliner',
+    'Adventure'=>'Adventure'
+];
 ?>
 <!DOCTYPE html>
 <html lang="id">

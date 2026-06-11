@@ -114,7 +114,12 @@ function renderStars($n) {
 <div class="user-page">
   <div class="user-container">
 
-    <a href="destinasi.php" class="detail-back">← Kembali ke Destinasi</a>
+    <div style="margin-bottom:1.5rem;">
+      <a href="destinasi.php" class="btn-back">
+          <span>←</span>
+          <span>Kembali ke Destinasi</span>
+      </a>
+    </div>
 
     <!-- Hero -->
     <div class="detail-hero" style="position: relative; overflow: hidden; height: 400px;">
