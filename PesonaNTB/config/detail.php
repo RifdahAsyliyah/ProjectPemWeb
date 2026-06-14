@@ -6,7 +6,7 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if (!$id) { header('Location: destinasi.php'); exit; }
 
 // Ambil data wisata
-$stmt = $conn->prepare("SELECT * FROM wisata WHERE id = ?");
+$stmt = $conn->prepare("SELECT * FROM wisata WHERE id = ? AND aktif = 1");
 $stmt->bind_param('i', $id);
 $stmt->execute();
 $wisata = $stmt->get_result()->fetch_assoc();
@@ -45,18 +45,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_
         }
     }
     if ($_POST['action'] === 'ulasan') {
-        $rating  = intval($_POST['rating'] ?? 0);
-        $komentar = trim($_POST['komentar'] ?? '');
-        if ($rating >= 1 && $rating <= 5 && $komentar !== '') {
-            $stmt = $conn->prepare("INSERT INTO ulasan (user_id, wisata_id, rating, komentar, created_at) VALUES (?,?,?,?,NOW()) ON DUPLICATE KEY UPDATE rating=VALUES(rating), komentar=VALUES(komentar), created_at=NOW()");
-            $stmt->bind_param('iiis', $uid, $id, $rating, $komentar);
-            $stmt->execute();
-            $stmt->close();
-            // Update avg rating
-            $conn->query("UPDATE wisata SET rating=(SELECT AVG(rating) FROM ulasan WHERE wisata_id=$id) WHERE id=$id");
-            $wisata['rating'] = $conn->query("SELECT rating FROM wisata WHERE id=$id")->fetch_assoc()['rating'];
-        }
+
+    $rating = !empty($_POST['rating'])
+        ? intval($_POST['rating'])
+        : null;
+
+    $komentar = trim($_POST['komentar'] ?? '');
+    $komentar = $komentar !== '' ? $komentar : null;
+
+    if ($rating !== null || $komentar !== null) {
+
+      $stmt = $conn->prepare("
+          INSERT INTO ulasan
+          (user_id, wisata_id, rating, komentar, created_at)
+          VALUES (?, ?, ?, ?, NOW())
+      ");
+
+      $stmt->bind_param(
+          "iiis",
+          $uid,
+          $id,
+          $rating,
+          $komentar
+      );
+
+      $stmt->execute();
+      $stmt->close();
+
+        header("Location: detail.php?id=".$id);
+        exit;
     }
+  }
 }
 
 // Ambil ulasan
@@ -73,7 +92,7 @@ $total_ulasan = count($ulasan_list);
 // Wisata terkait
 $kategori_esc = $conn->real_escape_string($wisata['kategori']);
 $related = [];
-$res = $conn->query("SELECT id,nama,lokasi,kategori,foto FROM wisata WHERE kategori='$kategori_esc' AND id<>$id LIMIT 4");
+$res = $conn->query("SELECT id,nama,lokasi,kategori,foto FROM wisata WHERE kategori='$kategori_esc' AND id<>$id AND aktif=1 LIMIT 4");
 if ($res) while ($row = $res->fetch_assoc()) $related[] = $row;
 
 $img_map   = ['Pantai'=>'dest-img-pantai','Gunung'=>'dest-img-rinjani','Pulau'=>'dest-img-gili','Adventure'=>'dest-img-sumbawa','Air Terjun'=>'dest-img-moyo','Budaya'=>'dest-img-sumbawa','Kuliner'=>'dest-img-pink'];
@@ -236,12 +255,20 @@ function renderStars($n) {
         
         <div>
           <div class="ulasan-nama"><?= htmlspecialchars($u['nama']) ?></div>
-          <div class="ulasan-stars"><?= renderStars($u['rating']) ?></div>
+          <?php if($u['rating'] > 0): ?>
+            <div class="ulasan-stars">
+                <?= renderStars($u['rating']) ?>
+            </div>
+            <?php endif; ?>
         </div>
       </div>
       <span class="ulasan-date"><?= date('d M Y', strtotime($u['created_at'])) ?></span>
     </div>
-    <p class="ulasan-text"><?= htmlspecialchars($u['komentar']) ?></p>
+    <?php if(!empty($u['komentar'])): ?>
+      <p class="ulasan-text">
+          <?= htmlspecialchars($u['komentar']) ?>
+      </p>
+      <?php endif; ?>
   </div>
   <?php endforeach; ?>
 </div>

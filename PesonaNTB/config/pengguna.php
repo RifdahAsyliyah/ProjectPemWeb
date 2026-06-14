@@ -5,11 +5,39 @@ require_once 'auth_guard.php';
 
 $msg = '';
 
-// Handle hapus
+// Handle hapus user
 if (isset($_GET['hapus'])) {
-    $msg = 'error:Aksi tidak diizinkan. Admin tidak dapat menghapus akun pengguna.';
-}
 
+    $hid = intval($_GET['hapus']);
+
+    if($hid != $_SESSION['user_id']){
+
+        $cek = $conn->query("
+            SELECT role
+            FROM users
+            WHERE id=$hid
+        ");
+
+        if($cek && $cek->num_rows){
+
+            $user = $cek->fetch_assoc();
+
+            if($user['role'] !== 'admin'){
+
+                $conn->query("DELETE FROM bookmark WHERE user_id=$hid");
+                $conn->query("DELETE FROM riwayat WHERE user_id=$hid");
+                $conn->query("DELETE FROM ulasan WHERE user_id=$hid");
+
+                $conn->query("
+                    DELETE FROM users
+                    WHERE id=$hid
+                ");
+
+                $msg = 'success:Pengguna berhasil dihapus';
+            }
+        }
+    }
+}
 // Handle reset password
 if (isset($_GET['reset'])) {
     $rid  = intval($_GET['reset']);
@@ -112,9 +140,21 @@ if (isset($_GET['msg'])) $msg = $_GET['msg'];
                 <td class="td-muted"><?= date('d M Y', strtotime($u['created_at'])) ?></td>
                 <td>
                   <div class="table-actions">
-                    <a href="pengguna.php?reset=<?= $u['id'] ?>" class="btn btn-warning btn-sm" onclick="return confirm('Reset password ke: password123?')">🔑 Reset</a>
+
+                      <a href="pengguna.php?reset=<?= $u['id'] ?>"
+                        class="btn btn-warning btn-sm btn-reset-user"
+                        data-id="<?= $u['id'] ?>">
+                        🔑 Reset
+                      </a>
+
+                      <a href="pengguna.php?hapus=<?= $u['id'] ?>"
+                        class="btn btn-danger btn-sm btn-delete-user"
+                        data-id="<?= $u['id'] ?>">
+                        🗑 Hapus
+                      </a>
+
                   </div>
-                </td>
+              </td>
               </tr>
               <?php endforeach; ?>
               <?php endif; ?>
@@ -137,15 +177,67 @@ if (isset($_GET['msg'])) $msg = $_GET['msg'];
   </div>
 </div>
 <?php include 'modal.php'; ?>
+
 <script src="../js/admin.js"></script>
 <script>
-let searchTimer;
-document.getElementById('searchPengguna').addEventListener('input', function() {
-  clearTimeout(searchTimer);
-  searchTimer = setTimeout(() => {
-    window.location.href = `pengguna.php?search=${encodeURIComponent(this.value)}&page=1`;
-  }, 500);
+
+const modal = document.getElementById('confirmModal');
+const modalText = document.getElementById('modalMsg');
+const confirmBtn = document.getElementById('modalConfirm');
+const cancelBtn = document.getElementById('modalCancel');
+
+document.querySelectorAll('.btn-reset-user').forEach(btn => {
+
+    btn.addEventListener('click', function(e){
+
+        e.preventDefault();
+
+        modal.classList.add('show');
+
+        modalText.innerHTML =
+            'Reset password user menjadi <b>password123</b>?';
+
+        confirmBtn.onclick = function(){
+            window.location.href = btn.href;
+        };
+
+    });
+
+});
+
+document.querySelectorAll('.btn-delete-user').forEach(btn => {
+
+    btn.addEventListener('click', function(e){
+
+        e.preventDefault();
+
+        modal.classList.add('show');
+
+        modalText.innerHTML =
+            'Yakin ingin menghapus pengguna ini?<br><br>Semua bookmark, riwayat, dan ulasan akan ikut terhapus.';
+
+        confirmBtn.onclick = function(){
+            window.location.href = btn.href;
+        };
+
+    });
+
+});
+
+document.getElementById('cancelBtn')
+cancelBtn.addEventListener('click', function(){
+
+    modal.classList.remove('show');
+
+});
+modal.addEventListener('click', function(e){
+
+    if(e.target === modal){
+        modal.classList.remove('show');
+    }
+
 });
 </script>
+
 </body>
 </html>

@@ -10,7 +10,7 @@ $per_page  = 9;
 $offset    = ($page - 1) * $per_page;
 
 // Build query
-$where = [];
+$where = ["aktif = 1"];
 $params = [];
 $types  = '';
 

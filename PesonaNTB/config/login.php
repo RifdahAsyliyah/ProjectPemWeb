@@ -13,16 +13,14 @@ if (isset($_SESSION['user_id'])) {
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email    = trim($_POST['email']    ?? '');
-    $password = $_POST['password']      ?? '';
+    $login = trim($_POST['login'] ?? '');
+    $password = $_POST['password'] ?? '';
 
-    if (empty($email) || empty($password)) {
-        $error = 'Email dan password wajib diisi.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = 'Format email tidak valid.';
+    if (empty($login) || empty($password)) {
+        $error = 'Email/No HP dan password wajib diisi.';
     } else {
-        $stmt = $conn->prepare("SELECT id, nama, password, role FROM users WHERE email = ? LIMIT 1");
-        $stmt->bind_param('s', $email);
+        $stmt = $conn->prepare("SELECT id, nama, password, role FROM users WHERE email = ? OR telepon = ? LIMIT 1");
+        $stmt->bind_param('ss', $login, $login);
         $stmt->execute();
         $result = $stmt->get_result();
         $user   = $result->fetch_assoc();
@@ -83,9 +81,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input type="hidden" name="redirect" value="<?= htmlspecialchars($_GET['redirect'] ?? '') ?>">
 
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="contoh@email.com"
-               value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" autocomplete="email">
+        <label for="login">Email atau Nomor HP</label>
+        <input type="text"
+              id="login"
+              name="login"
+              placeholder="Email atau Nomor HP"
+              value="<?= htmlspecialchars($_POST['login'] ?? '') ?>">
         <span class="form-error" id="emailError"></span>
       </div>
 

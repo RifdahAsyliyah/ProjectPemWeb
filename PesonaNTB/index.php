@@ -6,12 +6,12 @@ session_start();
 require_once 'config/db.php';
 
 // Statistik dinamis untuk hero section
-$stat_wisata   = $conn->query("SELECT COUNT(*) as c FROM wisata WHERE aktif=1")->fetch_assoc()['c'] ?? 0;
+$stat_wisata = $conn->query("SELECT * FROM wisata WHERE aktif = 1 ORDER BY rating DESC LIMIT 6")->num_rows ?? 0;
 $stat_kategori = $conn->query("SELECT COUNT(*) as c FROM kategori")->fetch_assoc()['c'] ?? 0;
 $stat_user     = $conn->query("SELECT COUNT(*) as c FROM users WHERE role='user'")->fetch_assoc()['c'] ?? 0;
 
 // Ambil destinasi populer dari database (limit 6)
-$sql = "SELECT * FROM wisata ORDER BY rating DESC LIMIT 6";
+$sql = "SELECT * FROM wisata WHERE aktif = 1 ORDER BY rating DESC LIMIT 6";
 $result = $conn->query($sql);
 $destinasi_populer = [];
 if ($result && $result->num_rows > 0) {
@@ -228,7 +228,7 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
   ?>
   <div class="testi-card">
     <div class="testi-stars"><?= $stars ?></div>
-    <p class="testi-text">"<?= htmlspecialchars($t['komentar']) ?>"</p>
+    <p class="testi-text"> "<?= htmlspecialchars($t['komentar'] ?: 'Tidak ada komentar') ?>" </p>
     <div class="testi-author">
       
       <?php if ($ada_foto): ?>
@@ -238,7 +238,7 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
       <?php endif; ?>
       
       <div>
-        <div class="testi-name"><?= htmlspecialchars($t['nama']) ?></div>
+        <div class="testi-name"> <?= htmlspecialchars($t['nama'] ?? 'Pengguna') ?> </div>
         <div class="testi-origin">Pengguna PesonaNTB</div>
       </div>
     </div>
