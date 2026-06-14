@@ -48,26 +48,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_
 
     $rating = !empty($_POST['rating'])
         ? intval($_POST['rating'])
-        : null;
+        : null;    
 
     $komentar = trim($_POST['komentar'] ?? '');
     $komentar = $komentar !== '' ? $komentar : null;
 
     if ($rating !== null || $komentar !== null) {
 
-      $stmt = $conn->prepare("
-          INSERT INTO ulasan
-          (user_id, wisata_id, rating, komentar, created_at)
-          VALUES (?, ?, ?, ?, NOW())
-      ");
+      $stmt = $conn->prepare("INSERT INTO ulasan (user_id, wisata_id, rating, komentar, created_at) VALUES (?, ?, ?, ?, NOW()) ");
 
-      $stmt->bind_param(
-          "iiis",
-          $uid,
-          $id,
-          $rating,
-          $komentar
-      );
+      $stmt->bind_param("iiis", $uid, $id, $rating, $komentar);
 
       $stmt->execute();
       $stmt->close();
@@ -76,11 +66,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_
         exit;
     }
   }
+    if ($_POST['action'] === 'reply') {
+
+    $parent_id = intval($_POST['parent_id']);
+    $komentar  = trim($_POST['komentar']);
+
+    if($komentar !== ''){
+
+        $stmt = $conn->prepare("
+            INSERT INTO ulasan
+            (
+                user_id,
+                wisata_id,
+                parent_id,
+                komentar,
+                created_at
+            )
+            VALUES
+            (?, ?, ?, ?, NOW())
+        ");
+
+        $stmt->bind_param(
+            "iiis",
+            $uid,
+            $id,
+            $parent_id,
+            $komentar
+        );
+
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    header("Location: detail.php?id=".$id);
+    exit;
+  }
 }
 
 // Ambil ulasan
 $ulasan_list = [];
-$res = $conn->query("SELECT u.komentar, u.rating, u.created_at, us.nama, us.foto_profil FROM ulasan u JOIN users us ON u.user_id=us.id WHERE u.wisata_id=$id ORDER BY u.created_at DESC LIMIT 10");
+$res = $conn->query("SELECT u.id, u.komentar, u.rating, u.created_at, us.nama, us.foto_profil, us.role FROM ulasan u JOIN users us ON u.user_id=us.id WHERE u.wisata_id=$id AND u.parent_id IS NULL ORDER BY u.created_at DESC LIMIT 10");
 
 if ($res) {
     while ($row = $res->fetch_assoc()) {
@@ -269,6 +294,64 @@ function renderStars($n) {
           <?= htmlspecialchars($u['komentar']) ?>
       </p>
       <?php endif; ?>
+
+      <?php if(isset($_SESSION['user_id'])): ?>
+      <button
+          type="button"
+          class="btn-ulasan"
+          style="margin-top:10px"
+          onclick="showReplyForm(<?= $u['id'] ?>)">
+          💬 Balas
+      </button>
+      <?php endif; ?>
+      <div
+        id="reply-form-<?= $u['id'] ?>"
+        style="display:none;margin-top:10px">
+        <form method="POST">
+            <input type="hidden"
+                  name="action"
+                  value="reply">
+            <input type="hidden"
+                  name="parent_id"
+                  value="<?= $u['id'] ?>">
+            <textarea
+                name="komentar"
+                class="ulasan-textarea"
+                placeholder="Tulis balasan..."
+                required></textarea>
+            <button type="submit" class="btn-ulasan">Kirim Balasan</button>
+        </form>
+    </div>
+    <?php
+      $replies = $conn->query("
+      SELECT u.*, us.nama, us.role
+      FROM ulasan u
+      JOIN users us ON us.id=u.user_id
+      WHERE u.parent_id={$u['id']}
+      ORDER BY u.created_at ASC
+      ");
+    while($r = $replies->fetch_assoc()): ?>
+      <div style="margin-left:55px;margin-top:10px;background:#fafafa;padding:10px 14px;border-radius:12px">
+          <div style="display:flex;align-items:center;gap:8px">
+              <strong>
+                  <?= htmlspecialchars($r['nama']) ?>
+              </strong>
+              <?php if($r['role']=='admin'): ?>
+                  <span style="background:#2e7d32;color:white;padding:2px 8px;border-radius:20px;font-size:11px">
+                      Admin
+                  </span>
+              <?php endif; ?>
+              <small style="color:#888">
+                  <?= date('d M Y', strtotime($r['created_at'])) ?>
+              </small>
+          </div>
+          <div style="margin-top:6px">
+              <?= nl2br(htmlspecialchars($r['komentar'])) ?>
+          </div>
+
+      </div>
+
+      <?php endwhile; ?>
   </div>
   <?php endforeach; ?>
 </div>
@@ -357,5 +440,19 @@ function renderStars($n) {
 
 <?php include 'footer.php'; ?>
 <script src="../js/main.js"></script>
+<script>
+function showReplyForm(id){
+    const form =
+        document.getElementById(
+            'reply-form-' + id
+        );
+    if(form.style.display === 'none'){
+        form.style.display = 'block';
+    }else{
+        form.style.display = 'none';
+    }
+}
+
+</script>
 </body>
 </html>
