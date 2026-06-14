@@ -70,7 +70,7 @@ $base = $is_config ? '../' : '';
           
           <?php if ($user_role !== 'admin'): ?>
             <a href="<?= $is_config ? 'bookmark.php' : 'config/bookmark.php' ?>">🔖 Tersimpan</a>
-            <a href="<?= $is_config ? 'riwayat.php' : 'config/riwayat.php' ?>">🕐 Riwayat</a>
+            <a href="<?= $is_config ? 'riwayat.php' : 'config/riwayat.php' ?>">🕐 Riwayat Kunjungan</a>
           <?php endif; ?>
           
           <div class="dropdown-divider"></div>
