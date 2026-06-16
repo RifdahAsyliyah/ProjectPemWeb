@@ -48,11 +48,7 @@ if ($res_kat) {
 }
 // Ambil ulasan terbaik untuk landing page (rating >= 4, terbaru, limit 3)
 $testimoni_list = [];
-$res_testi = $conn->query("SELECT u.komentar, u.rating, us.nama, us.email, us.foto_profil 
-                           FROM ulasan u 
-                           JOIN users us ON u.user_id = us.id 
-                           WHERE u.rating >= 4 
-                           ORDER BY u.created_at DESC LIMIT 3");
+$res_testi = $conn->query("SELECT u.komentar, u.rating, us.nama, us.email, us.foto_profil, w.nama AS wisata_nama FROM ulasan u JOIN users us ON u.user_id = us.id JOIN wisata w ON w.id = u.wisata_id WHERE u.rating >= 4 ORDER BY u.created_at DESC LIMIT 6");
 if ($res_testi) {
     while ($row = $res_testi->fetch_assoc()) {
         $testimoni_list[] = $row;
@@ -228,7 +224,14 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
   ?>
   <div class="testi-card">
     <div class="testi-stars"><?= $stars ?></div>
-    <p class="testi-text"> "<?= htmlspecialchars($t['komentar'] ?: 'Tidak ada komentar') ?>" </p>
+
+      <div class="testi-wisata">
+      📍 <?= htmlspecialchars($t['wisata_nama']) ?>
+      </div>
+
+      <p class="testi-text">
+      "<?= htmlspecialchars($t['komentar'] ?: 'Tidak ada komentar') ?>"
+      </p>
     <div class="testi-author">
       
       <?php if ($ada_foto): ?>

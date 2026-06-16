@@ -429,3 +429,14 @@ body {
   }
   .hero-stats { gap: 1.5rem; }
 }
+
+.testi-wisata{
+  display:inline-block;
+  margin:10px 0;
+  padding:5px 12px;
+  background:#f5efe8;
+  color:#8B5E3C;
+  font-size:13px;
+  font-weight:600; 
+  border-radius:20px;
+}
