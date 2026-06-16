@@ -26,26 +26,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($password !== $konfirm) {
         $error = 'Konfirmasi password tidak cocok.';
     } else {
-        $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $stmt->store_result();
-
-        if ($stmt->num_rows > 0) {
-            $error = 'Email sudah terdaftar. Silakan gunakan email lain.';
-        } else {
-            $stmt->close();
-            $hash = password_hash($password, PASSWORD_BCRYPT);
-            $stmt = $conn->prepare("INSERT INTO users (nama, email, telepon, password, role, created_at) VALUES (?, ?, ?, ?, 'user', NOW())");
-            $stmt->bind_param('ssss', $nama, $email, $telp, $hash);
-
-            if ($stmt->execute()) {
-                $success = 'Akun berhasil dibuat! Silakan login.';
-            } else {
-                $error = 'Terjadi kesalahan. Silakan coba lagi.';
-            }
-        }
-        $stmt->close();
+        // cek email
+      $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+      $stmt->bind_param('s', $email);
+      $stmt->execute();
+      $stmt->store_result();
+      if ($stmt->num_rows > 0) {
+          $error = 'Email sudah terdaftar. Silakan gunakan email lain.';
+          $stmt->close();
+      } else {
+          $stmt->close();
+          // cek telepon
+          $stmt = $conn->prepare("SELECT id FROM users WHERE telepon = ?");
+          $stmt->bind_param('s', $telp);
+          $stmt->execute();
+          $stmt->store_result();
+          if ($stmt->num_rows > 0) {
+              $error = 'Nomor telepon sudah terdaftar. Silakan gunakan nomor lain.';
+              $stmt->close();
+          } else {
+              $stmt->close();
+              $hash = password_hash($password, PASSWORD_BCRYPT);
+              $stmt = $conn->prepare("
+                  INSERT INTO users
+                  (nama, email, telepon, password, role, created_at)
+                  VALUES (?, ?, ?, ?, 'user', NOW())
+              ");
+              $stmt->bind_param('ssss', $nama, $email, $telp, $hash);
+              if ($stmt->execute()) {
+                  $success = 'Akun berhasil dibuat! Silakan login.';
+              } else {
+                  $error = 'Terjadi kesalahan. Silakan coba lagi.';
+              }
+              $stmt->close();
+          }
+      }
     }
 }
 ?>
@@ -121,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="terms-check">
         <input type="checkbox" id="terms" name="terms">
-        <label for="terms">Saya menyetujui <a href="#">syarat &amp; ketentuan</a> yang berlaku</label>
+        <label for="terms">Saya menyetujui <a href="syarat.php" target="_blank">syarat &amp; ketentuan</a> yang berlaku</label>
       </div>
 
       <button type="submit" class="btn-auth">Daftar Sekarang</button>

@@ -5,6 +5,19 @@ require_once 'db.php';
 // Filter & Search
 $search    = isset($_GET['search'])   ? trim($_GET['search'])   : '';
 $kategori  = isset($_GET['kategori']) ? trim($_GET['kategori']) : 'all';
+$kategoriMap = [
+    'pantai' => 'Pantai',
+    'gunung' => 'Gunung',
+    'air-terjun' => 'Air Terjun',
+    'budaya' => 'Budaya',
+    'pulau' => 'Pulau',
+    'kuliner' => 'Kuliner',
+    'adventure' => 'Adventure'
+];
+
+if (isset($kategoriMap[$kategori])) {
+    $kategori = $kategoriMap[$kategori];
+}
 $page      = isset($_GET['page'])     ? max(1, intval($_GET['page'])) : 1;
 $per_page  = 9;
 $offset    = ($page - 1) * $per_page;
@@ -72,14 +85,14 @@ $img_map   = ['Pantai'=>'dest-img-pantai','Gunung'=>'dest-img-rinjani','Pulau'=>
 $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Adventure'=>'🌾','Air Terjun'=>'💧','Budaya'=>'🎭','Kuliner'=>'🍜'];
 
 $kategori_list = [
-    'all'=>'Semua',
-    'Pantai'=>'Pantai',
-    'Gunung'=>'Gunung',
-    'Air Terjun'=>'Air Terjun',
-    'Budaya'=>'Budaya',
-    'Pulau'=>'Pulau',
-    'Kuliner'=>'Kuliner',
-    'Adventure'=>'Adventure'
+    'all' => 'Semua',
+    'Pantai' => 'Pantai',
+    'Gunung' => 'Gunung',
+    'Air Terjun' => 'Air Terjun',
+    'Budaya' => 'Budaya',
+    'Pulau' => 'Pulau',
+    'Kuliner' => 'Kuliner',
+    'Adventure' => 'Adventure'
 ];
 ?>
 <!DOCTYPE html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Jun 2026 pada 18.28
+-- Waktu pembuatan: 14 Jun 2026 pada 19.50
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -89,11 +89,12 @@ INSERT INTO `riwayat` (`id`, `user_id`, `wisata_id`, `dilihat_at`) VALUES
 (17, 2, 6, '2026-06-12 00:30:13'),
 (34, 2, 5, '2026-06-12 21:33:57'),
 (45, 1, 2, '2026-06-13 00:00:28'),
-(46, 1, 3, '2026-06-13 00:13:52'),
 (83, 2, 2, '2026-06-14 22:41:45'),
 (86, 2, 3, '2026-06-14 22:57:55'),
 (90, 2, 1, '2026-06-15 00:25:31'),
-(95, 4, 1, '2026-06-15 00:27:11');
+(95, 4, 1, '2026-06-15 00:27:11'),
+(107, 1, 3, '2026-06-15 00:44:18'),
+(108, 4, 3, '2026-06-15 00:44:39');
 
 -- --------------------------------------------------------
 
@@ -119,7 +120,8 @@ INSERT INTO `ulasan` (`id`, `user_id`, `wisata_id`, `parent_id`, `rating`, `kome
 (1, 2, 3, NULL, 5, NULL, '2026-06-12 00:01:27'),
 (7, 2, 1, NULL, 5, 'bagus banget', '2026-06-15 00:25:31'),
 (8, 4, 1, 7, NULL, 'benerr aku udah pernah kesana juga', '2026-06-15 00:26:52'),
-(9, 4, 1, NULL, NULL, 'nyaman banget wisatanya', '2026-06-15 00:27:11');
+(9, 4, 1, NULL, NULL, 'nyaman banget wisatanya', '2026-06-15 00:27:11'),
+(13, 1, 3, 1, NULL, 'terima kasih', '2026-06-15 00:44:18');
 
 -- --------------------------------------------------------
 
@@ -180,7 +182,7 @@ CREATE TABLE `wisata` (
 INSERT INTO `wisata` (`id`, `nama`, `kategori`, `lokasi`, `deskripsi`, `fasilitas`, `jam_buka`, `harga_tiket`, `foto`, `aktif`, `latitude`, `longitude`, `rating`, `created_at`, `updated_at`) VALUES
 (1, 'Pantai Senggigi', 'Pantai', 'Lombok Barat', 'Pantai Senggigi adalah pantai ikonik di Lombok yang terkenal dengan pemandangan matahari terbenam yang memukau. Ombaknya yang tenang sangat cocok untuk berenang dan bersantai. Di sepanjang pantai terdapat berbagai restoran seafood dan penginapan dengan pemandangan langsung ke laut.', 'Parkir, Toilet, Mushola, Restoran, Penginapan, Penyewaan Payung', '08.00 - 18.00 WITA', 'Gratis', 'wisata_1781191720_6a2ad428c2bd0.jpg', 1, -8.49814353, 116.04528835, 4.8, '2026-06-11 15:38:46', '2026-06-12 23:59:48'),
 (2, 'Gunung Rinjani', 'Gunung', 'Lombok Utara', 'Gunung Rinjani adalah gunung berapi tertinggi kedua di Indonesia dengan ketinggian 3.726 mdpl. Di puncaknya terdapat danau kawah Segara Anak yang menakjubkan. Pendakian Rinjani menjadi salah satu pengalaman petualangan paling populer di Indonesia.', 'Pos Pendakian, Pemandu Wisata, Camping Ground, Toilet', '24 Jam (Pendakian)', 'Rp 150.000/orang', 'wisata_1781180803_6a2aa983399a4.jpg', 1, -8.41210000, 116.46650000, 0.0, '2026-06-11 15:38:46', '2026-06-14 23:00:52'),
-(3, 'Gili Trawangan', 'Pulau', 'Lombok Utara', 'Gili Trawangan adalah pulau kecil yang menjadi surga bawah laut di Lombok. Terkenal dengan snorkeling bersama penyu laut, menyelam, dan suasana pantai yang santai tanpa kendaraan bermotor. Kehidupan malam Gili Trawangan juga menjadi daya tarik tersendiri.', 'Penginapan, Restoran, Penyewaan Alat Snorkeling, Dive Center', '24 Jam', 'Tiket Kapal Rp 50.000', 'wisata_1781180833_6a2aa9a136534.jpg', 0, -8.35000000, 116.03000000, 5.0, '2026-06-11 15:38:46', '2026-06-14 23:36:02'),
+(3, 'Gili Trawangan', 'Pulau', 'Lombok Utara', 'Gili Trawangan adalah pulau kecil yang menjadi surga bawah laut di Lombok. Terkenal dengan snorkeling bersama penyu laut, menyelam, dan suasana pantai yang santai tanpa kendaraan bermotor. Kehidupan malam Gili Trawangan juga menjadi daya tarik tersendiri.', 'Penginapan, Restoran, Penyewaan Alat Snorkeling, Dive Center', '24 Jam', 'Tiket Kapal Rp 50.000', 'wisata_1781180833_6a2aa9a136534.jpg', 1, -8.35000000, 116.03000000, 5.0, '2026-06-11 15:38:46', '2026-06-15 00:41:09'),
 (4, 'Pantai Pink', 'Pantai', 'Lombok Timur', 'Pantai Pink atau Pink Beach adalah salah satu dari hanya tujuh pantai berpasir merah muda di dunia. Warna merah muda pada pasirnya berasal dari pecahan terumbu karang merah yang bercampur dengan pasir putih. Terletak di kawasan Taman Nasional Gunung Rinjani.', 'Gazebo, Toilet, Snorkeling', '07.00 - 17.00 WITA', 'Rp 10.000/orang', 'wisata_1781180850_6a2aa9b2425fb.jpg', 1, -8.80190000, 116.52920000, 4.6, '2026-06-11 15:38:46', '2026-06-11 20:27:30'),
 (5, 'Pulau Kenawa', 'Adventure', 'Poto Tano, Sumbawa Barat', 'Pulau Kenawa menawarkan pemandangan padang rumput luas yang memukau dengan kuda-kuda liar yang berkeliaran bebas. Sangat cocok untuk wisata alam, berkuda, dan menikmati keindahan alam Sumbawa yang masih sangat alami dan belum banyak terjamah.', 'Pemandu Wisata, Area Berkuda', '24 Jam', 'Rp 25.000/orang', 'wisata_1781180951_6a2aaa173830a.jpg', 1, -8.49811338, 116.83347144, 4.7, '2026-06-11 15:38:46', '2026-06-13 00:12:10'),
 (6, 'Air Terjun Mata Jitu', 'Air Terjun', 'Unnamed Roa, Labuan Aji, Labuhan Badas, Sumbawa', 'Air Terjun Mata Jitu adalah pulau terpencil yang pernah dikunjungi oleh Putri Diana. Terkenal dengan air terjun tersembunyi yang indah, ekosistem bawah laut yang belum terjamah, dan ketenangan alam yang luar biasa. Menjadi destinasi wisata premium di Sumbawa.', 'Resort, Snorkeling, Trekking, Pemandu', '24 Jam', '', 'wisata_1781181259_6a2aab4bb1238.jpg', 1, -8.21156169, 117.52032048, 4.8, '2026-06-11 15:38:46', '2026-06-12 00:07:12'),
@@ -228,7 +230,9 @@ ALTER TABLE `ulasan`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `email_2` (`email`),
+  ADD UNIQUE KEY `telepon` (`telepon`);
 
 --
 -- Indeks untuk tabel `wisata`
@@ -244,7 +248,7 @@ ALTER TABLE `wisata`
 -- AUTO_INCREMENT untuk tabel `bookmark`
 --
 ALTER TABLE `bookmark`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori`
@@ -256,19 +260,19 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT untuk tabel `riwayat`
 --
 ALTER TABLE `riwayat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT untuk tabel `ulasan`
 --
 ALTER TABLE `ulasan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `wisata`

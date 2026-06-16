@@ -31,6 +31,7 @@ $jml_ulasan = $conn->query("
 SELECT COUNT(*) c
 FROM ulasan
 WHERE user_id=$uid
+AND parent_id IS NULL
 ")->fetch_assoc()['c'];
 
 $aktivitas = [];
@@ -54,6 +55,16 @@ FROM riwayat r
 JOIN wisata w ON w.id=r.wisata_id
 WHERE r.user_id=$uid
 
+UNION ALL
+
+SELECT
+w.nama,
+'Ulasan' AS aktivitas,
+u.created_at AS tanggal
+FROM ulasan u
+JOIN wisata w ON w.id=u.wisata_id
+WHERE u.user_id=$uid
+AND u.parent_id IS NULL
 ORDER BY tanggal DESC
 LIMIT 10
 ";
@@ -214,11 +225,19 @@ Edit Profil
 <tr>
 <td><?= htmlspecialchars($a['nama']) ?></td>
 <td>
-    <?php if($a['aktivitas']=='Bookmark'): ?>
-        <span class="badge-bookmark">🔖 Bookmark</span>
-    <?php else: ?>
-        <span class="badge-riwayat">👀 Riwayat</span>
-    <?php endif; ?>
+<?php if($a['aktivitas']=='Bookmark'): ?>
+    <span class="badge-bookmark">
+        🔖 Bookmark
+    </span>
+<?php elseif($a['aktivitas']=='Riwayat'): ?>
+    <span class="badge-riwayat">
+        👀 Riwayat
+    </span>
+<?php elseif($a['aktivitas']=='Ulasan'): ?>
+    <span class="badge-ulasan">
+        ⭐ Ulasan
+    </span>
+<?php endif; ?>
 </td>
 <td><?= date('d M Y', strtotime($a['tanggal'])) ?></td>
 </tr>

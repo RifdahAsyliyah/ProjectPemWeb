@@ -6,7 +6,7 @@ session_start();
 require_once 'config/db.php';
 
 // Statistik dinamis untuk hero section
-$stat_wisata = $conn->query("SELECT * FROM wisata WHERE aktif = 1 ORDER BY rating DESC LIMIT 6")->num_rows ?? 0;
+$stat_wisata = $conn->query("SELECT * FROM wisata WHERE aktif = 1 ORDER BY rating")->num_rows ?? 0;
 $stat_kategori = $conn->query("SELECT COUNT(*) as c FROM kategori")->fetch_assoc()['c'] ?? 0;
 $stat_user     = $conn->query("SELECT COUNT(*) as c FROM users WHERE role='user'")->fetch_assoc()['c'] ?? 0;
 

@@ -259,6 +259,16 @@
     border-radius:999px;
     font-size:.85rem;
 }
+
+.badge-ulasan{
+    background:#fff3cd;
+    color:#b8860b;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
 .user-role{
     display:inline-block;
     margin:.5rem auto 1rem;
