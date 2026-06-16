@@ -30,7 +30,7 @@
           </li>
           
           <li>
-            <a href="https://maps.apple.com/place?place-id=I745C25CB192613CB&address=Jl.+Majapahit+No+62%2C+Gomong%2C+Selaparang%2C+Mataram%2C+Nusa+Tenggara+Barat+83115%2C+Indonesia&coordinate=-8.588026%2C116.092948&name=Universitas+Mataram&_provider=9902" target="_blank">
+            <a href="https://maps.app.goo.gl/QzT9hdwkw3voZjdVA" target="_blank">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                 <circle cx="12" cy="10" r="3"></circle>

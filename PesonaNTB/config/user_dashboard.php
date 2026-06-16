@@ -130,7 +130,7 @@ $inisial = strtoupper(substr($user['nama'],0,2));
 <div class="stat-card">
 <div class="stat-icon">🕒</div>
 <div class="stat-number"><?= $jml_riwayat ?></div>
-<div class="stat-label">Riwayat</div>
+<div class="stat-label">Riwayat Kunjungan</div>
 </div>
 
 <div class="stat-card">
@@ -227,11 +227,11 @@ Edit Profil
 <td>
 <?php if($a['aktivitas']=='Bookmark'): ?>
     <span class="badge-bookmark">
-        🔖 Bookmark
+        🔖 Destinasi Tersimpan
     </span>
 <?php elseif($a['aktivitas']=='Riwayat'): ?>
     <span class="badge-riwayat">
-        👀 Riwayat
+        👀 Riwayat Kunjungan
     </span>
 <?php elseif($a['aktivitas']=='Ulasan'): ?>
     <span class="badge-ulasan">

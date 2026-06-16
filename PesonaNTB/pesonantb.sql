@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Jun 2026 pada 19.50
+-- Waktu pembuatan: 16 Jun 2026 pada 14.19
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -94,7 +94,8 @@ INSERT INTO `riwayat` (`id`, `user_id`, `wisata_id`, `dilihat_at`) VALUES
 (90, 2, 1, '2026-06-15 00:25:31'),
 (95, 4, 1, '2026-06-15 00:27:11'),
 (107, 1, 3, '2026-06-15 00:44:18'),
-(108, 4, 3, '2026-06-15 00:44:39');
+(108, 4, 3, '2026-06-15 00:44:39'),
+(112, 8, 3, '2026-06-16 18:39:38');
 
 -- --------------------------------------------------------
 
@@ -121,7 +122,8 @@ INSERT INTO `ulasan` (`id`, `user_id`, `wisata_id`, `parent_id`, `rating`, `kome
 (7, 2, 1, NULL, 5, 'bagus banget', '2026-06-15 00:25:31'),
 (8, 4, 1, 7, NULL, 'benerr aku udah pernah kesana juga', '2026-06-15 00:26:52'),
 (9, 4, 1, NULL, NULL, 'nyaman banget wisatanya', '2026-06-15 00:27:11'),
-(13, 1, 3, 1, NULL, 'terima kasih', '2026-06-15 00:44:18');
+(13, 1, 3, 1, NULL, 'terima kasih', '2026-06-15 00:44:18'),
+(14, 8, 3, NULL, 5, 'Pengalaman snorkeling terbaik di gili!', '2026-06-16 18:39:07');
 
 -- --------------------------------------------------------
 
@@ -149,7 +151,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `nama`, `email`, `telepon`, `password`, `role`, `foto_profil`, `created_at`, `reset_token`, `reset_expired`) VALUES
 (1, 'Admin PesonaNTB', 'admin@pesonantb.com', '081234567890', '$2y$10$EUyVrBePDwzIE2l5YL4yzukW/OiHQxsWCUzr1u1pynadN.jT7G.N6', 'admin', 'profil_1_1781191270.jpeg', '2026-06-11 15:38:46', NULL, NULL),
 (2, 'Rifdah Asyliyah', 'rifdah@gmail.com', '085337420926', '$2y$10$A4s8SRnXS/ENWO32n8Ogi.atqdZG19e8C7ytz3plL7zxpLEwJinAa', 'user', 'profil_2_1781191104.png', '2026-06-11 17:36:03', NULL, NULL),
-(4, 'user1', 'user1@gmail.com', '081222333444', '$2y$10$PqbHp7jJQmjOyAtq4gHrZuGoCzAlXQaTft5ot2cBkfkzyLGiHNkj.', 'user', NULL, '2026-06-15 00:26:19', NULL, NULL);
+(4, 'user1', 'user1@gmail.com', '081222333444', '$2y$10$PqbHp7jJQmjOyAtq4gHrZuGoCzAlXQaTft5ot2cBkfkzyLGiHNkj.', 'user', NULL, '2026-06-15 00:26:19', NULL, NULL),
+(8, 'Melani Putri Zahari', 'melaniputrizahari@gmail.com', '085338551679', '$2y$10$niLZj2O1CQ950Bcee817XOJhIqWHFPZgBl55ydefnv6oLYqPx6yEO', 'user', 'profil_8_1781606126.jpeg', '2026-06-16 18:34:53', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -260,19 +263,19 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT untuk tabel `riwayat`
 --
 ALTER TABLE `riwayat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT untuk tabel `ulasan`
 --
 ALTER TABLE `ulasan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `wisata`

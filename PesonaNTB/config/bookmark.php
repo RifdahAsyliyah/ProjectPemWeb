@@ -72,7 +72,7 @@ $inisial = strtoupper(mb_substr($user['nama'], 0, 2));
           <a href="user_dashboard.php">🏠 Dashboard</a>
           <a href="profil.php">👤 Profil Saya</a>
           <a href="bookmark.php" class="active">🔖 Tersimpan</a>
-          <a href="riwayat.php">🕐 Riwayat</a>
+          <a href="riwayat.php">🕐 Riwayat Kunjungan</a>
           <a href="logout.php" style="color:#C0392B">🚪 Keluar</a>
         </nav>
       </div>
