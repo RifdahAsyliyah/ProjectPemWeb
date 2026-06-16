@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600&display=swap');
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
 
 :root {
   --cream: #F5F0E8;
@@ -22,7 +26,13 @@
 }
 
 html { scroll-behavior: smooth; }
-body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+body { 
+  font-family: 'Nunito', sans-serif; 
+  background: var(--cream); 
+  color: var(--text); 
+  overflow-x: hidden; 
+  line-height: 1.6; 
+}
 
 /* ── NAVBAR ── */
 .navbar {
@@ -182,7 +192,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(-
   height: 175px; position: relative;
   display: flex; align-items: flex-end; padding: 0.9rem;
 }
-.dest-img-pantai    { background: linear-gradient(180deg,#5BA4CF,#1A5C73); }
+.dest-img-pantai     { background: linear-gradient(180deg,#5BA4CF,#1A5C73); }
 .dest-img-rinjani   { background: linear-gradient(180deg,#87CEAB,#2D5C3A); }
 .dest-img-gili      { background: linear-gradient(180deg,#7BC8E0,#1D6E85); }
 .dest-img-sumbawa   { background: linear-gradient(180deg,#C4A96A,#5C4A28); }
@@ -287,7 +297,12 @@ body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(-
 .btn-cta-sec:hover { background: rgba(253,250,246,0.1); }
 
 /* ── FOOTER ── */
-.footer { background: var(--brown-dark); color: rgba(253,250,246,0.65); padding: 3.5rem 2.5rem 1.5rem; }
+.footer { 
+  background: var(--brown-dark); 
+  color: rgba(253,250,246,0.65); 
+  padding: 3.5rem 2.5rem 1.5rem; 
+  font-family: 'Nunito', sans-serif;
+}
 .footer-inner { max-width: 1100px; margin: 0 auto; }
 .footer-top {
   display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem;
@@ -295,17 +310,99 @@ body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(-
 }
 .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--white); margin-bottom: 0.5rem; }
 .footer-brand span { color: var(--sand); }
-.footer-about p { font-size: 0.83rem; line-height: 1.65; font-weight: 300; }
-.footer-col h4 { font-size: 0.8rem; font-weight: 700; color: var(--sand); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
-.footer-col ul li a { font-size: 0.82rem; color: rgba(253,250,246,0.55); text-decoration: none; transition: color 0.2s; }
+.footer-about p { font-family: 'Nunito', sans-serif; font-size: 0.83rem; line-height: 1.65; font-weight: 300; }
+.footer-col h4 { font-family: 'Nunito', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--sand); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Desain menu bawaan ul li (Email & Kontak) */
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li a { 
+  font-family: 'Nunito', sans-serif; 
+  font-size: 14px; 
+  font-weight: 300;
+  color: rgba(253,250,246,0.55); 
+  text-decoration: none; 
+  transition: color 0.3s ease; 
+}
 .footer-col ul li a:hover { color: var(--sand); }
-.footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.77rem; color: rgba(253,250,246,0.35); flex-wrap: wrap; gap: 0.5rem; }
+
+/* ── SOSIAL MEDIA LINKS (DIPAKSA IDENTIK 100% DENGAN EMAIL/KONTAK) ── */
+.sosmed-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;        /* Jarak baris vertikal sama seperti menu kontak */
+  margin-top: 0;    /* Diselaraskan agar presisi dengan kolom kontak */
+}
+
+/* Mematikan total warna ungu & garis bawah bawaan browser */
+.footer-col .sosmed-links a,
+.footer-col .sosmed-links a:link,
+.footer-col .sosmed-links a:visited {
+  font-family: 'Nunito', sans-serif !important;
+  font-size: 14px !important;                 /* Ukuran font sama persis */
+  font-weight: 300 !important;                 /* Ketebalan font sama persis */
+  color: rgba(253, 250, 246, 0.55) !important; /* Warna krem redup default */
+  text-decoration: none !important;            /* Garis bawah dibuang total */
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;                                   /* Jarak ikon ke teks */
+  transition: color 0.3s ease;
+}
+
+/* Efek transisi warna emas pasir saat di-hover */
+.footer-col .sosmed-links a:hover,
+.footer-col .sosmed-links a:active {
+  color: var(--sand) !important;
+  text-decoration: none !important;
+}
+
+/* Menyamakan warna ikon SVG agar menyatu sempurna dengan teks */
+.footer-col .sosmed-links a svg {
+  color: rgba(253, 250, 246, 0.55) !important;
+  fill: currentColor;
+  transition: color 0.3s ease;
+}
+
+.footer-col .sosmed-links a:hover svg {
+  color: var(--sand) !important;
+}
+
+/* Bagian copyright footer */
+.footer-bottom {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  font-size: 0.75rem; 
+  font-weight: 300;
+  color: rgba(253,250,246,0.28);
+  flex-wrap: wrap; 
+  gap: 0.5rem;
+}
+
+/* ── BUTTON KEMBALI / BACK ── */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: var(--brown-light);
+  color: var(--white);
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(92, 61, 46, 0.2);
+  transition: background 0.3s, transform 0.3s;
+}
+.btn-back:hover {
+  background: var(--brown);
+  color: var(--white);
+  transform: translateY(-2px);
+}
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .nav-links, .nav-actions { display: none; }
   .nav-toggle { display: flex; }
+  
   .navbar.open .nav-links {
     display: flex; flex-direction: column; position: absolute;
     top: 64px; left: 0; right: 0; background: var(--cream);
@@ -320,30 +417,15 @@ body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(-
   }
   .tentang-inner { grid-template-columns: 1fr; gap: 2rem; }
   .tentang-visual { height: 200px; }
-  .footer-top { grid-template-columns: 1fr 1fr; }
+  
+  .footer-top { 
+    grid-template-columns: 1fr; 
+    gap: 2rem; 
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.4rem;
+  }
   .hero-stats { gap: 1.5rem; }
-}
-
-.btn-back{
-    display:inline-flex !important;
-    align-items:center;
-    gap:8px;
-
-    padding:12px 22px !important;
-
-    background:#6B4B3E !important;
-    color:#fff !important;
-
-    border-radius:14px !important;
-    text-decoration:none !important;
-    font-weight:700 !important;
-
-    box-shadow:0 6px 18px rgba(107,75,62,.25);
-    transition:.3s;
-}
-
-.btn-back:hover{
-    background:#5C3D2E !important;
-    color:#fff !important;
-    transform:translateY(-2px);
 }
