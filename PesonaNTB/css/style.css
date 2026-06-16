@@ -440,3 +440,23 @@ body {
   font-weight:600; 
   border-radius:20px;
 }
+
+.edit-rating{
+    display:flex;
+    gap:5px;
+    margin-bottom:12px;
+}
+
+.edit-rating .star{
+    font-size:28px;
+    color:#d8c8b4;
+    cursor:pointer;
+}
+
+.edit-rating input:checked + .star{
+    color:#c58a43;
+}
+
+.edit-rating label:hover .star{
+    color:#c58a43;
+}

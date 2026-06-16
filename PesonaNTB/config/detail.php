@@ -55,15 +55,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_
 
     if ($rating !== null || $komentar !== null) {
 
-      $stmt = $conn->prepare("INSERT INTO ulasan (user_id, wisata_id, rating, komentar, created_at) VALUES (?, ?, ?, ?, NOW()) ");
+      $stmt = $conn->prepare("
+        INSERT INTO ulasan
+        (user_id,wisata_id,rating,komentar,created_at)
+        VALUES (?,?,?, ?,NOW())
+        ");
 
-      $stmt->bind_param("iiis", $uid, $id, $rating, $komentar);
+        $stmt->bind_param("iiis",$uid,$id,$rating,$komentar);
 
-      $stmt->execute();
-      $stmt->close();
+        $stmt->execute();
 
+        $stmt->close();
+
+        $conn->query("
+        UPDATE wisata
+        SET rating=
+        (
+        SELECT AVG(rating)
+        FROM ulasan
+        WHERE wisata_id=$id
+        AND rating IS NOT NULL
+        )
+        WHERE id=$id
+        ");
         header("Location: detail.php?id=".$id);
         exit;
+        $conn->query("
+        UPDATE wisata
+        SET rating=
+        (
+        SELECT AVG(rating)
+        FROM ulasan
+        WHERE wisata_id=$id
+        AND rating IS NOT NULL
+        )
+        WHERE id=$id
+        ");
     }
   }
     if ($_POST['action'] === 'reply') {
@@ -101,18 +128,105 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_
     header("Location: detail.php?id=".$id);
     exit;
   }
+
+  if($_POST['action']==='edit'){
+
+      $id_ulasan=(int)$_POST['id_ulasan'];
+
+      $komentar=trim($_POST['komentar']);
+
+      $rating=(int)$_POST['rating'];
+
+      $stmt=$conn->prepare("
+      UPDATE ulasan
+      SET komentar=?,
+      rating=?
+      WHERE id=?
+      AND user_id=?
+      ");
+
+      $stmt->bind_param(
+      "siii",
+      $komentar,
+      $rating,
+      $id_ulasan,
+      $uid
+      );
+
+      $stmt->execute();
+
+      $stmt->close();
+
+      header("Location: detail.php?id=".$id);
+
+      exit;
+      $conn->query("
+      UPDATE wisata
+      SET rating=
+      (
+      SELECT AVG(rating)
+      FROM ulasan
+      WHERE wisata_id=$id
+      AND rating IS NOT NULL
+      )
+      WHERE id=$id
+      ");
+
+    }
+
+
+    if($_POST['action']==='hapus'){
+
+      $id_ulasan=(int)$_POST['id_ulasan'];
+
+      $stmt=$conn->prepare("
+      DELETE FROM ulasan
+      WHERE id=?
+      AND user_id=?
+      ");
+
+      $stmt->bind_param(
+      "ii",
+      $id_ulasan,
+      $uid
+      );
+
+      $stmt->execute();
+
+      $stmt->close();
+
+      header("Location: detail.php?id=".$id);
+
+      exit;
+      $conn->query("
+      UPDATE wisata
+      SET rating=
+      (
+      SELECT AVG(rating)
+      FROM ulasan
+      WHERE wisata_id=$id
+      AND rating IS NOT NULL
+      )
+      WHERE id=$id
+      ");
+    }
 }
 
 // Ambil ulasan
 $ulasan_list = [];
-$res = $conn->query("SELECT u.id, u.komentar, u.rating, u.created_at, us.nama, us.foto_profil, us.role FROM ulasan u JOIN users us ON u.user_id=us.id WHERE u.wisata_id=$id AND u.parent_id IS NULL ORDER BY u.created_at DESC LIMIT 10");
+$res = $conn->query("SELECT u.id, u.user_id, u.komentar, u.rating, u.created_at, us.nama, us.foto_profil, us.role FROM ulasan u JOIN users us ON u.user_id=us.id WHERE u.wisata_id=$id AND u.parent_id IS NULL ORDER BY u.created_at DESC LIMIT 10");
 
 if ($res) {
     while ($row = $res->fetch_assoc()) {
         $ulasan_list[] = $row;
     }
 }
-$total_ulasan = count($ulasan_list);
+$total_ulasan = $conn->query("
+SELECT COUNT(*) c
+FROM ulasan
+WHERE wisata_id=$id
+AND parent_id IS NULL
+")->fetch_assoc()['c'];
 
 // Wisata terkait
 $kategori_esc = $conn->real_escape_string($wisata['kategori']);
@@ -277,7 +391,6 @@ function renderStars($n) {
         <?php else: ?>
           <div class="ulasan-avatar"><?= strtoupper(mb_substr($u['nama'],0,2)) ?></div>
         <?php endif; ?>
-        
         <div>
           <div class="ulasan-nama"><?= htmlspecialchars($u['nama']) ?></div>
           <?php if($u['rating'] > 0): ?>
@@ -289,42 +402,88 @@ function renderStars($n) {
       </div>
       <span class="ulasan-date"><?= date('d M Y', strtotime($u['created_at'])) ?></span>
     </div>
+    
     <?php if(!empty($u['komentar'])): ?>
       <p class="ulasan-text">
           <?= htmlspecialchars($u['komentar']) ?>
       </p>
       <?php endif; ?>
-
-      <?php if(isset($_SESSION['user_id'])): ?>
-      <button
-          type="button"
-          class="btn-ulasan"
-          style="margin-top:10px"
-          onclick="showReplyForm(<?= $u['id'] ?>)">
-          💬 Balas
-      </button>
-      <?php endif; ?>
-      <div
-        id="reply-form-<?= $u['id'] ?>"
-        style="display:none;margin-top:10px">
-        <form method="POST">
-            <input type="hidden"
+      
+      <?php if(isset($_SESSION['user_id']) && $_SESSION['user_id']==$u['user_id']): ?>
+          <div style="margin-top:10px">
+            
+                <button
+                  type="button"
+                  onclick="showEditForm(<?= $u['id'] ?>)"
+                  class="btn-ulasan"
+                  style="margin-right:8px">
+                  ✏️ Edit
+                </button>
+            <form
+                  method="POST"
+                  style="display:inline"
+                  onsubmit="return confirm('Hapus ulasan ini?')">
+                <input
+                  type="hidden"
                   name="action"
-                  value="reply">
-            <input type="hidden"
-                  name="parent_id"
+                  value="hapus">
+                <input
+                  type="hidden"
+                  name="id_ulasan"
                   value="<?= $u['id'] ?>">
-            <textarea
-                name="komentar"
-                class="ulasan-textarea"
-                placeholder="Tulis balasan..."
-                required></textarea>
-            <button type="submit" class="btn-ulasan">Kirim Balasan</button>
-        </form>
-    </div>
+                <button
+                  type="submit"
+                  class="btn-ulasan">
+                  🗑 Hapus
+                </button>
+            </form>
+          </div>
+        <?php endif; ?>
+        <?php if(isset($_SESSION['user_id'])): ?>
+          <button
+          type="button"
+          onclick="showReplyForm(<?= $u['id'] ?>)"
+          class="btn-ulasan"
+          style="margin-top:10px">
+          💬 Balas
+          </button>
+        <?php endif; ?>
+        <div id="edit-form-<?= $u['id'] ?>" style="display:none;margin-top:15px">
+            <form method="POST">
+                <input type="hidden" name="action" value="edit">
+                <input type="hidden" name="id_ulasan" value="<?= $u['id'] ?>">
+                <div class="star-input edit-star-input">
+                  <?php for($i=5;$i>=1;$i--): ?>
+                  <input
+                  type="radio"
+                  name="rating"
+                  id="edit-star<?= $u['id'].$i ?>"
+                  value="<?= $i ?>"
+                  <?= $i==$u['rating'] ? 'checked':'' ?>>
+                  <label for="edit-star<?= $u['id'].$i ?>">★</label>
+                  <?php endfor; ?>
+                </div>
+                <textarea name="komentar" class="ulasan-textarea" required><?= htmlspecialchars($u['komentar']) ?></textarea>
+                <button type="submit" class="btn-ulasan" style="margin-top:10px">
+                    Simpan Perubahan
+                </button>
+            </form>
+        </div>
+        <div id="reply-form-<?= $u['id'] ?>" style="display:none;margin-top:10px">
+            <form method="POST">
+                <input type="hidden" name="action" value="reply">
+                <input type="hidden" name="parent_id" value="<?= $u['id'] ?>">
+
+                <textarea name="komentar" class="ulasan-textarea" placeholder="Tulis balasan..." required></textarea>
+
+                <button type="submit" class="btn-ulasan">
+                    Kirim Balasan
+                </button>
+            </form>
+        </div>
     <?php
       $replies = $conn->query("
-      SELECT u.*, us.nama, us.role
+      SELECT u.*, us.nama, us.role, us.foto_profil
       FROM ulasan u
       JOIN users us ON us.id=u.user_id
       WHERE u.parent_id={$u['id']}
@@ -332,24 +491,30 @@ function renderStars($n) {
       ");
     while($r = $replies->fetch_assoc()): ?>
       <div style="margin-left:55px;margin-top:10px;background:#fafafa;padding:10px 14px;border-radius:12px">
-          <div style="display:flex;align-items:center;gap:8px">
-              <strong>
-                  <?= htmlspecialchars($r['nama']) ?>
-              </strong>
-              <?php if($r['role']=='admin'): ?>
-                  <span style="background:#2e7d32;color:white;padding:2px 8px;border-radius:20px;font-size:11px">
-                      Admin
-                  </span>
-              <?php endif; ?>
-              <small style="color:#888">
-                  <?= date('d M Y', strtotime($r['created_at'])) ?>
-              </small>
-          </div>
-          <div style="margin-top:6px">
-              <?= nl2br(htmlspecialchars($r['komentar'])) ?>
-          </div>
-
+          <div style="display:flex;gap:12px;margin-left:50px;margin-top:12px;padding:12px;background:#f8f8f8;border-left:4px solid #8B5E3C;border-radius:8px">
+    <?php if(!empty($r['foto_profil']) && file_exists('../assets/uploads/profil/'.$r['foto_profil'])): ?>
+        <img src="../assets/uploads/profil/<?= htmlspecialchars($r['foto_profil']) ?>" style="width:40px;height:40px;border-radius:50%;object-fit:cover">
+    <?php else: ?>
+        <div style="width:40px;height:40px;border-radius:50%;background:#6b4d3e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold">
+            <?= strtoupper(substr($r['nama'],0,1)) ?>
+        </div>
+    <?php endif; ?>
+    <div>
+        <div style="display:flex;align-items:center;gap:8px">
+            <strong><?= htmlspecialchars($r['nama']) ?></strong>
+            <?php if($r['role']=='admin'): ?>
+                <span style="background:#4CAF50;color:#fff;padding:2px 8px;border-radius:20px;font-size:11px">Admin</span>
+            <?php endif; ?>
+            <span style="font-size:12px;color:#888">
+                <?= date('d M Y', strtotime($r['created_at'])) ?>
+            </span>
+        </div>
+        <p style="margin-top:8px">
+            <?= htmlspecialchars($r['komentar']) ?>
+        </p>
       </div>
+  </div>
+</div>
 
       <?php endwhile; ?>
   </div>
@@ -452,7 +617,14 @@ function showReplyForm(id){
         form.style.display = 'none';
     }
 }
-
+function showEditForm(id){
+  const form=document.getElementById('edit-form-'+id);
+  if(form.style.display==='none'){
+    form.style.display='block';
+  }else{
+    form.style.display='none';
+  }
+}
 </script>
 </body>
 </html>
