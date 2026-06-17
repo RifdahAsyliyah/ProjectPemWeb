@@ -5,6 +5,7 @@
       <div class="footer-about">
         <div class="footer-brand">Pesona<span>NTB</span></div>
         <p>Platform informasi wisata Nusa Tenggara Barat yang menyajikan destinasi lengkap di Lombok dan Sumbawa.</p>
+        <p>Untuk kritik & saran bisa menghubungi kontak yang sudah tertera</p>
       </div>
 
       <div class="footer-col">
