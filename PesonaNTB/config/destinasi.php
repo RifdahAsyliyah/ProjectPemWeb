@@ -102,6 +102,22 @@ $kategori_list = [
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Destinasi Wisata &mdash; PesonaNTB</title>
   <link rel="stylesheet" href="../css/style.css">
+<style>
+
+  .filter-btn.active{
+  background:#8B5E3C !important;
+  color:#fff !important;
+  border:1px solid #8B5E3C !important;
+  font-weight:600;
+  }
+
+  .filter-btn:hover{
+  background:#8B5E3C;
+  color:#fff;
+  }
+
+</style>
+
 </head>
 <body>
 
@@ -122,12 +138,14 @@ $kategori_list = [
     </div>
     <div class="filter-group" style="display:flex;flex-wrap:wrap;gap:10px;">
       <?php foreach ($kategori_list as $slug => $label): ?>
-      <button class="filter-btn <?= $kategori === $slug ? 'active' : '' ?>"
-              data-kat="<?= $slug ?>" style="padding:8px 16px;border-radius:20px;border:1px solid #ddd;background:#fff;cursor:pointer;">
-        <?= $label ?>
+      <button
+      class="filter-btn <?= strtolower($kategori)==strtolower($label) || ($slug=='all' && $kategori=='all') ? 'active' : '' ?>"
+      data-kat="<?= $slug ?>"
+      style="padding:8px 16px;border-radius:20px;border:1px solid #ddd;cursor:pointer;">
+      <?= $label ?>
       </button>
       <?php endforeach; ?>
-    </div>
+      </div>
   </div>
 
   <div class="dest-grid" id="destGrid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));gap:30px;">

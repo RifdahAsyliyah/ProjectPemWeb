@@ -460,3 +460,31 @@ body {
 .edit-rating label:hover .star{
     color:#c58a43;
 }
+
+.filter-btn{
+  padding:8px 16px;
+  border-radius:20px;
+  border:1px solid #ddd;
+  background:#fff;
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.filter-btn:hover{
+  background:#8B5E3C;
+  color:#fff;
+  border-color:#8B5E3C;
+}
+
+.filter-btn.active{
+  background:#8B5E3C;
+  color:#fff;
+  border-color:#8B5E3C;
+  font-weight:600;
+}
+
+.filter-btn.active:hover{
+  background:#8B5E3C;
+  color:#fff;
+}
