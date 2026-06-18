@@ -261,4 +261,35 @@ PesonaNTB
 * Visual Studio Code
 * Google Chrome
 
+# AI Usage Statement
+
+## 1) Tool
+
+* ChatGPT (OpenAI)
+* Claude (Anthropic)
+
+## 2) Untuk apa
+
+Membantu proses pengembangan website PesonaNTB berbasis PHP, MySQL, HTML, CSS, dan JavaScript, mulai dari pembuatan struktur kode, implementasi fitur, debugging error, perbaikan antarmuka (UI/UX), serta diskusi alur sistem antara guest, user, dan admin.
+
+## 3) 2–3 prompt utama
+
+* "Buatkan kode untuk halaman admin (dashboard, kelola wisata, kelola pengguna, kelola ulasan, dan kelola kategori)."
+* "Bantu memperbaiki fitur login, profil, bookmark, riwayat, kategori, dan dashboard agar berjalan dengan baik."
+* "Apa saja yang kurang dari website kelompok saya dan bagaimana cara memperbaikinya?"
+
+## 4) Bagian output AI yang dipakai
+
+* Referensi kode PHP untuk halaman login, register, profil, bookmark, riwayat, destinasi, detail wisata, dan logout.
+* Referensi kode PHP untuk halaman admin beserta fitur CRUD wisata, kategori, pengguna, dan ulasan.
+* Referensi kode HTML, CSS, dan JavaScript untuk tampilan website dan interaksi pengguna.
+* Referensi query MySQL dan logika program yang digunakan pada beberapa fitur website.
+
+## 5) Bagian yang saya ubah + alasan
+
+* Menyesuaikan kode AI dengan struktur folder project PesonaNTB yang telah ditentukan sebelumnya.
+* Mengubah path gambar dan konfigurasi file agar sesuai dengan struktur folder project.
+* Menyesuaikan desain tampilan, warna, navigasi, dan antarmuka website agar sesuai dengan konsep PesonaNTB.
+* Memperbaiki bug pada fitur login, profil, bookmark, riwayat, ulasan, kategori, dan dashboard admin agar dapat berjalan dengan baik.
+* Menambahkan dan menyempurnakan beberapa fitur seperti lupa password, reset password, indikator kategori aktif, serta peningkatan pengalaman pengguna (UX).
 

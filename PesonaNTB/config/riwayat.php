@@ -4,14 +4,28 @@ require_once 'db.php';
 
 if (!isset($_SESSION['user_id'])) { header('Location: login.php'); exit; }
 $uid = $_SESSION['user_id'];
+echo '<pre>';
+print_r($_POST);
+echo '</pre>';
 
 // Handle hapus riwayat
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  
     if (isset($_POST['hapus_semua'])) {
-        $conn->query("DELETE FROM riwayat WHERE user_id=$uid");
+        $stmt = $conn->prepare("DELETE FROM riwayat WHERE user_id=?");
+        $stmt->bind_param("i",$uid);
+        $stmt->execute();
+        $stmt->close();
+        header("Location: riwayat.php");
+        exit;
     } elseif (isset($_POST['hapus_id'])) {
         $rid = intval($_POST['hapus_id']);
-        $conn->query("DELETE FROM riwayat WHERE user_id=$uid AND wisata_id=$rid");
+        $stmt = $conn->prepare("DELETE FROM riwayat WHERE user_id=? AND wisata_id=?");
+        $stmt->bind_param("ii",$uid,$rid);
+        $stmt->execute();
+        $stmt->close();
+        header("Location: riwayat.php");
+        exit;
     }
 }
 
@@ -97,8 +111,8 @@ function timeAgo($datetime) {
           <?php else: ?>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1px solid var(--sand-light)">
             <h3 style="margin:0;border:none;padding:0"><?= $jml_riwayat ?> Destinasi Dilihat</h3>
-            <form method="POST" onsubmit="return confirm('Hapus semua riwayat?')">
-              <button name="hapus_semua" type="submit" style="background:none;border:none;font-size:0.82rem;color:#C0392B;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:600">🗑 Hapus Semua</button>
+            <form method="POST" id="formHapusSemua">
+              <input type="hidden" name="hapus_semua" value="1"> <button id="btnHapusSemua" type="submit"> 🗑 Hapus Semua </button>
             </form>
           </div>
           <div class="riwayat-list">
@@ -146,5 +160,28 @@ function timeAgo($datetime) {
 
 <?php include 'footer.php'; ?>
 <script src="../js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+const formHapus = document.getElementById('formHapusSemua');
+  if(formHapus){
+      formHapus.addEventListener('submit', function(e){
+      e.preventDefault();
+      Swal.fire({
+      title:'Hapus Riwayat?',
+      text:'Semua riwayat kunjungan akan dihapus.',
+      icon:'warning',
+      showCancelButton:true,
+      confirmButtonColor:'#8B5E3C',
+      cancelButtonColor:'#999',
+      confirmButtonText:'Ya, hapus',
+      cancelButtonText:'Batal'
+    }).then((result)=>{
+      if(result.isConfirmed){
+        HTMLFormElement.prototype.submit.call(formHapus);
+      }
+    });
+  });
+}
+</script>
 </body>
 </html>
