@@ -4,9 +4,6 @@ require_once 'db.php';
 
 if (!isset($_SESSION['user_id'])) { header('Location: login.php'); exit; }
 $uid = $_SESSION['user_id'];
-echo '<pre>';
-print_r($_POST);
-echo '</pre>';
 
 // Handle hapus riwayat
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
