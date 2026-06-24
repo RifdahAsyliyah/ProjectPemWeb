@@ -42,6 +42,11 @@ Tanggung Jawab:
 * Implementasi HTML, CSS, dan JavaScript
 * Pengembangan tampilan responsif
 * Pengembangan UI/UX website
+* Pengembangan halaman landing page (hero, destinasi populer, kategori, tentang, testimoni)
+* Pengembangan halaman destinasi dengan fitur pencarian & filter kategori
+* Pengembangan halaman profil pengguna (edit profil, upload foto profil, ubah password, hapus akun)
+* Pengembangan dashboard admin (kelola wisata, kategori, pengguna, ulasan)
+* Implementasi alur navigasi guest dengan pengguna login (contoh: bila guest ingin melihat detail destinasi, maka akan dibawa ke halaman login)
 
 # 👥 Aktor Sistem
 
@@ -293,3 +298,13 @@ Membantu proses pengembangan website PesonaNTB berbasis PHP, MySQL, HTML, CSS, d
 * Memperbaiki bug pada fitur login, profil, bookmark, riwayat, ulasan, kategori, dan dashboard admin agar dapat berjalan dengan baik.
 * Menambahkan dan menyempurnakan beberapa fitur seperti lupa password, reset password, indikator kategori aktif, serta peningkatan pengalaman pengguna (UX).
 
+# Screenshot WEB
+
+## Landing Page
+   ![alt text](image.png)
+
+## Halaman Detail Wisata
+   ![alt text](image-1.png)
+
+## Dashboard Admin
+   ![alt text](image-2.png)
