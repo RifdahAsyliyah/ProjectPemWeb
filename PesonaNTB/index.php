@@ -171,7 +171,7 @@ $emoji_map = ['Pantai'=>'🏖️','Gunung'=>'🏔️','Pulau'=>'🏝️','Advent
             $target_url = "config/destinasi.php?kategori=" . $k['slug'];
         } else {
             // Masih Guest: lempar ke login.php, titip parameter redirect biar setelah login sukses langsung meluncur ke kategori tsb
-            $target_url = "config/login.php?redirect=config/destinasi.php?kategori=" . $k['slug'];
+            $target_url = "config/login.php?redirect=destinasi.php?kategori=" . $k['slug'];
         }
       ?>
       <a href="<?= $target_url ?>" class="kat-card">
